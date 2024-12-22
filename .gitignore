@@ -1,0 +1,4 @@
+*.vsidx
+shop-food/.vs/
+shop-food/shop-food/bin/
+shop-food/shop-food/obj/
