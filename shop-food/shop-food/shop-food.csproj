@@ -10,7 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cores\Https\" />
+    <Folder Include="Cores\Configs\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
