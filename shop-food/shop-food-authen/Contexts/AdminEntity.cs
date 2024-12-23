@@ -10,4 +10,13 @@ namespace shop_food_authen.Contexts
         [Required]
         public string Email { get; set; } = string.Empty;
     }
+
+    public class AdminDTORequest
+    {
+        [Required]
+        public required string Name { get; set; }
+
+        [Required]
+        public required string Email { get; set; }
+    }
 }
