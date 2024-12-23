@@ -1,4 +1,5 @@
 using Infrastructure.ApiCore;
+using Infrastructure.ApiCore.Middleware;
 using shop_food_authen.Contexts;
 using shop_food_authen.Services;
 
@@ -25,6 +26,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseMiddleware<AuthenticationMiddleware>();
+//app.UseMiddleware<AuthenticationMiddleware>();
+app.UseMiddleware<TokenDecodedMiddleware>();
 
 app.Run("http://localhost:1111");

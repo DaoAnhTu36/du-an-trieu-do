@@ -139,7 +139,7 @@ namespace Infrastructure.ApiCore
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"/swagger/{appConfig.ServiceVersion}/swagger.json",
-                    $"MT {appConfig.ServiceName} API V{appConfig.ServiceVersion}");
+                    $"DaoAnhTu {appConfig.ServiceName} API V{appConfig.ServiceVersion}");
             });
 
             return app;
