@@ -9,3 +9,7 @@ shop-food/shop-food-authen/obj/
 shop-food/shop-food-ocelot-gateway/bin/
 shop-food/shop-food-ocelot-gateway/obj/
 shop-food/utility/obj/
+shop-food/api-core/obj/
+shop-food/Common.Model/bin/
+*bin/
+*obj/

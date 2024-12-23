@@ -1,5 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
-using shop_food_authen.Configurations;
+using Infrastructure.ApiCore;
 using shop_food_authen.Contexts;
 using shop_food_authen.Services;
 
@@ -9,6 +8,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EntityDBContext>();
+builder.Services.AddInfrastructures();
+builder.Services.AddScopedServices(ServiceAssembly.Assembly);
 
 var app = builder.Build();
 

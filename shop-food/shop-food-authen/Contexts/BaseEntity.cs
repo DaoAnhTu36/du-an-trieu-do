@@ -6,6 +6,7 @@ namespace shop_food_authen.Contexts
     {
         [Key]
         public Guid Id { get; set; }
+
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
         public DateTime? UpdatedDate { get; set; } = DateTime.Now;
         public string CreatedBy { get; set; } = "admin";
