@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Infrastructure.ApiCore;
+using Microsoft.EntityFrameworkCore;
 using shop_food_authen.Contexts;
 using utility;
 
@@ -34,10 +35,13 @@ namespace shop_food_authen.Services.Impl
                 }
                 else
                 {
+                    var tokenInfo = JWTExtensions.GenerateToken(record.Id.ToString(), record.Email, record.Name, out DateTime datetimeExpired);
                     reval.Data = new AdminSignInDTOResponse
                     {
                         Email = record.Email,
                         Name = record.Name,
+                        AccessToken = tokenInfo,
+                        ExpiredDate = datetimeExpired
                     };
                 }
             }
@@ -52,7 +56,6 @@ namespace shop_food_authen.Services.Impl
             }
 
             return reval;
-
         }
 
         public async Task<ApiResponse> SignUpAdmin(AdminSignUpDTORequest instance)
@@ -64,6 +67,18 @@ namespace shop_food_authen.Services.Impl
             };
             try
             {
+                if (instance == null)
+                {
+                    return new ApiResponse
+                    {
+                        IsNormal = false,
+                        MetaData = new MetaData
+                        {
+                            Message = "BadRequest",
+                            StatusCode = "400"
+                        }
+                    };
+                }
                 var checkExist = await _dbContext.AdminEntities.FirstOrDefaultAsync(x => x.Email == instance.Email);
                 if (checkExist != null)
                 {
@@ -76,13 +91,14 @@ namespace shop_food_authen.Services.Impl
 
                     return reval;
                 }
+                PasswordExtensions.CreatePassword(instance.Password ?? "default", out var passwordHash, out var passwordSalt);
                 var entity = new AdminEntity
                 {
                     Name = instance.Name,
                     Email = instance.Email,
+                    PasswordHash = passwordHash.ToString(),
+                    PasswordSalt = passwordSalt.ToString(),
                 };
-
-
 
                 await _dbContext.AddAsync(entity);
                 await _dbContext.SaveChangesAsync();
@@ -98,7 +114,6 @@ namespace shop_food_authen.Services.Impl
             }
 
             return reval;
-
         }
     }
 }
