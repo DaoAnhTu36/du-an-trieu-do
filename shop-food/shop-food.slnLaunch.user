@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "shop-food-api\\shop-food-api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "shop-food-ocelot-gateway\\shop-food-ocelot-gateway.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

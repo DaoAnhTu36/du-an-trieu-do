@@ -1,0 +1,6 @@
+@shop_food_ocelot_gateway_HostAddress = http://localhost:5001
+
+GET {{shop_food_ocelot_gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

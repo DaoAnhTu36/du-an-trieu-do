@@ -2,3 +2,9 @@
 shop-food/.vs/
 shop-food/shop-food/bin/
 shop-food/shop-food/obj/
+shop-food/shop-food-api/bin/
+shop-food/shop-food-api/obj/
+shop-food/shop-food-authen/bin/
+shop-food/shop-food-authen/obj/
+shop-food/shop-food-ocelot-gateway/bin/
+shop-food/shop-food-ocelot-gateway/obj/
