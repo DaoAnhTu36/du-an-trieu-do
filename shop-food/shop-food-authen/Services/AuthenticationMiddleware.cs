@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Linq;
-using System.Threading.Tasks;
-namespace shop_food_authen.Services
+﻿namespace shop_food_authen.Services
 {
     public class AuthenticationMiddleware
     {

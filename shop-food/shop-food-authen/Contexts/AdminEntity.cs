@@ -14,9 +14,9 @@ namespace shop_food_authen.Contexts
     public class AdminDTORequest
     {
         [Required]
-        public required string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required]
-        public required string Email { get; set; }
+        public string? Email { get; set; }
     }
 }
