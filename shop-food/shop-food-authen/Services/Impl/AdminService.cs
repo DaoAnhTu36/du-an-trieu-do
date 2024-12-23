@@ -13,7 +13,49 @@ namespace shop_food_authen.Services.Impl
             _dbContext = dbContext;
         }
 
-        public async Task<ApiResponse> SignUpAdmin(AdminDTORequest instance)
+        public async Task<ApiResponse<AdminSignInDTOResponse>> SignInAdmin(AdminSignInDTORequest instance)
+        {
+            var reval = new ApiResponse<AdminSignInDTOResponse>
+            {
+                IsNormal = true,
+                MetaData = null,
+                Data = null
+            };
+            try
+            {
+                var record = await _dbContext.AdminEntities.FirstOrDefaultAsync(x => x.Email == instance.Email);
+                if (record == null)
+                {
+                    reval.MetaData = new MetaData
+                    {
+                        Message = "NotFound",
+                        StatusCode = "204"
+                    };
+                }
+                else
+                {
+                    reval.Data = new AdminSignInDTOResponse
+                    {
+                        Email = record.Email,
+                        Name = record.Name,
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                reval.IsNormal = false;
+                reval.MetaData = new MetaData
+                {
+                    Message = ex.Message,
+                    StatusCode = "500"
+                };
+            }
+
+            return reval;
+
+        }
+
+        public async Task<ApiResponse> SignUpAdmin(AdminSignUpDTORequest instance)
         {
             var reval = new ApiResponse
             {
@@ -56,6 +98,7 @@ namespace shop_food_authen.Services.Impl
             }
 
             return reval;
+
         }
     }
 }

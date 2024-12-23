@@ -5,6 +5,8 @@ namespace shop_food_authen.Services
 {
     public interface IAdminService
     {
-        Task<ApiResponse> SignUpAdmin(AdminDTORequest instance);
+        Task<ApiResponse<AdminSignInDTOResponse>> SignInAdmin(AdminSignInDTORequest instance);
+
+        Task<ApiResponse> SignUpAdmin(AdminSignUpDTORequest instance);
     }
 }

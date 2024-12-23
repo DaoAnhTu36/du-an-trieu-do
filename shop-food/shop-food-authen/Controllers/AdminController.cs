@@ -17,9 +17,15 @@ namespace shop_food_authen.Controllers
         }
 
         [HttpPost("sign-up")]
-        public async Task<ApiResponse> SignUp(AdminDTORequest instance)
+        public async Task<ApiResponse> SignUp(AdminSignUpDTORequest instance)
         {
             return await _service.SignUpAdmin(instance);
+        }
+
+        [HttpPost("sign-in")]
+        public async Task<ApiResponse<AdminSignInDTOResponse>> SingIn(AdminSignInDTORequest instance)
+        {
+            return await _service.SignInAdmin(instance);
         }
     }
 }
