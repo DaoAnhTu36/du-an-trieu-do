@@ -14,14 +14,36 @@ namespace shop_food_authen.Services.Impl
             _dbContext = dbContext;
         }
 
+        public async Task<ApiResponse<List<AdminInforResponseDTO>>> GetListAdmin(AdminInforRequestDTO instance)
+        {
+            var retVal = new ApiResponse<List<AdminInforResponseDTO>>();
+            var skip = (instance.PageNumber - 1) * instance.PageSize;
+            var records = await _dbContext.AdminEntities.Select(x => new AdminInforResponseDTO
+            {
+                CreatedBy = x.CreatedBy,
+                CreatedDate = x.CreatedDate,
+                Email = x.Email,
+                Id = x.Id,
+                Name = x.Name,
+                UpdatedBy = x.UpdatedBy,
+                UpdatedDate = x.UpdatedDate,
+            }).OrderByDescending(x => x.UpdatedDate).ToListAsync();
+            records = records.Skip(skip).Take(instance.PageSize).ToList();
+            if (records != null && records.Count > 0)
+            {
+                retVal.Data = records;
+            }
+            else
+            {
+                retVal.Data = null;
+                retVal.MetaData.Message = "Table is empty";
+            }
+            return retVal;
+        }
+
         public async Task<ApiResponse<AdminSignInDTOResponse>> SignInAdmin(AdminSignInDTORequest instance)
         {
-            var reval = new ApiResponse<AdminSignInDTOResponse>
-            {
-                IsNormal = true,
-                MetaData = null,
-                Data = null
-            };
+            var reval = new ApiResponse<AdminSignInDTOResponse>();
             try
             {
                 var record = await _dbContext.AdminEntities.FirstOrDefaultAsync(x => x.Email == instance.Email);
@@ -60,11 +82,7 @@ namespace shop_food_authen.Services.Impl
 
         public async Task<ApiResponse> SignUpAdmin(AdminSignUpDTORequest instance)
         {
-            var reval = new ApiResponse
-            {
-                IsNormal = true,
-                MetaData = null
-            };
+            var reval = new ApiResponse();
             try
             {
                 if (instance == null)
@@ -96,8 +114,8 @@ namespace shop_food_authen.Services.Impl
                 {
                     Name = instance.Name,
                     Email = instance.Email,
-                    PasswordHash = passwordHash.ToString(),
-                    PasswordSalt = passwordSalt.ToString(),
+                    PasswordHash = passwordHash.ToString() ?? "",
+                    PasswordSalt = passwordSalt.ToString() ?? "",
                 };
 
                 await _dbContext.AddAsync(entity);
