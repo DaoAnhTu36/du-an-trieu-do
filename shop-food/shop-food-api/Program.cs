@@ -1,3 +1,5 @@
+using Infrastructure.ApiCore.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 var env = builder.Environment.EnvironmentName;
 IConfiguration configuration = new ConfigurationBuilder()
@@ -22,5 +24,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+//app.UseMiddleware<TokenDecodedMiddleware>();
 app.Urls.Add("http://localhost:5001");
 app.Run();
