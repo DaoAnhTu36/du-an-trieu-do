@@ -27,5 +27,11 @@ namespace shop_food_authen.Controllers
         {
             return await _service.SignInAdmin(instance);
         }
+
+        [HttpPost("get-list-admin")]
+        public async Task<ApiResponse<List<AdminInforResponseDTO>>> GetListAdmin(AdminInforRequestDTO instance)
+        {
+            return await _service.GetListAdmin(instance);
+        }
     }
 }
