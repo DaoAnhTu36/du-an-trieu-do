@@ -22,8 +22,14 @@ namespace Infrastructure.ApiCore.Middleware
 
         public async Task Invoke(HttpContext context)
         {
+            var messageError = string.Empty;
             try
             {
+                if (context.Request.Path.Value?.Contains("api/admin/sign-in") == true)
+                {
+                    await _next(context);
+                    return;
+                }
                 var tokenString = context.Request.Headers["authorization"].ToString();
                 if (!string.IsNullOrEmpty(tokenString))
                 {
@@ -36,20 +42,29 @@ namespace Infrastructure.ApiCore.Middleware
                     var token = new JwtSecurityToken(jwtEncodedString);
                     if (token.Payload != null)
                     {
-                        var isValidToken = JWTExtensions.ValidateToken(tokenString.Replace("Bearer ",""));
+                        var isValidToken = JWTExtensions.ValidateToken(tokenString.Replace("Bearer ",""), ref messageError);
                         if (isValidToken)
                         {
                             await _next(context);
                             return;
                         }
                     }
+                    else
+                    {
+                        messageError = "Token is invalid";
+                    }
                 }
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                await context.Response.WriteAsync("Unauthorized");
+                else
+                {
+                    messageError = "Token is empty";
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                messageError = ex.Message;
             }
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            await context.Response.WriteAsync(messageError);
         }
     }
 }
