@@ -62,7 +62,7 @@ namespace Infrastructure.ApiCore
             return null;
         }
 
-        public static bool ValidateToken(string token)
+        public static bool ValidateToken(string token, ref string messageError)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(SecretKey);
@@ -86,8 +86,9 @@ namespace Infrastructure.ApiCore
 
                 ClaimsPrincipal principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
             }
-            catch (SecurityTokenException ex)
+            catch (SecurityTokenException)
             {
+                messageError = "Token invalid";
                 return false;
             }
             return true;
