@@ -25,7 +25,7 @@ namespace Infrastructure.ApiCore.Middleware
             var messageError = string.Empty;
             try
             {
-                if (context.Request.Path.Value?.Contains("api/admin/sign-in") == true)
+                if (context.Request.Path.Value?.Contains("admin/sign-in") == true)
                 {
                     await _next(context);
                     return;
