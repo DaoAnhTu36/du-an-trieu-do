@@ -5,7 +5,7 @@ using utility;
 
 namespace shop_food_authen.Controllers
 {
-    [Route("api/admin")]
+    [Route("auth/admin")]
     [ApiController]
     public class AdminController : ControllerBase
     {

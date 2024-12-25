@@ -10,7 +10,7 @@ namespace Infrastructure.ApiCore
     {
         private static readonly string Issuer = "DaoAnhTu@020996060404";
         private static readonly string Audience = "AdminWebsiteShopFood";
-        private static readonly string Expires = "1";
+        private static readonly string Expires = "30";
         private static readonly string SecretKey = "DaoAnhTu~!@#$%DaoAnhTu~!@#$%DaoAnhTu~!@#$%DaoAnhTu~!@#$%";
 
         public static string GenerateToken(string userId, string? userEmail, string? username, out DateTime datetimeExpired)
