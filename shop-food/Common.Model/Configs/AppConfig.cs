@@ -1,4 +1,6 @@
-﻿namespace Common.Model.Config
+﻿using Common.Model.Configs;
+
+namespace Common.Model.Config
 {
     public class AppConfig
     {
@@ -11,5 +13,6 @@
         public LoggingSetting? Logging { get; set; }
         public PreferenceSetting? Preference { get; set; }
         public FolderSetting? FolderSetting { get; set; }
+        public PaginationSetting? PaginationSetting { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Common.Model.Entitties;
 using shop_food_authen.DTO;
 
 namespace shop_food_authen.Contexts

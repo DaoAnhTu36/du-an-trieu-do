@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Common.Model.Entitties;
 
 namespace shop_food_api.DatabaseContext.Entities
 {
@@ -11,5 +7,6 @@ namespace shop_food_api.DatabaseContext.Entities
     public class FileManagerEntity : BaseEntity
     {
         public string Path { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }

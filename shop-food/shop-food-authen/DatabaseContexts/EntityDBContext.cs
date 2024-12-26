@@ -16,7 +16,7 @@ namespace shop_food_authen.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = ServiceExtensions.OverwriteConnectString(_appSetting);
+            var connectionString = ServiceExtensions.OverWriteConnectString(_appSetting);
             optionsBuilder.UseSqlServer(connectionString);
         }
 

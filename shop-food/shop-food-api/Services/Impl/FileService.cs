@@ -1,7 +1,10 @@
 ﻿using System.Reflection;
 using System.Security.AccessControl;
 using Common.Model.Config;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using shop_food_api.DatabaseContext;
+using shop_food_api.DatabaseContext.Entities;
 using shop_food_api.Models.FileModels;
 using utility;
 
@@ -10,10 +13,15 @@ namespace shop_food_api.Services.Impl
     public class FileService : IFileService
     {
         private readonly IOptions<AppConfig> _options;
-        public FileService(IOptions<AppConfig> options)
+        private readonly EntityDBContext _dbContext;
+
+        public FileService(IOptions<AppConfig> options
+            , EntityDBContext dbContext)
         {
             _options = options;
+            _dbContext = dbContext;
         }
+
         public async Task<ApiResponse<UploadFileRequestDTO>> FileUpload(List<IFormFile> files)
         {
             var retVal = new ApiResponse<UploadFileRequestDTO>();
@@ -34,9 +42,38 @@ namespace shop_food_api.Services.Impl
                         using (var stream = new FileStream(pathSave, FileMode.OpenOrCreate))
                         {
                             await formFile.CopyToAsync(stream);
+                            _dbContext.Add(new FileManagerEntity
+                            {
+                                Path = pathSave,
+                                Name = formFile.FileName,
+                            });
                         }
                     }
                 }
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                retVal.IsNormal = false;
+                retVal.MetaData = new MetaData
+                {
+                    Message = ex.Message,
+                    StatusCode = "500"
+                };
+            }
+            return retVal;
+        }
+
+        public async Task<ApiResponse<List<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request)
+        {
+            var retVal = new ApiResponse<List<ItemFileManagerResponseDTO>>();
+            try
+            {
+                var query = await _dbContext.FileManagerEntities.Select(x => new ItemFileManagerResponseDTO
+                {
+                    FileName = x.Name,
+                    FilePath = x.Path
+                }).ToListAsync();
             }
             catch (Exception ex)
             {

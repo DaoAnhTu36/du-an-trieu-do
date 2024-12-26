@@ -164,7 +164,7 @@ namespace Infrastructure.ApiCore
             //    });
         }
 
-        public static string OverwriteConnectString(IOptions<AppConfig> options)
+        public static string OverWriteConnectString(IOptions<AppConfig> options)
         {
             return string.Format("Server={0};Database={1};User Id={2};password={3};Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;", options.Value.ConnectionStringInfo?.IPAddress, options.Value.ConnectionStringInfo?.DBName, options.Value.ConnectionStringInfo?.UserId, options.Value.ConnectionStringInfo?.Password);
         }

@@ -25,5 +25,11 @@ namespace shop_food_api.Controllers
         {
             return await _fileService.FileUpload(files);
         }
+
+        [HttpPost("list")]
+        public async Task<ApiResponse<List<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request)
+        {
+            return await _fileService.ListFileManager(request);
+        }
     }
 }
