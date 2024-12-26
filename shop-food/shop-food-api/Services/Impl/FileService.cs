@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using System.Security.AccessControl;
+using Common.Model.Config;
+using Microsoft.Extensions.Options;
 using shop_food_api.Models.FileModels;
 using utility;
 
@@ -7,13 +9,18 @@ namespace shop_food_api.Services.Impl
 {
     public class FileService : IFileService
     {
+        private readonly IOptions<AppConfig> _options;
+        public FileService(IOptions<AppConfig> options)
+        {
+            _options = options;
+        }
         public async Task<ApiResponse<UploadFileRequestDTO>> FileUpload(List<IFormFile> files)
         {
             var retVal = new ApiResponse<UploadFileRequestDTO>();
             try
             {
                 var size = files.Sum(f => f.Length);
-                var filePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location + "\\Media\\Images");
+                var filePath = Directory.GetCurrentDirectory() + _options.Value.FolderSetting?.PathFolderMedia?.Trim();
                 if (!Directory.Exists(filePath))
                 {
                     Directory.CreateDirectory(filePath);
@@ -23,7 +30,8 @@ namespace shop_food_api.Services.Impl
                 {
                     if (formFile.Length > 0)
                     {
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        var pathSave = filePath + formFile.FileName;
+                        using (var stream = new FileStream(pathSave, FileMode.OpenOrCreate))
                         {
                             await formFile.CopyToAsync(stream);
                         }

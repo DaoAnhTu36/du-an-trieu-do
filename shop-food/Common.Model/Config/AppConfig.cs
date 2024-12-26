@@ -7,8 +7,9 @@
         public int ServicePort { get; set; }
         public string? ServiceBasePath { get; set; }
         public ApplicationSetting? ApplicationSetting { get; set; }
-        public ConnectionStrings? ConnectionStrings { get; set; }
+        public ConnectionStringInfo? ConnectionStringInfo { get; set; }
         public LoggingSetting? Logging { get; set; }
         public PreferenceSetting? Preference { get; set; }
+        public FolderSetting? FolderSetting { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using Common.Model.Config;
 using Infrastructure.ApiCore;
 using Infrastructure.ApiCore.Middleware;
 using shop_food_api.DatabaseContext;
@@ -18,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EntityDBContext>();
 builder.Services.AddInfrastructures();
 builder.Services.AddScopedServices(ServiceAssembly.Assembly);
+builder.Services.Configure<AppConfig>(configuration.GetSection("AppConfig"));
 
 var app = builder.Build();
 
