@@ -1,10 +1,13 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
 using Common.Model.Config;
+using Core.EF;
+using Core.EF.Impl;
 using Infrastructure.ApiCore.Middleware;
 using Infrastructure.ServiceHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -46,7 +49,8 @@ namespace Infrastructure.ApiCore
         {
             return services
                 .AddDbContext<TContext>(options => { options.UseSqlServer(connectionString); })
-                .AddScoped<DbContext, TContext>();
+                .AddScoped<DbContext, TContext>()
+                .AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public static IServiceCollection AddCustomLogger(
@@ -167,6 +171,12 @@ namespace Infrastructure.ApiCore
         public static string OverWriteConnectString(IOptions<AppConfig> options)
         {
             return string.Format("Server={0};Database={1};User Id={2};password={3};Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;", options.Value.ConnectionStringInfo?.IPAddress, options.Value.ConnectionStringInfo?.DBName, options.Value.ConnectionStringInfo?.UserId, options.Value.ConnectionStringInfo?.Password);
+        }
+
+        public static string OverWriteConnectString(IConfigurationSection section)
+        {
+            var dataConfig = section.GetSection("ConnectionStringInfo");
+            return string.Format("Server={0};Database={1};User Id={2};password={3};Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;", dataConfig["IPAddress"], dataConfig["DBName"], dataConfig["UserId"], dataConfig["Password"]);
         }
     }
 

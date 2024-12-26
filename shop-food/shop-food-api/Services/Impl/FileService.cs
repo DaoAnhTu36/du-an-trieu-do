@@ -38,16 +38,17 @@ namespace shop_food_api.Services.Impl
                 {
                     if (formFile.Length > 0)
                     {
-                        var pathSave = filePath + formFile.FileName;
+                        var fileName = UtilityConvert.RenameFileUpload(formFile.FileName);
+                        var pathSave = filePath + fileName;
                         using (var stream = new FileStream(pathSave, FileMode.OpenOrCreate))
                         {
                             await formFile.CopyToAsync(stream);
                             _dbContext.Add(new FileManagerEntity
                             {
                                 Path = pathSave,
-                                Name = formFile.FileName,
+                                Name = fileName,
                             });
-                            UploadBasic.Upload(_options.Value.GoogleSettings.OAuth2.ClientId, _options.Value.GoogleSettings.OAuth2.ClientSecret, pathSave);
+                            //UploadBasic.Upload(_options.Value.GoogleSettings.OAuth2.ClientId, _options.Value.GoogleSettings.OAuth2.ClientSecret, pathSave);
                         }
                     }
                 }
@@ -75,7 +76,7 @@ namespace shop_food_api.Services.Impl
                     FileName = x.Name,
                     FilePath = x.Path
                 }).ToListAsync();
-                retVal.Data = UtiDatabase.PaginationExtension(_options, query, request.PageNumber, request.PageSize);
+                retVal.Data = UtilityDatabase.PaginationExtension(_options, query, request.PageNumber, request.PageSize);
             }
             catch (Exception ex)
             {

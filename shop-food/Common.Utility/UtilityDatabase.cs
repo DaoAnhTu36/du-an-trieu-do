@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace Common.Utility
 {
-    public static class UtiDatabase
+    public static class UtilityDatabase
     {
         public static List<T> PaginationExtension<T>(IOptions<AppConfig> options, List<T> data, int? pageNumber, int? pageSize)
         {

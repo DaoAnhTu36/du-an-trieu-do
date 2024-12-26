@@ -17,7 +17,7 @@ namespace Infrastructure.ApiCore
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            datetimeExpired = DateTime.Now.AddMinutes(double.Parse(Expires));
+            datetimeExpired = DateTime.Now.AddDays(double.Parse(Expires));
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId),

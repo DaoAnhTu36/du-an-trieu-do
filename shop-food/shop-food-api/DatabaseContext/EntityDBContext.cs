@@ -22,5 +22,6 @@ namespace shop_food_api.DatabaseContext
         }
 
         public DbSet<FileManagerEntity> FileManagerEntities { get; set; }
+        public DbSet<CategoryEntity> CategoryEntities { get; set; }
     }
 }

@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Common.Google\Common.Google.csproj" />
     <ProjectReference Include="..\Common.Utility\Common.Utility.csproj" />
+    <ProjectReference Include="..\Core.EF\Core.EF.csproj" />
     <ProjectReference Include="..\Infrastructure.ApiCore\Infrastructure.ApiCore.csproj" />
   </ItemGroup>
 

@@ -43,8 +43,7 @@ namespace Infrastructure.ApiCore.Middleware
                     var token = new JwtSecurityToken(jwtEncodedString);
                     if (token.Payload != null)
                     {
-                        var isValidToken = JWTExtensions.ValidateToken(tokenString.Replace("Bearer ",""), ref messageError);
-                        if (isValidToken)
+                        if (token.ValidTo > DateTime.Now)
                         {
                             await _next(context);
                             return;
