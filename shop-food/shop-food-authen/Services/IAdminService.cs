@@ -1,5 +1,5 @@
-﻿using shop_food_authen.Contexts;
-using utility;
+﻿using Common.Model.Response;
+using shop_food_authen.Contexts;
 
 namespace shop_food_authen.Services
 {

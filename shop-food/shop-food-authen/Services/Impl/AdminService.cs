@@ -1,7 +1,7 @@
-﻿using Infrastructure.ApiCore;
+﻿using Common.Model.Response;
+using Infrastructure.ApiCore;
 using Microsoft.EntityFrameworkCore;
 using shop_food_authen.Contexts;
-using utility;
 
 namespace shop_food_authen.Services.Impl
 {
@@ -53,6 +53,14 @@ namespace shop_food_authen.Services.Impl
                     {
                         Message = "NotFound",
                         StatusCode = "204"
+                    };
+                }
+                else if (!PasswordExtensions.VerifyPassword(instance.Password, record.PasswordHash, record.PasswordSalt))
+                {
+                    reval.MetaData = new MetaData
+                    {
+                        Message = "Account or password incorrect",
+                        StatusCode = "205"
                     };
                 }
                 else
@@ -109,13 +117,13 @@ namespace shop_food_authen.Services.Impl
 
                     return reval;
                 }
-                PasswordExtensions.CreatePassword(instance.Password ?? "default", out var passwordHash, out var passwordSalt);
+                var encodePassword = PasswordExtensions.HashPassword(instance.Password);
                 var entity = new AdminEntity
                 {
                     Name = instance.Name,
                     Email = instance.Email,
-                    PasswordHash = passwordHash.ToString() ?? "",
-                    PasswordSalt = passwordSalt.ToString() ?? "",
+                    PasswordHash = encodePassword.hashed,
+                    PasswordSalt = encodePassword.salt,
                 };
 
                 await _dbContext.AddAsync(entity);

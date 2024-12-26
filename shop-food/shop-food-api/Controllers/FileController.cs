@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Model.Response;
 using Microsoft.AspNetCore.Mvc;
 using shop_food_api.Models.FileModels;
 using shop_food_api.Services;
-using utility;
 
 namespace shop_food_api.Controllers
 {

@@ -1,5 +1,5 @@
-﻿using shop_food_api.Models.FileModels;
-using utility;
+﻿using Common.Model.Response;
+using shop_food_api.Models.FileModels;
 
 namespace shop_food_api.Services
 {

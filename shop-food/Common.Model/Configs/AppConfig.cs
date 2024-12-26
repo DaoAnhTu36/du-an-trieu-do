@@ -14,5 +14,6 @@ namespace Common.Model.Config
         public PreferenceSetting? Preference { get; set; }
         public FolderSetting? FolderSetting { get; set; }
         public PaginationSetting? PaginationSetting { get; set; }
+        public GoogleSetting? GoogleSettings { get; set; }
     }
 }

@@ -5,12 +5,13 @@ namespace Common.Utility
 {
     public static class UtiDatabase
     {
-        public static List<T> PaginationExtension<T>(IOptions<AppConfig> options, int pageNumber, List<T> data)
+        public static List<T> PaginationExtension<T>(IOptions<AppConfig> options, List<T> data, int? pageNumber, int? pageSize)
         {
             var retVal = new List<T>();
-            var pageSize = options.Value.PaginationSetting?.PageSize ?? 10;
-            var skipNumber = (pageNumber - 1) * pageSize;
-            return data.Skip(skipNumber).Take(pageSize).ToList();
+            pageNumber ??= 1;
+            pageSize ??= options.Value.PaginationSetting?.PageSize ?? 10;
+            var skipNumber = (pageNumber - 1) * pageSize ?? 1;
+            return data.Skip(skipNumber).Take(pageSize ?? 10).ToList();
         }
     }
 }

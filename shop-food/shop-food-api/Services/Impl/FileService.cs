@@ -1,12 +1,12 @@
-﻿using System.Reflection;
-using System.Security.AccessControl;
+﻿using Common.Google;
 using Common.Model.Config;
+using Common.Model.Response;
+using Common.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using shop_food_api.DatabaseContext;
 using shop_food_api.DatabaseContext.Entities;
 using shop_food_api.Models.FileModels;
-using utility;
 
 namespace shop_food_api.Services.Impl
 {
@@ -47,6 +47,7 @@ namespace shop_food_api.Services.Impl
                                 Path = pathSave,
                                 Name = formFile.FileName,
                             });
+                            UploadBasic.Upload(_options.Value.GoogleSettings.OAuth2.ClientId, _options.Value.GoogleSettings.OAuth2.ClientSecret, pathSave);
                         }
                     }
                 }
@@ -74,6 +75,7 @@ namespace shop_food_api.Services.Impl
                     FileName = x.Name,
                     FilePath = x.Path
                 }).ToListAsync();
+                retVal.Data = UtiDatabase.PaginationExtension(_options, query, request.PageNumber, request.PageSize);
             }
             catch (Exception ex)
             {

@@ -37,6 +37,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 //app.UseMiddleware<AuthenticationMiddleware>();
-app.UseMiddleware<TokenDecodedMiddleware>();
+//app.UseMiddleware<TokenDecodedMiddleware>();
 
 app.Run("http://localhost:1111");
