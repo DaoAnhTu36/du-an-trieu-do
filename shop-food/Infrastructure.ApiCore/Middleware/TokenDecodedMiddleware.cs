@@ -25,7 +25,8 @@ namespace Infrastructure.ApiCore.Middleware
             var messageError = string.Empty;
             try
             {
-                if (context.Request.Path.Value?.Contains("admin/sign-in") == true)
+                if (context.Request.Path.Value?.Contains("admin/sign-in") == true 
+                    || context.Request.Path.Value?.Contains("admin/sign-up") == true)
                 {
                     await _next(context);
                     return;
@@ -42,8 +43,7 @@ namespace Infrastructure.ApiCore.Middleware
                     var token = new JwtSecurityToken(jwtEncodedString);
                     if (token.Payload != null)
                     {
-                        var isValidToken = JWTExtensions.ValidateToken(tokenString.Replace("Bearer ",""), ref messageError);
-                        if (isValidToken)
+                        if (token.ValidTo > DateTime.Now)
                         {
                             await _next(context);
                             return;

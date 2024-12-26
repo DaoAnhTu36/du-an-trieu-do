@@ -1,20 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Common.Model.Config;
+using Infrastructure.ApiCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace shop_food_authen.Contexts
 {
     public class EntityDBContext : DbContext
     {
-        public EntityDBContext(DbContextOptions<EntityDBContext> options) : base(options)
+        private readonly IOptions<AppConfig> _appSetting;
+        public EntityDBContext(DbContextOptions<EntityDBContext> options, IOptions<AppConfig> appSetting) : base(options)
         {
+            _appSetting = appSetting;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = string.Empty;
-            connectionString = "Server=DAOANHTU\\SQLEXPRESS;Database=db_authen;User Id=sa;password=123456@b;Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;";
-
-            connectionString = "Server=PEACHY\\SQLEXPRESS;Database=db_authen;User Id=sa;password=123456@b;Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;";
-
+            var connectionString = ServiceExtensions.OverWriteConnectString(_appSetting);
             optionsBuilder.UseSqlServer(connectionString);
         }
 

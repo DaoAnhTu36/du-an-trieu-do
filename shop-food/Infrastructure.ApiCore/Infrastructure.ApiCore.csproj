@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common.Model\Common.Model.csproj" />
+    <ProjectReference Include="..\Core.EF\Core.EF.csproj" />
     <ProjectReference Include="..\Infrastructure.ServiceHelper\Infrastructure.ServiceHelper.csproj" />
   </ItemGroup>
 

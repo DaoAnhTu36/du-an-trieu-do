@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.Model.Response;
+using Microsoft.AspNetCore.Mvc;
 using shop_food_authen.Contexts;
 using shop_food_authen.Services;
-using utility;
 
 namespace shop_food_authen.Controllers
 {
