@@ -1,12 +1,12 @@
-﻿using Common.Google;
-using Common.Model.Config;
+﻿using Common.Model.Config;
 using Common.Model.Response;
+using Common.Queue;
 using Common.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using shop_food_api.DatabaseContext;
 using shop_food_api.DatabaseContext.Entities;
-using shop_food_api.Models.FileModels;
+using shop_food_api.Models;
 
 namespace shop_food_api.Services.Impl
 {
@@ -34,6 +34,7 @@ namespace shop_food_api.Services.Impl
                     Directory.CreateDirectory(filePath);
                 }
 
+                QueueService queueService = new();
                 foreach (var formFile in files)
                 {
                     if (formFile.Length > 0)
@@ -50,9 +51,26 @@ namespace shop_food_api.Services.Impl
                             });
                             //UploadBasic.Upload(_options.Value.GoogleSettings.OAuth2.ClientId, _options.Value.GoogleSettings.OAuth2.ClientSecret, pathSave);
                         }
+                        //await _dbContext.SaveChangesAsync();
+                        //queueService.Enqueue(async () =>
+                        //{
+                        //    var fileName = UtilityConvert.RenameFileUpload(formFile.FileName);
+                        //    var pathSave = filePath + fileName;
+                        //    using (var stream = new FileStream(pathSave, FileMode.OpenOrCreate))
+                        //    {
+                        //        await formFile.CopyToAsync(stream);
+                        //        _dbContext.Add(new FileManagerEntity
+                        //        {
+                        //            Path = pathSave,
+                        //            Name = fileName,
+                        //        });
+                        //        //UploadBasic.Upload(_options.Value.GoogleSettings.OAuth2.ClientId, _options.Value.GoogleSettings.OAuth2.ClientSecret, pathSave);
+                        //    }
+                        //    await _dbContext.SaveChangesAsync();
+                        //});
                     }
                 }
-                await _dbContext.SaveChangesAsync();
+                //_ = Task.Run(queueService.ProcessQueueAsync).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -65,6 +83,28 @@ namespace shop_food_api.Services.Impl
             }
             return retVal;
         }
+
+        //private async Task SaveFile(IFormFile formFile)
+        //{
+        //    var filePath = Directory.GetCurrentDirectory() + _options.Value.FolderSetting?.PathFolderMedia?.Trim();
+        //    if (!Directory.Exists(filePath))
+        //    {
+        //        Directory.CreateDirectory(filePath);
+        //    }
+        //    var fileName = UtilityConvert.RenameFileUpload(formFile.FileName);
+        //    var pathSave = filePath + fileName;
+        //    using (var stream = new FileStream(pathSave, FileMode.OpenOrCreate))
+        //    {
+        //        await formFile.CopyToAsync(stream);
+        //        _dbContext.Add(new FileManagerEntity
+        //        {
+        //            Path = pathSave,
+        //            Name = fileName,
+        //        });
+        //        //UploadBasic.Upload(_options.Value.GoogleSettings.OAuth2.ClientId, _options.Value.GoogleSettings.OAuth2.ClientSecret, pathSave);
+        //    }
+        //    await _dbContext.SaveChangesAsync();
+        //}
 
         public async Task<ApiResponse<List<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request)
         {

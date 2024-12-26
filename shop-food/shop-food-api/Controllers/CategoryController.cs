@@ -16,7 +16,7 @@ namespace shop_food_api.Controllers
         }
 
         [HttpPost("add-new")]
-        public async Task<ApiResponse> AddNewCategory([FromBody] CategoryModelReq model)
+        public async Task<ApiResponse> AddNewCategory([FromBody] ApiCreateCategoryModelReq model)
         {
             if (!ModelState.IsValid)
             {
@@ -34,9 +34,9 @@ namespace shop_food_api.Controllers
         }
 
         [HttpPost("list")]
-        public async Task<ApiResponse<IEnumerable<CategoryModelRes>>> GetListCategory([FromBody] ListCategoryModelReq model)
+        public async Task<ApiResponse<IEnumerable<ApiListCategoryModelRes>>> GetListCategory([FromBody] ApiListCategoryModelReq model)
         {
-            var retVal = new ApiResponse<IEnumerable<CategoryModelRes>>();
+            var retVal = new ApiResponse<IEnumerable<ApiListCategoryModelRes>>();
             if (!ModelState.IsValid)
             {
                 retVal.IsNormal = false;

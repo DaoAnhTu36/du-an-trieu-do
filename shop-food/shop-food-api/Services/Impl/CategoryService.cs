@@ -14,13 +14,15 @@ namespace shop_food_api.Services.Impl
         private readonly IOptions<AppConfig> _options;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryService(IUnitOfWork unitOfWork, DbContext context, IOptions<AppConfig> options) : base(context)
+        public CategoryService(IUnitOfWork unitOfWork
+            , DbContext context
+            , IOptions<AppConfig> options) : base(context)
         {
             _unitOfWork = unitOfWork;
             _options = options;
         }
 
-        public async Task<ApiResponse> AddCategory(CategoryModelReq model)
+        public async Task<ApiResponse> AddCategory(ApiCreateCategoryModelReq model)
         {
             _context.Add(new CategoryEntity
             {
@@ -31,15 +33,22 @@ namespace shop_food_api.Services.Impl
             return new ApiResponse();
         }
 
-        public async Task<ApiResponse<IEnumerable<CategoryModelRes>>> GetListCategory(int pageNum, int pageSize)
+        public async Task<ApiResponse<IEnumerable<ApiListCategoryModelRes>>> GetListCategory(int pageNum, int pageSize)
         {
-            var retVal = new ApiResponse<IEnumerable<CategoryModelRes>>();
-            var query = await _context.Set<CategoryEntity>().Select(x => new CategoryModelRes
-            {
-                ParentId = x.ParentId,
-                Id = x.Id,
-                Name = x.Name,
-            }).ToListAsync();
+            var retVal = new ApiResponse<IEnumerable<ApiListCategoryModelRes>>();
+            var query = await _context.Set<CategoryEntity>()
+                .Join(_context.Set<FileManagerEntity>()
+                , categories => categories.FileId
+                , files => files.Id
+                , (categories, files) => new ApiListCategoryModelRes
+                {
+                    Id = categories.Id,
+                    Name = categories.Name,
+                    ParentId = categories.ParentId,
+                    FileName = files.Name,
+                    FilePath = files.Path
+                }).ToListAsync();
+
             retVal.Data = UtilityDatabase.PaginationExtension(_options, query, pageNum, pageSize);
             return retVal;
         }

@@ -11,5 +11,7 @@ namespace shop_food_api.DatabaseContext.Entities
 
         [Required]
         public string? Name { get; set; }
+
+        public Guid? FileId { get; set; }
     }
 }

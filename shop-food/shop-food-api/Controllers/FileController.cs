@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Model.Response;
 using Microsoft.AspNetCore.Mvc;
-using shop_food_api.Models.FileModels;
+using shop_food_api.Models;
 using shop_food_api.Services;
 
 namespace shop_food_api.Controllers

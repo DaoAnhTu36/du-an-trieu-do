@@ -6,8 +6,8 @@ namespace shop_food_api.Services
 {
     public interface ICategoryService : ICategoryRepository
     {
-        Task<ApiResponse> AddCategory(CategoryModelReq model);
+        Task<ApiResponse> AddCategory(ApiCreateCategoryModelReq model);
 
-        Task<ApiResponse<IEnumerable<CategoryModelRes>>> GetListCategory(int pageNum, int pageSize);
+        Task<ApiResponse<IEnumerable<ApiListCategoryModelRes>>> GetListCategory(int pageNum, int pageSize);
     }
 }

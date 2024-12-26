@@ -7,14 +7,16 @@ namespace shop_food_api.Models
     {
     }
 
-    public class CategoryModelRes
+    public class ApiListCategoryModelRes
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public Guid? ParentId { get; set; }
+        public string? FilePath { get; set; }
+        public string? FileName { get; set; }
     }
 
-    public class CategoryModelReq
+    public class ApiCreateCategoryModelReq
     {
         [Required]
         public string? Name { get; set; }
@@ -22,7 +24,7 @@ namespace shop_food_api.Models
         public Guid? ParentId { get; set; }
     }
 
-    public class ListCategoryModelReq : BasePageEntity
+    public class ApiListCategoryModelReq : BasePageEntity
     {
 
     }

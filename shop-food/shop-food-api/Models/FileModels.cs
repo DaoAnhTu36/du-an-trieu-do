@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Common.Model.Entitties;
 
-namespace shop_food_api.Models.FileModels
+namespace shop_food_api.Models
 {
     public class UploadFileRequestDTO
     {
