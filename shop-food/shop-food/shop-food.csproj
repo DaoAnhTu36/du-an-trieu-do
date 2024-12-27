@@ -10,7 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.68.0.3627" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+	  <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
+	  <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.68.0.1869" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cores\Https\" />
+    <Folder Include="Cores\Configs\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

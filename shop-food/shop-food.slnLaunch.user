@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "api_auth",
+    "Projects": [
+      {
+        "Path": "shop-food-api\\shop-food-api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "shop-food-authen\\shop-food-authen.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
