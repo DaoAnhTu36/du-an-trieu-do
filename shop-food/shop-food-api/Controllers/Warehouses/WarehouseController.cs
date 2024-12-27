@@ -18,6 +18,8 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("create")]
         public async Task<ApiResponse<WarehouseCreateModelRes>> Create([FromBody] WarehouseCreateModelReq req)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<WarehouseCreateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -35,6 +37,8 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("update")]
         public async Task<ApiResponse<WarehouseUpdateModelRes>> Update([FromBody] WarehouseUpdateModelReq req)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<WarehouseUpdateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -52,6 +56,8 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("delete")]
         public async Task<ApiResponse<WarehouseDeleteModelRes>> Delete([FromBody] WarehouseDeleteModelReq req)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<WarehouseDeleteModelRes>();
             if (!ModelState.IsValid)
             {
@@ -70,6 +76,8 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("list")]
         public async Task<ApiResponse<WarehouseListModelRes>> List([FromBody] WarehouseListModelReq req)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<WarehouseListModelRes>();
             if (!ModelState.IsValid)
             {

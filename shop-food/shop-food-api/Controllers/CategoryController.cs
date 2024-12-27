@@ -18,6 +18,8 @@ namespace shop_food_api.Controllers
         [HttpPost("add-new")]
         public async Task<ApiResponse> AddNewCategory([FromBody] ApiCreateCategoryModelReq model)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             if (!ModelState.IsValid)
             {
                 return new ApiResponse
@@ -36,6 +38,8 @@ namespace shop_food_api.Controllers
         [HttpPost("list")]
         public async Task<ApiResponse<IEnumerable<ApiListCategoryModelRes>>> GetListCategory([FromBody] ApiListCategoryModelReq model)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<IEnumerable<ApiListCategoryModelRes>>();
             if (!ModelState.IsValid)
             {

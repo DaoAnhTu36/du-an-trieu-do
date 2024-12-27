@@ -2,7 +2,6 @@
 using Common.Model.Response;
 using Common.Queue;
 using Common.Utility;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using shop_food_api.DatabaseContext;
 using shop_food_api.DatabaseContext.Entities;

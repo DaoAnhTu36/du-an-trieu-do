@@ -22,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common.Logger\Common.Logger.csproj" />
     <ProjectReference Include="..\Common.Model\Common.Model.csproj" />
+    <ProjectReference Include="..\Common.StatusCode\Common.StatusCode.csproj" />
     <ProjectReference Include="..\Core.EF\Core.EF.csproj" />
     <ProjectReference Include="..\Infrastructure.ServiceHelper\Infrastructure.ServiceHelper.csproj" />
   </ItemGroup>

@@ -24,6 +24,8 @@ namespace shop_food_api.Services.Warehouse.Impl
 
         public async Task<ApiResponse<WarehouseCreateModelRes>> Create(WarehouseCreateModelReq req)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<WarehouseCreateModelRes>();
 
             try
@@ -49,6 +51,8 @@ namespace shop_food_api.Services.Warehouse.Impl
 
         public async Task<ApiResponse<WarehouseDeleteModelRes>> Delete(WarehouseDeleteModelReq req)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<WarehouseDeleteModelRes>();
 
             try
@@ -71,6 +75,8 @@ namespace shop_food_api.Services.Warehouse.Impl
 
         public async Task<ApiResponse<WarehouseListModelRes>> List(WarehouseListModelReq req)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<WarehouseListModelRes>();
 
             try
@@ -105,6 +111,8 @@ namespace shop_food_api.Services.Warehouse.Impl
 
         public async Task<ApiResponse<WarehouseUpdateModelRes>> Update(WarehouseUpdateModelReq req)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var retVal = new ApiResponse<WarehouseUpdateModelRes>();
             try
             {

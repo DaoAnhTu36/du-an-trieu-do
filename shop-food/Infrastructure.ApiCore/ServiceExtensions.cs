@@ -222,6 +222,15 @@ namespace Infrastructure.ApiCore
                 });
             return services;
         }
+
+        public static void AddLog(this IServiceCollection services)
+        {
+            Log.Logger = new LoggerConfiguration()
+                        .ReadFrom.Configuration(new ConfigurationBuilder()
+                            .AddJsonFile("logsettings.json")
+                            .Build())
+                        .CreateLogger();
+        }
     }
 
     public class ExceptionEnricher : ILogEventEnricher

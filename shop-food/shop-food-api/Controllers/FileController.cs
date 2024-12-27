@@ -23,12 +23,16 @@ namespace shop_food_api.Controllers
         [HttpPost("upload"), DisableRequestSizeLimit]
         public async Task<ApiResponse<UploadFileResponseDTO>> FileUpload(List<IFormFile> files)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             return await _fileService.FileUpload(files);
         }
 
         [HttpPost("list")]
         public async Task<ApiResponse<IEnumerable<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request)
         {
+            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
+            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             return await _fileService.ListFileManager(request);
         }
     }
