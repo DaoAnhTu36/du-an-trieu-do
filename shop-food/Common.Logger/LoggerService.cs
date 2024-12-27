@@ -52,13 +52,8 @@ namespace Common.Logger
 
         private static string FormatLogger(string? className, string? methodName, string? message, bool isStart = false)
         {
-            var totalTime = string.Empty;
             var type = isStart ? "start" : "end";
-            if (isStart)
-            {
-                return string.Format(StatusLogger.FormatLoggerStartStr, className, methodName, type, message);
-            }
-            return string.Format(StatusLogger.FormatLoggerEndStr, className, methodName, totalTime, type, message);
+            return string.Format(StatusLogger.FormatLoggerStr, className, methodName, type, message);
         }
     }
 }
