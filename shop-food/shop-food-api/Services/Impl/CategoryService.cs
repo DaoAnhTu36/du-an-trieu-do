@@ -28,6 +28,7 @@ namespace shop_food_api.Services.Impl
             {
                 Name = model.Name,
                 ParentId = model.ParentId,
+                FileId = model.FileId,
             });
             await _unitOfWork.SaveChangesAsync();
             return new ApiResponse();
@@ -36,7 +37,7 @@ namespace shop_food_api.Services.Impl
         public async Task<ApiResponse<IEnumerable<ApiListCategoryModelRes>>> GetListCategory(int pageNum, int pageSize)
         {
             var retVal = new ApiResponse<IEnumerable<ApiListCategoryModelRes>>();
-            var query = await _context.Set<CategoryEntity>()
+            var query = _context.Set<CategoryEntity>()
                 .Join(_context.Set<FileManagerEntity>()
                 , categories => categories.FileId
                 , files => files.Id
@@ -47,7 +48,7 @@ namespace shop_food_api.Services.Impl
                     ParentId = categories.ParentId,
                     FileName = files.Name,
                     FilePath = files.Path
-                }).ToListAsync();
+                });
 
             retVal.Data = UtilityDatabase.PaginationExtension(_options, query, pageNum, pageSize);
             return retVal;

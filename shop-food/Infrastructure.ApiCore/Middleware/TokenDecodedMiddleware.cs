@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Common.Logger;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -25,7 +21,7 @@ namespace Infrastructure.ApiCore.Middleware
             var messageError = string.Empty;
             try
             {
-                if (context.Request.Path.Value?.Contains("admin/sign-in") == true 
+                if (context.Request.Path.Value?.Contains("admin/sign-in") == true
                     || context.Request.Path.Value?.Contains("admin/sign-up") == true)
                 {
                     await _next(context);

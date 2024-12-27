@@ -5,12 +5,14 @@ using Core.EF;
 using Core.EF.Impl;
 using Infrastructure.ApiCore.Middleware;
 using Infrastructure.ServiceHelper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -177,6 +179,57 @@ namespace Infrastructure.ApiCore
         {
             var dataConfig = section.GetSection("ConnectionStringInfo");
             return string.Format("Server={0};Database={1};User Id={2};password={3};Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;", dataConfig["IPAddress"], dataConfig["DBName"], dataConfig["UserId"], dataConfig["Password"]);
+        }
+
+        public static IServiceCollection AddSwaggerGenCustom(this IServiceCollection services)
+        {
+            services.AddSwaggerGen((options) =>
+            {
+                options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+                options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                {
+                    {
+                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                        {
+                            Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                            {
+                                Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;  // For development purposes, set it to false
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateLifetime = true,
+                    };
+                });
+            return services;
+        }
+
+        public static void AddLog(this IServiceCollection services)
+        {
+            Log.Logger = new LoggerConfiguration()
+                        .ReadFrom.Configuration(new ConfigurationBuilder()
+                            .AddJsonFile("logsettings.json")
+                            .Build())
+                        .CreateLogger();
         }
     }
 

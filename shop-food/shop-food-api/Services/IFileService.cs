@@ -5,8 +5,8 @@ namespace shop_food_api.Services
 {
     public interface IFileService
     {
-        Task<ApiResponse<UploadFileRequestDTO>> FileUpload(List<IFormFile> files);
+        Task<ApiResponse<UploadFileResponseDTO>> FileUpload(List<IFormFile> files);
 
-        Task<ApiResponse<List<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request);
+        Task<ApiResponse<IEnumerable<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request);
     }
 }

@@ -2,7 +2,6 @@
 using Common.Model.Response;
 using Common.Queue;
 using Common.Utility;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using shop_food_api.DatabaseContext;
 using shop_food_api.DatabaseContext.Entities;
@@ -22,9 +21,15 @@ namespace shop_food_api.Services.Impl
             _dbContext = dbContext;
         }
 
-        public async Task<ApiResponse<UploadFileRequestDTO>> FileUpload(List<IFormFile> files)
+        public async Task<ApiResponse<UploadFileResponseDTO>> FileUpload(List<IFormFile> files)
         {
-            var retVal = new ApiResponse<UploadFileRequestDTO>();
+            var retVal = new ApiResponse<UploadFileResponseDTO>
+            {
+                Data = new UploadFileResponseDTO
+                {
+                    FileIds = new List<FileUploadDTO>()
+                }
+            };
             try
             {
                 var size = files.Sum(f => f.Length);
@@ -41,17 +46,25 @@ namespace shop_food_api.Services.Impl
                     {
                         var fileName = UtilityConvert.RenameFileUpload(formFile.FileName);
                         var pathSave = filePath + fileName;
+                        var id = Guid.NewGuid();
                         using (var stream = new FileStream(pathSave, FileMode.OpenOrCreate))
                         {
                             await formFile.CopyToAsync(stream);
                             _dbContext.Add(new FileManagerEntity
                             {
+                                Id = id,
                                 Path = pathSave,
                                 Name = fileName,
                             });
                             //UploadBasic.Upload(_options.Value.GoogleSettings.OAuth2.ClientId, _options.Value.GoogleSettings.OAuth2.ClientSecret, pathSave);
                         }
-                        //await _dbContext.SaveChangesAsync();
+
+                        await _dbContext.SaveChangesAsync();
+                        retVal.Data.FileIds.Add(new FileUploadDTO
+                        {
+                            FileId = id,
+                            FileName = fileName
+                        });
                         //queueService.Enqueue(async () =>
                         //{
                         //    var fileName = UtilityConvert.RenameFileUpload(formFile.FileName);
@@ -106,16 +119,16 @@ namespace shop_food_api.Services.Impl
         //    await _dbContext.SaveChangesAsync();
         //}
 
-        public async Task<ApiResponse<List<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request)
+        public async Task<ApiResponse<IEnumerable<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request)
         {
-            var retVal = new ApiResponse<List<ItemFileManagerResponseDTO>>();
+            var retVal = new ApiResponse<IEnumerable<ItemFileManagerResponseDTO>>();
             try
             {
-                var query = await _dbContext.FileManagerEntities.Select(x => new ItemFileManagerResponseDTO
+                var query = _dbContext.FileManagerEntities.Select(x => new ItemFileManagerResponseDTO
                 {
                     FileName = x.Name,
                     FilePath = x.Path
-                }).ToListAsync();
+                });
                 retVal.Data = UtilityDatabase.PaginationExtension(_options, query, request.PageNumber, request.PageSize);
             }
             catch (Exception ex)
