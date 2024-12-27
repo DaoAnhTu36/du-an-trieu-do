@@ -1,4 +1,5 @@
-﻿using Common.Model.Response;
+﻿using Common.Logger;
+using Common.Model.Response;
 using Microsoft.AspNetCore.Mvc;
 using shop_food_api.Models;
 using shop_food_api.Services;
@@ -18,11 +19,11 @@ namespace shop_food_api.Controllers
         [HttpPost("add-new")]
         public async Task<ApiResponse> AddNewCategory([FromBody] ApiCreateCategoryModelReq model)
         {
-            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
-            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
+            LoggerFunctionUtility.CommonLogStart(this);
+            var retVal = new ApiResponse();
             if (!ModelState.IsValid)
             {
-                return new ApiResponse
+                retVal = new ApiResponse
                 {
                     IsNormal = false,
                     MetaData = new MetaData
@@ -31,15 +32,18 @@ namespace shop_food_api.Controllers
                         StatusCode = "400"
                     }
                 };
+                LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                return retVal;
             }
-            return await _categoryService.AddCategory(model);
+            retVal = await _categoryService.AddCategory(model);
+            LoggerFunctionUtility.CommonLogEnd(this, retVal);
+            return retVal;
         }
 
         [HttpPost("list")]
         public async Task<ApiResponse<IEnumerable<ApiListCategoryModelRes>>> GetListCategory([FromBody] ApiListCategoryModelReq model)
         {
-            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
-            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
+            LoggerFunctionUtility.CommonLogStart(this);
             var retVal = new ApiResponse<IEnumerable<ApiListCategoryModelRes>>();
             if (!ModelState.IsValid)
             {
@@ -49,9 +53,12 @@ namespace shop_food_api.Controllers
                     Message = "Input is bad request",
                     StatusCode = "400"
                 };
+                LoggerFunctionUtility.CommonLogEnd(this, retVal);
                 return retVal;
             }
-            return await _categoryService.GetListCategory(model.PageNumber, model.PageSize);
+            retVal = await _categoryService.GetListCategory(model.PageNumber, model.PageSize);
+            LoggerFunctionUtility.CommonLogEnd(this, retVal);
+            return retVal;
         }
     }
 }

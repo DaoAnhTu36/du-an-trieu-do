@@ -13,4 +13,10 @@
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Model\Common.Model.csproj" />
+    <ProjectReference Include="..\Common.StatusCode\Common.StatusCode.csproj" />
+    <ProjectReference Include="..\Common.Utility\Common.Utility.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,2 +1,10 @@
-2024-12-27 14:51:45.469 +07:00 [INF] CLassName=<Invoke>d__3.MethodName=MoveNext.Status=start.Message=TokenDecodedMiddleware
-2024-12-27 14:51:46.935 +07:00 [INF] CLassName=<Invoke>d__3.MethodName=MoveNext.TotalTime=1.467.Status=end.Message=TokenDecodedMiddleware
+2024-12-27 16:29:39.027 +07:00 [INF] CLassName=TokenDecodedMiddleware.MethodName=<Invoke>d__3.Status=start.Message=
+2024-12-27 16:29:39.784 +07:00 [INF] CLassName=WarehouseController.MethodName=<List>d__5.Status=start.Message=
+2024-12-27 16:29:39.799 +07:00 [INF] CLassName=WarehouseWarehouseService.MethodName=<List>d__5.Status=start.Message=
+2024-12-27 16:29:40.490 +07:00 [INF] CLassName=WarehouseWarehouseService.MethodName=<List>d__5.TotalTime=.Status=end.Message={"Data":{"ListWarehouse":[]},"IsNormal":true,"MetaData":{"StatusCode":"200","Message":"","ExceptionExtra":null}}
+2024-12-27 16:29:40.492 +07:00 [INF] CLassName=WarehouseController.MethodName=<List>d__5.TotalTime=709.Status=end.Message={"Data":{"ListWarehouse":[]},"IsNormal":true,"MetaData":{"StatusCode":"200","Message":"","ExceptionExtra":null}}
+2024-12-27 16:31:05.664 +07:00 [INF] CLassName=TokenDecodedMiddleware.MethodName=<Invoke>d__3.Status=start.Message=
+2024-12-27 16:31:05.735 +07:00 [INF] CLassName=WarehouseController.MethodName=<List>d__5.Status=start.Message=
+2024-12-27 16:31:05.737 +07:00 [INF] CLassName=WarehouseWarehouseService.MethodName=<List>d__5.Status=start.Message=
+2024-12-27 16:31:05.749 +07:00 [INF] CLassName=WarehouseWarehouseService.MethodName=<List>d__5.TotalTime=.Status=end.Message={"Data":{"ListWarehouse":[]},"IsNormal":true,"MetaData":{"StatusCode":"200","Message":"","ExceptionExtra":null}}
+2024-12-27 16:31:05.755 +07:00 [INF] CLassName=WarehouseController.MethodName=<List>d__5.TotalTime=20.Status=end.Message={"Data":{"ListWarehouse":[]},"IsNormal":true,"MetaData":{"StatusCode":"200","Message":"","ExceptionExtra":null}}

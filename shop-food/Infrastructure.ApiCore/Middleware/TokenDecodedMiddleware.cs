@@ -1,6 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using Common.Logger;
-using Common.StatusCode;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -19,8 +18,6 @@ namespace Infrastructure.ApiCore.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            var className = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
-            var methodName = System.Reflection.MethodBase.GetCurrentMethod()?.Name;
             var messageError = string.Empty;
             try
             {
@@ -44,9 +41,7 @@ namespace Infrastructure.ApiCore.Middleware
                     {
                         if (token.ValidTo > DateTime.Now)
                         {
-                            LoggerService.LogInfo(StatusLogger.FormatLogger(className, methodName, "TokenDecodedMiddleware", true));
                             await _next(context);
-                            LoggerService.LogInfo(StatusLogger.FormatLogger(className, methodName, "TokenDecodedMiddleware", false));
                             return;
                         }
                     }

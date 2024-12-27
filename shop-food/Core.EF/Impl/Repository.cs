@@ -1,6 +1,6 @@
-﻿using Core.EF;
+﻿using System.Linq.Expressions;
+using Core.EF;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 public class Repository<T> : IRepository<T> where T : class
 {
