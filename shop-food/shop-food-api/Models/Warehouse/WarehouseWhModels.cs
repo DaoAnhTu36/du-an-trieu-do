@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Common.Model.Entitties;
 
 namespace shop_food_api.Models.Warehouse
 {
-    internal class WarehouseModels
+    internal class WarehouseWhModels
     {
     }
 

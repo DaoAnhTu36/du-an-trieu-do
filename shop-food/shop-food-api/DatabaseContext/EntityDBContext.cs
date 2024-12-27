@@ -27,12 +27,12 @@ namespace shop_food_api.DatabaseContext
 
         #region warehouse area
 
-        public DbSet<InventoryWarehouseEntity> InventoryWarehouseEntities { get; set; }
-        public DbSet<ProductWarehouseEntity> ProductWarehouseEntities { get; set; }
-        public DbSet<SupplierWarehouseEntity> SupplierWarehouseEntities { get; set; }
-        public DbSet<TransactionWarehouseEntity> TransactionWarehouseEntities { get; set; }
-        public DbSet<UnitWarehouseEntity> UnitWarehouseEntities { get; set; }
-        public DbSet<WarehouseWarehouseEntity> WarehouseWarehouseEntities { get; set; }
+        public DbSet<InventoryWhEntity> InventoryWhEntities { get; set; }
+        public DbSet<ProductWhEntity> ProductWhEntities { get; set; }
+        public DbSet<SupplierWhEntity> SupplierWhEntities { get; set; }
+        public DbSet<TransactionWhEntity> TransactionWhEntities { get; set; }
+        public DbSet<UnitWhEntity> UnitWhEntities { get; set; }
+        public DbSet<WarehouseWhEntity> WarehouseWhEntities { get; set; }
 
         #endregion warehouse area
     }

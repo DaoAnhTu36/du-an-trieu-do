@@ -5,7 +5,7 @@ using Common.Model.Entitties;
 namespace shop_food_api.DatabaseContext.Entities.Warehouse
 {
     [Table("Unit", Schema = ConfigSchemaTableDatabase.WH)]
-    public class UnitWarehouseEntity : BaseEntity
+    public class UnitWhEntity : BaseEntity
     {
         public string? Name { get; set; }
     }

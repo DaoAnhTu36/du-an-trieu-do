@@ -1,4 +1,4 @@
-﻿using Common.Logger;
+using Common.Logger;
 using Common.Model.Config;
 using Common.Model.Response;
 using Common.Utility;
@@ -10,12 +10,12 @@ using shop_food_api.Models.Warehouse;
 
 namespace shop_food_api.Services.Warehouse.Impl
 {
-    public class WarehouseWarehouseService : Repository<WarehouseEntity>, IWarehouseWarehouseService
+    public class ProductWhService : Repository<ProductWhEntity>, IProductWhService
     {
         private readonly IOptions<AppConfig> _options;
         private readonly IUnitOfWork _unitOfWork;
 
-        public WarehouseWarehouseService(IUnitOfWork unitOfWork
+        public ProductWhService(IUnitOfWork unitOfWork
             , DbContext context
             , IOptions<AppConfig> options) : base(context)
         {
@@ -23,19 +23,12 @@ namespace shop_food_api.Services.Warehouse.Impl
             _options = options;
         }
 
-        public async Task<ApiResponse<WarehouseCreateModelRes>> Create(WarehouseCreateModelReq req)
+        public async Task<ApiResponse<ProductWhCreateModelRes>> Create(ProductWhCreateModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);
-            var retVal = new ApiResponse<WarehouseCreateModelRes>();
-
+            var retVal = new ApiResponse<ProductWhCreateModelRes>();
             try
             {
-                _context.Add(new WarehouseWarehouseEntity
-                {
-                    Address = req.Address,
-                    Name = req.Name,
-                });
-                await _unitOfWork.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -50,16 +43,12 @@ namespace shop_food_api.Services.Warehouse.Impl
             return retVal;
         }
 
-        public async Task<ApiResponse<WarehouseDeleteModelRes>> Delete(WarehouseDeleteModelReq req)
+        public async Task<ApiResponse<ProductWhDeleteModelRes>> Delete(ProductWhDeleteModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);
-            var retVal = new ApiResponse<WarehouseDeleteModelRes>();
-
+            var retVal = new ApiResponse<ProductWhDeleteModelRes>();
             try
             {
-                var entity = new WarehouseWarehouseEntity { Id = req.Id };
-                _context.Entry(entity).State = EntityState.Deleted;
-                await _unitOfWork.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -74,28 +63,12 @@ namespace shop_food_api.Services.Warehouse.Impl
             return retVal;
         }
 
-        public async Task<ApiResponse<WarehouseListModelRes>> List(WarehouseListModelReq req)
+        public async Task<ApiResponse<ProductWhListModelRes>> List(ProductWhListModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);
-            var retVal = new ApiResponse<WarehouseListModelRes>();
-
+            var retVal = new ApiResponse<ProductWhListModelRes>();
             try
             {
-                var query = _context.Set<WarehouseWarehouseEntity>()
-                    .OrderByDescending(x => x.UpdatedDate)
-                    .Select(x => new WarehouseInfoModel
-                    {
-                        Address = x.Address,
-                        Id = x.Id,
-                        Name = x.Name
-                    });
-                retVal = new ApiResponse<WarehouseListModelRes>
-                {
-                    Data = new WarehouseListModelRes
-                    {
-                        ListWarehouse = UtilityDatabase.PaginationExtension(_options, query, req.PageNumber, req.PageSize)
-                    }
-                };
             }
             catch (Exception ex)
             {
@@ -110,20 +83,12 @@ namespace shop_food_api.Services.Warehouse.Impl
             return retVal;
         }
 
-        public async Task<ApiResponse<WarehouseUpdateModelRes>> Update(WarehouseUpdateModelReq req)
+        public async Task<ApiResponse<ProductWhUpdateModelRes>> Update(ProductWhUpdateModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);
-            var retVal = new ApiResponse<WarehouseUpdateModelRes>();
+            var retVal = new ApiResponse<ProductWhUpdateModelRes>();
             try
             {
-                var entity = new WarehouseWarehouseEntity
-                {
-                    Id = req.Id,
-                    Address = req.Address,
-                    Name = req.Name
-                };
-                _context.Entry(entity).State = EntityState.Modified;
-                await _unitOfWork.SaveChangesAsync();
             }
             catch (Exception ex)
             {

@@ -39,6 +39,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logger", "Common.Log
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.StatusCode", "Common.StatusCode\Common.StatusCode.csproj", "{327F643C-B1FF-4F05-A1DB-363B4AA5F06A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Develop", "Develop", "{0F9E00A9-FF35-4DDE-ADF1-1D9E04455FF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateClassAuto", "GenerateClassAuto\GenerateClassAuto.csproj", "{FC7AF89D-13E0-48F8-8951-1113F2361E7C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +101,10 @@ Global
 		{327F643C-B1FF-4F05-A1DB-363B4AA5F06A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{327F643C-B1FF-4F05-A1DB-363B4AA5F06A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{327F643C-B1FF-4F05-A1DB-363B4AA5F06A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC7AF89D-13E0-48F8-8951-1113F2361E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC7AF89D-13E0-48F8-8951-1113F2361E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC7AF89D-13E0-48F8-8951-1113F2361E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC7AF89D-13E0-48F8-8951-1113F2361E7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,5 +121,6 @@ Global
 		{1501E567-2574-46B7-8DE9-0F758CF69E9B} = {2B70F9F6-4385-4824-AA95-C20CE82D5AE6}
 		{B4B57059-0470-411A-9FE3-2A186D396A8D} = {2B70F9F6-4385-4824-AA95-C20CE82D5AE6}
 		{327F643C-B1FF-4F05-A1DB-363B4AA5F06A} = {2B70F9F6-4385-4824-AA95-C20CE82D5AE6}
+		{FC7AF89D-13E0-48F8-8951-1113F2361E7C} = {0F9E00A9-FF35-4DDE-ADF1-1D9E04455FF7}
 	EndGlobalSection
 EndGlobal

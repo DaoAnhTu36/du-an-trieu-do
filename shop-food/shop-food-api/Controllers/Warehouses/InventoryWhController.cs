@@ -1,4 +1,4 @@
-﻿using Common.Logger;
+using Common.Logger;
 using Common.Model.Response;
 using Microsoft.AspNetCore.Mvc;
 using shop_food_api.Models.Warehouse;
@@ -6,21 +6,21 @@ using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/warehouse")]
-    public class WarehouseController : Controller
+    [Route("api/warehouse/inventory")]
+    public class InventoryWhController : Controller
     {
-        private readonly IWarehouseWhService _service;
+        private readonly IInventoryWhService _service;
 
-        public WarehouseController(IWarehouseWhService service)
+        public InventoryWhController(IInventoryWhService service)
         {
             _service = service;
         }
 
         [HttpPost("create")]
-        public async Task<ApiResponse<WarehouseCreateModelRes>> Create([FromBody] WarehouseCreateModelReq req)
+        public async Task<ApiResponse<InventoryWhCreateModelRes>> Create([FromBody] InventoryWhCreateModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);
-            var retVal = new ApiResponse<WarehouseCreateModelRes>();
+            var retVal = new ApiResponse<InventoryWhCreateModelRes>();
             if (!ModelState.IsValid)
             {
                 retVal.IsNormal = false;
@@ -38,10 +38,10 @@ namespace shop_food_api.Controllers.Warehouses
         }
 
         [HttpPost("update")]
-        public async Task<ApiResponse<WarehouseUpdateModelRes>> Update([FromBody] WarehouseUpdateModelReq req)
+        public async Task<ApiResponse<InventoryWhUpdateModelRes>> Update([FromBody] InventoryWhUpdateModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);
-            var retVal = new ApiResponse<WarehouseUpdateModelRes>();
+            var retVal = new ApiResponse<InventoryWhUpdateModelRes>();
             if (!ModelState.IsValid)
             {
                 retVal.IsNormal = false;
@@ -59,10 +59,10 @@ namespace shop_food_api.Controllers.Warehouses
         }
 
         [HttpPost("delete")]
-        public async Task<ApiResponse<WarehouseDeleteModelRes>> Delete([FromBody] WarehouseDeleteModelReq req)
+        public async Task<ApiResponse<InventoryWhDeleteModelRes>> Delete([FromBody] InventoryWhDeleteModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);
-            var retVal = new ApiResponse<WarehouseDeleteModelRes>();
+            var retVal = new ApiResponse<InventoryWhDeleteModelRes>();
             if (!ModelState.IsValid)
             {
                 retVal.IsNormal = false;
@@ -80,10 +80,11 @@ namespace shop_food_api.Controllers.Warehouses
         }
 
         [HttpPost("list")]
-        public async Task<ApiResponse<WarehouseListModelRes>> List([FromBody] WarehouseListModelReq req)
+        public async Task<ApiResponse<InventoryWhListModelRes>> List([FromBody] InventoryWhListModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
-            var retVal = new ApiResponse<WarehouseListModelRes>();
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            LoggerFunctionUtility.CommonLogStart(this, stopwatch);
+            var retVal = new ApiResponse<InventoryWhListModelRes>();
             if (!ModelState.IsValid)
             {
                 retVal.IsNormal = false;

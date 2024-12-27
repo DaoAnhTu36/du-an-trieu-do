@@ -3,7 +3,7 @@ using shop_food_api.Models.Warehouse;
 
 namespace shop_food_api.Services.Warehouse
 {
-    public interface IWarehouseWarehouseService
+    public interface IWarehouseWhService
     {
         Task<ApiResponse<WarehouseUpdateModelRes>> Update(WarehouseUpdateModelReq req);
 
