@@ -3,6 +3,7 @@ using Infrastructure.ApiCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using shop_food_api.DatabaseContext.Entities;
+using shop_food_api.DatabaseContext.Entities.Warehouse;
 
 namespace shop_food_api.DatabaseContext
 {
@@ -23,5 +24,16 @@ namespace shop_food_api.DatabaseContext
 
         public DbSet<FileManagerEntity> FileManagerEntities { get; set; }
         public DbSet<CategoryEntity> CategoryEntities { get; set; }
+
+        #region warehouse area
+
+        public DbSet<InventoryWarehouseEntity> InventoryWarehouseEntities { get; set; }
+        public DbSet<ProductWarehouseEntity> ProductWarehouseEntities { get; set; }
+        public DbSet<SupplierWarehouseEntity> SupplierWarehouseEntities { get; set; }
+        public DbSet<TransactionWarehouseEntity> TransactionWarehouseEntities { get; set; }
+        public DbSet<UnitWarehouseEntity> UnitWarehouseEntities { get; set; }
+        public DbSet<WarehouseWarehouseEntity> WarehouseWarehouseEntities { get; set; }
+
+        #endregion warehouse area
     }
 }

@@ -3,14 +3,15 @@ using Common.Model.Entitties;
 
 namespace shop_food_api.Models
 {
-    public class UploadFileRequestDTO
-    {
-    }
-
     public class UploadFileResponseDTO
     {
-        [Required]
-        public IFormFile Path { get; set; }
+        public List<FileUploadDTO>? FileIds { get; set; }
+    }
+
+    public class FileUploadDTO
+    {
+        public Guid? FileId { get; set; }
+        public string? FileName { get; set; }
     }
 
     public class ItemFileManagerRequestDTO : BasePageEntity

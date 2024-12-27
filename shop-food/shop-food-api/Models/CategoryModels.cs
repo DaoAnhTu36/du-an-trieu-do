@@ -22,10 +22,10 @@ namespace shop_food_api.Models
         public string? Name { get; set; }
 
         public Guid? ParentId { get; set; }
+        public Guid? FileId { get; set; }
     }
 
     public class ApiListCategoryModelReq : BasePageEntity
     {
-
     }
 }

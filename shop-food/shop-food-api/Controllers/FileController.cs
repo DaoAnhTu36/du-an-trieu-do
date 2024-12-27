@@ -21,13 +21,13 @@ namespace shop_food_api.Controllers
         }
 
         [HttpPost("upload"), DisableRequestSizeLimit]
-        public async Task<ApiResponse<UploadFileRequestDTO>> FileUpload(List<IFormFile> files)
+        public async Task<ApiResponse<UploadFileResponseDTO>> FileUpload(List<IFormFile> files)
         {
             return await _fileService.FileUpload(files);
         }
 
         [HttpPost("list")]
-        public async Task<ApiResponse<List<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request)
+        public async Task<ApiResponse<IEnumerable<ItemFileManagerResponseDTO>>> ListFileManager(ItemFileManagerRequestDTO request)
         {
             return await _fileService.ListFileManager(request);
         }

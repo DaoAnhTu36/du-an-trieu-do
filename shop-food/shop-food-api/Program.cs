@@ -17,7 +17,7 @@ IConfiguration configuration = new ConfigurationBuilder()
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenCustom();
 builder.Services.AddDbContext<EntityDBContext>();
 builder.Services.AddInfrastructures();
 builder.Services.AddScopedServices(ServiceAssembly.Assembly);
