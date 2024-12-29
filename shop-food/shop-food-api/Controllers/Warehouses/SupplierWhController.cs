@@ -6,7 +6,7 @@ using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/supplier")]
+    [Route("api/wh/supplier")]
     public class SupplierWhController : Controller
     {
         private readonly ISupplierWhService _service;

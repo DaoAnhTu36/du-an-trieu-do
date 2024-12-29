@@ -39,7 +39,7 @@ try
     app.UseAuthorization();
     app.MapControllers();
     app.UseMiddleware<TokenDecodedMiddleware>();
-    //app.Urls.Add("http://localhost:1112");
+    app.Urls.Add("http://localhost:1112");
     app.Run();
 }
 catch (Exception ex)

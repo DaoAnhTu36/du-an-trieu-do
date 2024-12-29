@@ -38,7 +38,7 @@ try
 
     //app.UseMiddleware<AuthenticationMiddleware>();
     //app.UseMiddleware<TokenDecodedMiddleware>();
-
+    app.Urls.Add("http://localhost:1111");
     app.Run();
 }
 catch (Exception ex)

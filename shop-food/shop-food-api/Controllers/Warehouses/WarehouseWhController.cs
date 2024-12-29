@@ -6,12 +6,12 @@ using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/warehouse")]
-    public class WarehouseController : Controller
+    [Route("api/wh/warehouse")]
+    public class WarehouseWhController : Controller
     {
         private readonly IWarehouseWhService _service;
 
-        public WarehouseController(IWarehouseWhService service)
+        public WarehouseWhController(IWarehouseWhService service)
         {
             _service = service;
         }
