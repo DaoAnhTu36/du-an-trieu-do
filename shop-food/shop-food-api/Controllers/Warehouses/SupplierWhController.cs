@@ -19,7 +19,7 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("create")]
         public async Task<ApiResponse<SupplierWhCreateModelRes>> Create([FromBody] SupplierWhCreateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<SupplierWhCreateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("update")]
         public async Task<ApiResponse<SupplierWhUpdateModelRes>> Update([FromBody] SupplierWhUpdateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<SupplierWhUpdateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("delete")]
         public async Task<ApiResponse<SupplierWhDeleteModelRes>> Delete([FromBody] SupplierWhDeleteModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<SupplierWhDeleteModelRes>();
             if (!ModelState.IsValid)
             {
@@ -82,8 +82,7 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("list")]
         public async Task<ApiResponse<SupplierWhListModelRes>> List([FromBody] SupplierWhListModelReq req)
         {
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-            LoggerFunctionUtility.CommonLogStart(this, stopwatch);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<SupplierWhListModelRes>();
             if (!ModelState.IsValid)
             {

@@ -6,7 +6,7 @@ using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/product")]
+    [Route("api/wh/product")]
     public class ProductWhController : Controller
     {
         private readonly IProductWhService _service;
@@ -19,7 +19,7 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("create")]
         public async Task<ApiResponse<ProductWhCreateModelRes>> Create([FromBody] ProductWhCreateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<ProductWhCreateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -40,7 +40,7 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("update")]
         public async Task<ApiResponse<ProductWhUpdateModelRes>> Update([FromBody] ProductWhUpdateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<ProductWhUpdateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("delete")]
         public async Task<ApiResponse<ProductWhDeleteModelRes>> Delete([FromBody] ProductWhDeleteModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<ProductWhDeleteModelRes>();
             if (!ModelState.IsValid)
             {
@@ -82,8 +82,7 @@ namespace shop_food_api.Controllers.Warehouses
         [HttpPost("list")]
         public async Task<ApiResponse<ProductWhListModelRes>> List([FromBody] ProductWhListModelReq req)
         {
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-            LoggerFunctionUtility.CommonLogStart(this, stopwatch);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<ProductWhListModelRes>();
             if (!ModelState.IsValid)
             {

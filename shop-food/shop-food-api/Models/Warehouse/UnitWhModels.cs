@@ -1,9 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+using Common.Model.Entitties;
+using Common.User;
+
 namespace shop_food_api.Models.Warehouse
 {
     #region model create new record
 
     public class UnitWhCreateModelReq
     {
+        public string Name { get; set; }
     }
 
     public class UnitWhCreateModelRes
@@ -20,6 +25,8 @@ namespace shop_food_api.Models.Warehouse
 
     public class UnitWhUpdateModelReq
     {
+        public Guid Id { get; set; }
+        public string? Name { get; set; }
     }
 
     #endregion model update record
@@ -28,6 +35,7 @@ namespace shop_food_api.Models.Warehouse
 
     public class UnitWhDeleteModelReq
     {
+        public Guid Id { get; set; }
     }
 
     public class UnitWhDeleteModelRes
@@ -40,11 +48,26 @@ namespace shop_food_api.Models.Warehouse
 
     public class UnitWhListModelRes
     {
+        public IEnumerable<UnitWhModel> List { get; set; }
     }
 
-    public class UnitWhListModelReq
+    public class UnitWhListModelReq : BasePageEntity
     {
     }
 
     #endregion model get list record
+
+    public class UnitWhModel
+    {
+        public Guid Id { get; set; }
+        public string? Name { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public DateTime UpdatedDate { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public string UpdatedBy { get; set; }
+    }
 }
