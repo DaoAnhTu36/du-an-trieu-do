@@ -1,26 +1,49 @@
-import { Injectable } from '@angular/core';
+import * as CryptoJS from 'crypto-js';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageServiceService {
-
-  constructor() { }
+  secret_key_crypto = "DaoAnhTu020996@@#";
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
   saveData(key: string, value: string) {
-    localStorage.setItem(key, value);
+    if (isPlatformBrowser(this.platformId)) {
+      value = this.encrypt(value);
+      localStorage.setItem(key, value);
+    }
   }
 
   getData(key: string) {
-    return localStorage.getItem(key)
+    if (isPlatformBrowser(this.platformId)) {
+      const value = localStorage.getItem(key);
+      if (value) {
+        return this.decrypt(value);
+      }
+    }
+    return null;
   }
 
   removeData(key: string) {
-    localStorage.removeItem(key);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem(key);
+    }
   }
 
   clearData() {
-    localStorage.clear();
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear();
+    }
+  }
+
+  public encrypt(instance: string): string {
+    return CryptoJS.AES.encrypt(instance, this.secret_key_crypto).toString();
+  }
+
+  public decrypt(instance: string) {
+    return CryptoJS.AES.decrypt(instance, this.secret_key_crypto).toString(CryptoJS.enc.Utf8);
   }
 
 }

@@ -47,7 +47,7 @@ export class MenuComponent {
   ];
   customerName = 'DaoAnhTu'
   constructor(private route: Router,
-    private readonly _localStorage: LocalStorageServiceService,
+    private _localStorage: LocalStorageServiceService,
   ) {
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -57,7 +57,9 @@ export class MenuComponent {
   ngDoCheck(): void {
     this.isShowMenu = !this.route.url.includes(this.prefixAuth);
     if (this.isShowMenu) {
-      this.customerName = JSON.parse(this._localStorage.getData('CustomerInfor') ?? '{}').name;
+      const data = this._localStorage.getData('CustomerInfor');
+      const dataCustomer = JSON.parse(this._localStorage.getData('CustomerInfor') ?? '{}');
+      this.customerName = dataCustomer.name;
     }
   }
   ngAfterContentInit(): void {
