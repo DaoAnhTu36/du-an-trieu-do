@@ -9,7 +9,11 @@ import { environment } from '../environments/environment';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, WarehouseModule, MenuComponent],
+  imports: [
+    RouterOutlet
+    , WarehouseModule
+    , MenuComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [
