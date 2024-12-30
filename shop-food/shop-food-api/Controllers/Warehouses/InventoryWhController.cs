@@ -1,12 +1,13 @@
 using Common.Logger;
 using Common.Model.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using shop_food_api.Models.Warehouse;
 using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/inventory")]
+    [Route("api/wh/inventory")]
     public class InventoryWhController : Controller
     {
         private readonly IInventoryWhService _service;
@@ -16,10 +17,10 @@ namespace shop_food_api.Controllers.Warehouses
             _service = service;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create-inventory")]
         public async Task<ApiResponse<InventoryWhCreateModelRes>> Create([FromBody] InventoryWhCreateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<InventoryWhCreateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -37,10 +38,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("update")]
+        [HttpPost("update-inventory")]
         public async Task<ApiResponse<InventoryWhUpdateModelRes>> Update([FromBody] InventoryWhUpdateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<InventoryWhUpdateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -58,10 +59,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("delete")]
+        [HttpPost("delete-inventory")]
         public async Task<ApiResponse<InventoryWhDeleteModelRes>> Delete([FromBody] InventoryWhDeleteModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<InventoryWhDeleteModelRes>();
             if (!ModelState.IsValid)
             {
@@ -79,11 +80,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("list")]
+        [HttpPost("list-inventory")]
         public async Task<ApiResponse<InventoryWhListModelRes>> List([FromBody] InventoryWhListModelReq req)
         {
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-            LoggerFunctionUtility.CommonLogStart(this, stopwatch);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<InventoryWhListModelRes>();
             if (!ModelState.IsValid)
             {

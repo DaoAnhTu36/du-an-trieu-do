@@ -6,7 +6,7 @@ using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/unit")]
+    [Route("api/wh/unit")]
     public class UnitWhController : Controller
     {
         private readonly IUnitWhService _service;
@@ -16,10 +16,10 @@ namespace shop_food_api.Controllers.Warehouses
             _service = service;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create-unit")]
         public async Task<ApiResponse<UnitWhCreateModelRes>> Create([FromBody] UnitWhCreateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<UnitWhCreateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -37,10 +37,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("update")]
+        [HttpPost("update-unit")]
         public async Task<ApiResponse<UnitWhUpdateModelRes>> Update([FromBody] UnitWhUpdateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<UnitWhUpdateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -58,10 +58,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("delete")]
+        [HttpPost("delete-unit")]
         public async Task<ApiResponse<UnitWhDeleteModelRes>> Delete([FromBody] UnitWhDeleteModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<UnitWhDeleteModelRes>();
             if (!ModelState.IsValid)
             {
@@ -79,11 +79,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("list")]
+        [HttpPost("list-unit")]
         public async Task<ApiResponse<UnitWhListModelRes>> List([FromBody] UnitWhListModelReq req)
         {
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-            LoggerFunctionUtility.CommonLogStart(this, stopwatch);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<UnitWhListModelRes>();
             if (!ModelState.IsValid)
             {

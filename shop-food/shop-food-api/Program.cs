@@ -6,6 +6,7 @@ using shop_food_api.Repositories;
 using shop_food_api.Services;
 try
 {
+    var allowCors = "_allowCors";
     var builder = WebApplication.CreateBuilder(args);
     var env = builder.Environment.EnvironmentName;
     IConfiguration configuration = new ConfigurationBuilder()
@@ -21,6 +22,7 @@ try
     builder.Services.AddSwaggerGenCustom();
     builder.Services.AddDbContext<EntityDBContext>();
     builder.Services.AddInfrastructures();
+    builder.Services.AddCors(allowCors);
     builder.Services.AddScopedServices(ServiceAssembly.Assembly);
     builder.Services.AddScopedRepositories(RepositoryAssembly.Assembly);
     builder.Services.AddScopedUnitOfWorkCore<EntityDBContext>(ServiceExtensions.OverWriteConnectString(configuration.GetSection("AppConfig")));
@@ -38,8 +40,9 @@ try
     app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
-    app.UseMiddleware<TokenDecodedMiddleware>();
     //app.Urls.Add("http://localhost:1112");
+    app.UseCors(allowCors);
+    //app.UseMiddleware<TokenDecodedMiddleware>();
     app.Run();
 }
 catch (Exception ex)

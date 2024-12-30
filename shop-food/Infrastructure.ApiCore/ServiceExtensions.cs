@@ -231,6 +231,21 @@ namespace Infrastructure.ApiCore
                             .Build())
                         .CreateLogger();
         }
+
+        public static IServiceCollection AddCors(this IServiceCollection services, string myAllowSpecificOrigins)
+        {
+            return services
+                .AddCors(options => {
+                    options.AddPolicy(name: myAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy
+                          .AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+                });
+        }
     }
 
     public class ExceptionEnricher : ILogEventEnricher

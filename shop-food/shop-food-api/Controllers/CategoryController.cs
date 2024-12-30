@@ -16,7 +16,7 @@ namespace shop_food_api.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpPost("add-new")]
+        [HttpPost("create-category")]
         public async Task<ApiResponse> AddNewCategory([FromBody] ApiCreateCategoryModelReq model)
         {
             LoggerFunctionUtility.CommonLogStart(this);
@@ -40,7 +40,7 @@ namespace shop_food_api.Controllers
             return retVal;
         }
 
-        [HttpPost("list")]
+        [HttpPost("list-category")]
         public async Task<ApiResponse<IEnumerable<ApiListCategoryModelRes>>> GetListCategory([FromBody] ApiListCategoryModelReq model)
         {
             LoggerFunctionUtility.CommonLogStart(this);

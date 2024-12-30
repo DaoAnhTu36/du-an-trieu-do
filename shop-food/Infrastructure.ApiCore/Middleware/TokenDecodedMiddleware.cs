@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using Common.Logger;
+using Common.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -41,6 +42,9 @@ namespace Infrastructure.ApiCore.Middleware
                     {
                         if (token.ValidTo > DateTime.Now)
                         {
+                            //AdminInfo.Id = token.Payload["sub"].ToString();
+                            //AdminInfo.Email = token.Payload["email"].ToString();
+                            //AdminInfo.Name = token.Payload["name"].ToString();
                             await _next(context);
                             return;
                         }

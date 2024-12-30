@@ -6,20 +6,20 @@ using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/warehouse")]
-    public class WarehouseController : Controller
+    [Route("api/wh/warehouse")]
+    public class WarehouseWhController : Controller
     {
         private readonly IWarehouseWhService _service;
 
-        public WarehouseController(IWarehouseWhService service)
+        public WarehouseWhController(IWarehouseWhService service)
         {
             _service = service;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create-warehouse")]
         public async Task<ApiResponse<WarehouseCreateModelRes>> Create([FromBody] WarehouseCreateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<WarehouseCreateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -37,10 +37,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("update")]
+        [HttpPost("update-warehouse")]
         public async Task<ApiResponse<WarehouseUpdateModelRes>> Update([FromBody] WarehouseUpdateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<WarehouseUpdateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -58,10 +58,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("delete")]
+        [HttpPost("delete-warehouse")]
         public async Task<ApiResponse<WarehouseDeleteModelRes>> Delete([FromBody] WarehouseDeleteModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<WarehouseDeleteModelRes>();
             if (!ModelState.IsValid)
             {
@@ -79,10 +79,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("list")]
+        [HttpPost("list-warehouse")]
         public async Task<ApiResponse<WarehouseListModelRes>> List([FromBody] WarehouseListModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<WarehouseListModelRes>();
             if (!ModelState.IsValid)
             {

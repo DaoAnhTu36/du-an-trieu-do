@@ -1,0 +1,8 @@
+<div class="form login">
+    <h2>Login</h2>
+    <label for="email">Email: </label>
+    <input id="email" type="text" [formControl]="email">
+    <label for="password">Password: </label>
+    <input id="password" type="text" [formControl]="password">
+    <button type="button" (click)="signIn()">SignIn</button>
+</div>

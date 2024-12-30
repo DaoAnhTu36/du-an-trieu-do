@@ -6,7 +6,7 @@ using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/transaction")]
+    [Route("api/wh/transaction")]
     public class TransactionWhController : Controller
     {
         private readonly ITransactionWhService _service;
@@ -16,10 +16,10 @@ namespace shop_food_api.Controllers.Warehouses
             _service = service;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create-transaction")]
         public async Task<ApiResponse<TransactionWhCreateModelRes>> Create([FromBody] TransactionWhCreateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<TransactionWhCreateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -37,10 +37,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("update")]
+        [HttpPost("update-transaction")]
         public async Task<ApiResponse<TransactionWhUpdateModelRes>> Update([FromBody] TransactionWhUpdateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<TransactionWhUpdateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -58,10 +58,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("delete")]
+        [HttpPost("delete-transaction")]
         public async Task<ApiResponse<TransactionWhDeleteModelRes>> Delete([FromBody] TransactionWhDeleteModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<TransactionWhDeleteModelRes>();
             if (!ModelState.IsValid)
             {
@@ -79,11 +79,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("list")]
+        [HttpPost("list-transaction")]
         public async Task<ApiResponse<TransactionWhListModelRes>> List([FromBody] TransactionWhListModelReq req)
         {
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-            LoggerFunctionUtility.CommonLogStart(this, stopwatch);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<TransactionWhListModelRes>();
             if (!ModelState.IsValid)
             {
