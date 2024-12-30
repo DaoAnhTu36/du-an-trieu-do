@@ -8,5 +8,9 @@ export const routes: Routes = [
     {
         path: 'warehouse',
         loadChildren: () => import('./warehouse/warehouse.module').then(m => m.WarehouseModule)
-    }
+    },
+    {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    },
 ];

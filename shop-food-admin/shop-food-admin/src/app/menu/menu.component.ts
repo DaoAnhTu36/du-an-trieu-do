@@ -41,4 +41,5 @@ export class MenuComponent {
       displayName: 'warehouse',
     }
   ];
+  customerName = 'DaoAnhTu'
 }
