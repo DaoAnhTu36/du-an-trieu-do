@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AdminSignInDTORequest, AuthServiceService } from '../../services/auth-service.service';
+import { AdminSignInDTORequest, AuthService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent {
   /**
    *
    */
-  constructor(private readonly _authService: AuthServiceService) {
+  constructor(private readonly _authService: AuthService) {
 
   }
   signIn() {

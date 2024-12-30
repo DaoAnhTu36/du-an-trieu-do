@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { MenuComponent } from './menu/menu.component';
-import { WarehouseServiceService } from './services/warehouse-service.service';
-import { API_BASE_URL, AuthServiceService } from './services/auth-service.service';
+import { API_WAREHOUSE_URL, WarehouseService } from './services/warehouse-service.service';
+import { API_AUTH_URL, AuthService } from './services/auth-service.service';
 import { environment } from '../environments/environment';
 
 @Component({
@@ -12,9 +12,11 @@ import { environment } from '../environments/environment';
   imports: [RouterOutlet, WarehouseModule, MenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [WarehouseServiceService
-    , AuthServiceService
-    , { provide: API_BASE_URL, useValue: environment.api }
+  providers: [
+    WarehouseService
+    , AuthService
+    , { provide: API_AUTH_URL, useValue: environment.API_AUTH_URL }
+    , { provide: API_WAREHOUSE_URL, useValue: environment.API_WAREHOUSE_URL }
   ]
 })
 export class AppComponent {

@@ -53,7 +53,6 @@ export class MenuComponent {
   }
   ngDoCheck(): void {
     this.isShowMenu = !this.route.url.includes(this.prefixAuth);
-    console.log(this.route.url, this.isShowMenu);
   }
   ngAfterContentInit(): void {
   }

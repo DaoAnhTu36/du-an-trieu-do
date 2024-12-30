@@ -1,6 +1,7 @@
 export const environment = {
     production: false,
-    api: 'http://localhost:8082',
+    API_AUTH_URL: 'http://localhost:8082',
+    API_WAREHOUSE_URL: 'http://localhost:8081',
     version: '1.0.0',
     name: 'development'
 };

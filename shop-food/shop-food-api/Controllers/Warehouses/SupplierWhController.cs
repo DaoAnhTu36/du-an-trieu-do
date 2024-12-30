@@ -16,7 +16,7 @@ namespace shop_food_api.Controllers.Warehouses
             _service = service;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create-supplier")]
         public async Task<ApiResponse<SupplierWhCreateModelRes>> Create([FromBody] SupplierWhCreateModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this, req);
@@ -37,7 +37,7 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("update")]
+        [HttpPost("update-supplier")]
         public async Task<ApiResponse<SupplierWhUpdateModelRes>> Update([FromBody] SupplierWhUpdateModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this, req);
@@ -58,7 +58,7 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("delete")]
+        [HttpPost("delete-supplier")]
         public async Task<ApiResponse<SupplierWhDeleteModelRes>> Delete([FromBody] SupplierWhDeleteModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this, req);
@@ -79,7 +79,7 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("list")]
+        [HttpPost("list-supplier")]
         public async Task<ApiResponse<SupplierWhListModelRes>> List([FromBody] SupplierWhListModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this, req);

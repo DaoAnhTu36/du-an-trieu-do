@@ -1,5 +1,6 @@
 using Common.Logger;
 using Common.Model.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using shop_food_api.Models.Warehouse;
 using shop_food_api.Services.Warehouse;
@@ -16,7 +17,7 @@ namespace shop_food_api.Controllers.Warehouses
             _service = service;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create-inventory")]
         public async Task<ApiResponse<InventoryWhCreateModelRes>> Create([FromBody] InventoryWhCreateModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this, req);
@@ -37,7 +38,7 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("update")]
+        [HttpPost("update-inventory")]
         public async Task<ApiResponse<InventoryWhUpdateModelRes>> Update([FromBody] InventoryWhUpdateModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this, req);
@@ -58,7 +59,7 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("delete")]
+        [HttpPost("delete-inventory")]
         public async Task<ApiResponse<InventoryWhDeleteModelRes>> Delete([FromBody] InventoryWhDeleteModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this, req);
@@ -79,7 +80,7 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("list")]
+        [HttpPost("list-inventory")]
         public async Task<ApiResponse<InventoryWhListModelRes>> List([FromBody] InventoryWhListModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this, req);

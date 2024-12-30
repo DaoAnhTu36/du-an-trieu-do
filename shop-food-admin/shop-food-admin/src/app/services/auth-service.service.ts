@@ -13,33 +13,15 @@ import { Observable, throwError as _observableThrow, of as _observableOf } from 
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
-
-export interface IAuthServiceService {
-  /**
-   * @param body (optional) 
-   * @return OK
-   */
-  signUp(body?: AdminSignUpDTORequest | undefined): Observable<ApiResponse>;
-  /**
-   * @param body (optional) 
-   * @return OK
-   */
-  signIn(body?: AdminSignInDTORequest | undefined): Observable<AdminSignInDTOResponseApiResponse>;
-  /**
-   * @param body (optional) 
-   * @return OK
-   */
-  getListAdmin(body?: AdminInforRequestDTO | undefined): Observable<AdminInforResponseDTOListApiResponse>;
-}
+export const API_AUTH_URL = new InjectionToken<string>('API_AUTH_URL');
 
 @Injectable()
-export class AuthServiceService implements IAuthServiceService {
+export class AuthService {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-  constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+  constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_AUTH_URL) baseUrl?: string) {
     this.http = http;
     this.baseUrl = baseUrl ?? "";
   }
@@ -48,7 +30,7 @@ export class AuthServiceService implements IAuthServiceService {
    * @param body (optional) 
    * @return OK
    */
-  signUp(body?: AdminSignUpDTORequest | undefined): Observable<ApiResponse> {
+  signUp(body: AdminSignUpDTORequest | undefined): Observable<ApiResponse> {
     let url_ = this.baseUrl + "/auth/admin/sign-up";
     url_ = url_.replace(/[?&]$/, "");
 
@@ -103,7 +85,7 @@ export class AuthServiceService implements IAuthServiceService {
    * @param body (optional) 
    * @return OK
    */
-  signIn(body?: AdminSignInDTORequest | undefined): Observable<AdminSignInDTOResponseApiResponse> {
+  signIn(body: AdminSignInDTORequest | undefined): Observable<AdminSignInDTOResponseApiResponse> {
     let url_ = this.baseUrl + "/auth/admin/sign-in";
     url_ = url_.replace(/[?&]$/, "");
 
@@ -158,7 +140,7 @@ export class AuthServiceService implements IAuthServiceService {
    * @param body (optional) 
    * @return OK
    */
-  getListAdmin(body?: AdminInforRequestDTO | undefined): Observable<AdminInforResponseDTOListApiResponse> {
+  getListAdmin(body: AdminInforRequestDTO | undefined): Observable<AdminInforResponseDTOListApiResponse> {
     let url_ = this.baseUrl + "/auth/admin/get-list-admin";
     url_ = url_.replace(/[?&]$/, "");
 
@@ -886,7 +868,7 @@ export interface TypeInfo {
   readonly implementedInterfaces?: Type[] | undefined;
 }
 
-export class ApiException extends Error {
+export class ApiAuthException extends Error {
   override message: string;
   status: number;
   response: string;
@@ -903,10 +885,10 @@ export class ApiException extends Error {
     this.result = result;
   }
 
-  protected isApiException = true;
+  protected isApiAuthException = true;
 
-  static isApiException(obj: any): obj is ApiException {
-    return obj.isApiException === true;
+  static isApiAuthException(obj: any): obj is ApiAuthException {
+    return obj.isApiAuthException === true;
   }
 }
 
@@ -914,7 +896,7 @@ function throwException(message: string, status: number, response: string, heade
   if (result !== null && result !== undefined)
     return _observableThrow(result);
   else
-    return _observableThrow(new ApiException(message, status, response, headers, null));
+    return _observableThrow(new ApiAuthException(message, status, response, headers, null));
 }
 
 function blobToText(blob: any): Observable<string> {
