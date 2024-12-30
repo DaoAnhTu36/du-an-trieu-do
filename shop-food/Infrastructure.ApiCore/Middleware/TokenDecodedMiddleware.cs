@@ -42,9 +42,9 @@ namespace Infrastructure.ApiCore.Middleware
                     {
                         if (token.ValidTo > DateTime.Now)
                         {
-                            AdminInfo.Id = token.Payload["sub"].ToString();
-                            AdminInfo.Email = token.Payload["email"].ToString();
-                            AdminInfo.Name = token.Payload["name"].ToString();
+                            //AdminInfo.Id = token.Payload["sub"].ToString();
+                            //AdminInfo.Email = token.Payload["email"].ToString();
+                            //AdminInfo.Name = token.Payload["name"].ToString();
                             await _next(context);
                             return;
                         }

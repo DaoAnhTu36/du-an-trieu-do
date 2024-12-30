@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WarehouseComponent } from './warehouse.component';
 
 const routes: Routes = [
-  { path: '', component: WarehouseComponent },
-  { path: 'wh', component: WarehouseComponent },
+  { path: '', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
   { path: 'inventory', loadChildren: () => import('./inventory/inventory.module').then(m => m.InventoryModule) },
   { path: 'product', loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
   { path: 'supplier', loadChildren: () => import('./supplier/supplier.module').then(m => m.SupplierModule) },

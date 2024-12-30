@@ -42,7 +42,7 @@ try
     app.MapControllers();
     //app.Urls.Add("http://localhost:1112");
     app.UseCors(allowCors);
-    app.UseMiddleware<TokenDecodedMiddleware>();
+    //app.UseMiddleware<TokenDecodedMiddleware>();
     app.Run();
 }
 catch (Exception ex)

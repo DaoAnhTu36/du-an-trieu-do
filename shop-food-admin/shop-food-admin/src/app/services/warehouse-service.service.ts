@@ -12,7 +12,6 @@ import { mergeMap as _observableMergeMap, catchError as _observableCatch } from 
 import { Observable, throwError as _observableThrow, of as _observableOf } from 'rxjs';
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
-import { LocalStorageServiceService } from './local-storage-service.service';
 
 export const API_WAREHOUSE_URL = new InjectionToken<string>('API_WAREHOUSE_URL');
 
@@ -168,12 +167,10 @@ export class WarehouseService implements IWarehouseService {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-  private authorize = '';
 
-  constructor(@Inject(HttpClient) http: HttpClient, private _localStorage: LocalStorageServiceService, @Optional() @Inject(API_WAREHOUSE_URL) baseUrl?: string) {
+  constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_WAREHOUSE_URL) baseUrl?: string) {
     this.http = http;
     this.baseUrl = baseUrl ?? "";
-    this.authorize = "Bearer " + JSON.parse(this._localStorage.getData('CustomerInfor') ?? '{}').accessToken;
   }
 
   /**
@@ -192,8 +189,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -248,8 +244,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -307,8 +302,7 @@ export class WarehouseService implements IWarehouseService {
       observe: "response",
       responseType: "blob",
       headers: new HttpHeaders({
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -363,8 +357,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -419,8 +412,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -475,8 +467,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -531,8 +522,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -587,8 +577,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -643,8 +632,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -699,8 +687,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -755,8 +742,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -811,8 +797,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -862,8 +847,7 @@ export class WarehouseService implements IWarehouseService {
       observe: "response",
       responseType: "blob",
       headers: new HttpHeaders({
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -918,8 +902,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -974,8 +957,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1030,8 +1012,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1086,8 +1067,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1142,8 +1122,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1198,8 +1177,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1254,8 +1232,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1310,8 +1287,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1366,8 +1342,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1422,8 +1397,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1478,8 +1452,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1534,8 +1507,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1590,8 +1562,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1646,8 +1617,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1702,8 +1672,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
@@ -1758,8 +1727,7 @@ export class WarehouseService implements IWarehouseService {
       responseType: "blob",
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        "Accept": "text/plain",
-        "authorization": this.authorize
+        "Accept": "text/plain"
       })
     };
 
