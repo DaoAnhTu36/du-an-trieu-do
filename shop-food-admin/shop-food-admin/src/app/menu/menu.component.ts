@@ -1,16 +1,19 @@
-import { NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, NgFor } from '@angular/common';
+import { Component, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, CommonModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
 
+  isShowMenu = false;
   prefix = 'warehouse/';
+  prefixAuth = 'auth';
   data_menu = [
     {
       path: ``,
@@ -42,4 +45,24 @@ export class MenuComponent {
     }
   ];
   customerName = 'DaoAnhTu'
+  constructor(private route: Router) {
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+  ngOnInit(): void {
+  }
+  ngDoCheck(): void {
+    this.isShowMenu = !this.route.url.includes(this.prefixAuth);
+    console.log(this.route.url, this.isShowMenu);
+  }
+  ngAfterContentInit(): void {
+  }
+  ngAfterContentChecked(): void {
+  }
+  ngAfterViewInit(): void {
+  }
+  ngAfterViewChecked(): void {
+  }
+  ngOnDestroy(): void {
+  }
 }

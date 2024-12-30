@@ -1,15 +1,18 @@
-<div class="nav-bar">
-    <div class="profile-customer">
-        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
-        <p>{{customerName}}</p>
-        <div class="authen">
-            <a href="/auth/profile"><i class="fa-solid fa-user"></i></a>
-            <a href=""><i class="fa-solid fa-right-to-bracket"></i></a>
+<div [ngClass]=" isShowMenu ? 'show-element' : 'hide-element' ">
+    <!-- <div [ngClass]="{ 'show-element': isShowMenu }"> -->
+    <div class="nav-bar">
+        <div class="profile-customer">
+            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+            <p>{{customerName}}</p>
+            <div class="authen">
+                <a href="/auth"><i class="fa-solid fa-user"></i></a>
+                <a href=""><i class="fa-solid fa-right-to-bracket"></i></a>
+            </div>
         </div>
-    </div>
-    <div class="menu-bar">
-        <ul>
-            <li *ngFor="let item of data_menu"><a href="{{item.path}}">{{item.displayName}}</a></li>
-        </ul>
+        <div class="menu-bar">
+            <ul>
+                <li *ngFor="let item of data_menu"><a href="{{item.path}}">{{item.displayName}}</a></li>
+            </ul>
+        </div>
     </div>
 </div>

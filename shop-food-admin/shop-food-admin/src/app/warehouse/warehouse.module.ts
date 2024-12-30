@@ -10,7 +10,6 @@ import { WarehouseComponent } from './warehouse.component';
   imports: [
     CommonModule,
     WarehouseRoutingModule,
-    WarehouseComponent,
   ]
 })
 export class WarehouseModule { }
