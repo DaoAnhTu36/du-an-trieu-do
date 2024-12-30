@@ -1,37 +1,43 @@
+import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [],
+  imports: [NgFor],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent {
 
+  prefix = 'warehouse/';
   data_menu = [
     {
-      path: 'inventory',
+      path: ``,
+      displayName: 'home',
+    },
+    {
+      path: `${this.prefix}inventory`,
       displayName: 'inventory',
     },
     {
-      path: 'product',
+      path: `${this.prefix}product`,
       displayName: 'product',
     },
     {
-      path: 'supplier',
+      path: `${this.prefix}supplier`,
       displayName: 'supplier',
     },
     {
-      path: 'transaction',
+      path: `${this.prefix}transaction`,
       displayName: 'transaction',
     },
     {
-      path: 'unit',
+      path: `${this.prefix}unit`,
       displayName: 'unit',
     },
     {
-      path: 'warehouse',
+      path: `${this.prefix}warehouse`,
       displayName: 'warehouse',
     }
   ];
