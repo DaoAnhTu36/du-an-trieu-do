@@ -14,8 +14,14 @@
                 <td>{{ warehouse.name }}</td>
                 <td>{{ warehouse.address }}</td>
                 <td>
-                    <button class="btn btn-info" (click)="editWarehouse(warehouse.id)">Edit</button>
-                    <button class="btn btn-danger" (click)="deleteWarehouse(warehouse.id)">Delete</button>
+                    <div class="row group-button-action">
+                        <div class="col-md-6">
+                            <button class="btn btn-info" (click)="editWarehouse(warehouse.id)">Edit</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-danger" (click)="deleteWarehouse(warehouse.id)">Delete</button>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr>

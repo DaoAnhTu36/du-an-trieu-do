@@ -57,7 +57,6 @@ export class MenuComponent {
   ngDoCheck(): void {
     this.isShowMenu = !this.route.url.includes(this.prefixAuth);
     if (this.isShowMenu) {
-      const data = this._localStorage.getData('CustomerInfor');
       const dataCustomer = JSON.parse(this._localStorage.getData('CustomerInfor') ?? '{}');
       this.customerName = dataCustomer.name;
     }

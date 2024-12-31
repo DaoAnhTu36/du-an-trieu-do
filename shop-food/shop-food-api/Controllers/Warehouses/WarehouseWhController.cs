@@ -99,5 +99,26 @@ namespace shop_food_api.Controllers.Warehouses
             LoggerFunctionUtility.CommonLogEnd(this, retVal);
             return retVal;
         }
+
+        [HttpPost("detail-warehouse")]
+        public async Task<ApiResponse<WarehouseWhDetailModelRes>> Detail([FromBody] WarehouseWhDetailModelReq req)
+        {
+            LoggerFunctionUtility.CommonLogStart(this, req);
+            var retVal = new ApiResponse<WarehouseWhDetailModelRes>();
+            if (!ModelState.IsValid)
+            {
+                retVal.IsNormal = false;
+                retVal.MetaData = new MetaData
+                {
+                    Message = "Model invalid",
+                    StatusCode = "400"
+                };
+                LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                return retVal;
+            }
+            retVal = await _service.Detail(req);
+            LoggerFunctionUtility.CommonLogEnd(this, retVal);
+            return retVal;
+        }
     }
 }

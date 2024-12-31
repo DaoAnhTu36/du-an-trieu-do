@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { WarehouseListModelRes, WarehouseService } from '../../../services/warehouse-service.service';
 import { NgFor } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoadingService } from '../../../commons/loading/loading.service';
 
 @Component({
   selector: 'app-warehouse-index',
@@ -15,22 +16,28 @@ export class WarehouseIndexComponent {
   listWarehouse: WarehouseListModelRes | undefined;
   constructor(
     private readonly _warehouseService: WarehouseService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly _loadingService: LoadingService
   ) {
-    _warehouseService.listWarehouse({
+  }
+
+  ngOnInit() {
+    this._loadingService.show();
+    this._warehouseService.listWarehouse({
       pageNumber: 1,
       pageSize: 10,
     }).subscribe(res => {
-      this.listWarehouse = res.data
+      this.listWarehouse = res.data;
+      this._loadingService.hide();
     });
   }
 
   addWarehouse() {
-    this.router.navigateByUrl("/warehouse/create");
+    this.router.navigate(["/warehouse/create"]);
   }
 
   editWarehouse(id: string | undefined) {
-    console.log(id);
+    this.router.navigate(["/warehouse/update/", id]);
   }
 
   deleteWarehouse(id: string | undefined) {

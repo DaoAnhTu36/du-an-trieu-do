@@ -56,4 +56,13 @@ namespace shop_food_api.Models.Warehouse
         public string? Name { get; set; }
         public string? Address { get; set; }
     }
+
+    public class WarehouseWhDetailModelRes : WarehouseInfoModel
+    {
+    }
+
+    public class WarehouseWhDetailModelReq
+    {
+        public Guid Id { get; set; }
+    }
 }

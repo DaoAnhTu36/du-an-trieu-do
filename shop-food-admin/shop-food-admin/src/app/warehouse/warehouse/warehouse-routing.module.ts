@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: '', component: WarehouseIndexComponent },
   { path: 'index', component: WarehouseIndexComponent },
   { path: 'create', component: WarehouseCreateComponent },
-  { path: 'update', component: WarehouseUpdateComponent },
+  { path: 'update/:id', component: WarehouseUpdateComponent },
+  { path: 'delete', component: WarehouseDeleteComponent },
   { path: 'delete', component: WarehouseDeleteComponent },
 ];
 

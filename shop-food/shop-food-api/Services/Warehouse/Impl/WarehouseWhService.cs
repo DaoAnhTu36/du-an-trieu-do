@@ -74,6 +74,44 @@ namespace shop_food_api.Services.Warehouse.Impl
             return retVal;
         }
 
+        public async Task<ApiResponse<WarehouseWhDetailModelRes>> Detail(WarehouseWhDetailModelReq req)
+        {
+            LoggerFunctionUtility.CommonLogStart(this);
+            var retVal = new ApiResponse<WarehouseWhDetailModelRes>();
+
+            try
+            {
+                var query = await _context.Set<WarehouseWhEntity>().Where(x => x.Id == req.Id).Select(x => new WarehouseWhDetailModelRes
+                {
+                    Id = x.Id,
+                    Address = x.Address,
+                    Name = x.Name,
+                }).FirstOrDefaultAsync();
+                if (query == null)
+                {
+                    retVal.MetaData = new MetaData
+                    {
+                        Message = "NotFound",
+                        StatusCode = "400"
+                    };
+                    LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                    return retVal;
+                }
+                retVal.Data = query;
+            }
+            catch (Exception ex)
+            {
+                retVal.IsNormal = false;
+                retVal.MetaData = new MetaData
+                {
+                    Message = ex.Message,
+                    StatusCode = "500"
+                };
+            }
+            LoggerFunctionUtility.CommonLogEnd(this, retVal);
+            return retVal;
+        }
+
         public async Task<ApiResponse<WarehouseListModelRes>> List(WarehouseListModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);

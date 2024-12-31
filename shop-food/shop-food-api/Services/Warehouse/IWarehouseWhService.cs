@@ -12,5 +12,6 @@ namespace shop_food_api.Services.Warehouse
         Task<ApiResponse<WarehouseDeleteModelRes>> Delete(WarehouseDeleteModelReq req);
 
         Task<ApiResponse<WarehouseListModelRes>> List(WarehouseListModelReq req);
+        Task<ApiResponse<WarehouseWhDetailModelRes>> Detail(WarehouseWhDetailModelReq req);
     }
 }

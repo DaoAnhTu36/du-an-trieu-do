@@ -1,4 +1,6 @@
 .menu-area {
+    display: none;
+
     .customer {
         background-color: rgb(56, 56, 56);
 
@@ -53,9 +55,9 @@
 }
 
 .show-element {
-    display: block;
+    display: block !important;
 }
 
 .hide-element {
-    display: none;
+    display: none !important;
 }
