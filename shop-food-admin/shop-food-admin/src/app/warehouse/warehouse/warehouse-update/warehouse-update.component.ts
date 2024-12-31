@@ -25,13 +25,13 @@ export class WarehouseUpdateComponent {
   address = new FormControl('');
 
   ngOnInit() {
-    this.getDetail();
+    this.getDetailById();
   }
 
-  getDetail() {
+  getDetailById() {
     this._loadingService.show();
     const id = this._activatedRoute.snapshot.params['id'];
-    this._warehouseService.detailWarehouse({ id: id }).subscribe(res => {
+    this._warehouseService.getWarehouseById({ id: id }).subscribe(res => {
       this.name.setValue(res.data?.name ?? "");
       this.address.setValue(res.data?.address ?? "");
       this._loadingService.hide();

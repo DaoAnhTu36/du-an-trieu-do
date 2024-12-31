@@ -1,21 +1,42 @@
 <div class="row menu-area" [ngClass]=" isShowMenu ? 'show-element' : 'hide-element' ">
     <div class="col-md-12 customer">
         <div class="row">
-            <div class="col-md-4 account-avatar">
+            <div class="col-md-6 account-avatar">
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
             </div>
-            <div class="col-md-4 account-name">
+            <div class="col-md-6 account-name">
                 {{customerName}}
+                <div class="row group-action-customer">
+                    <div class="col-md-12 area-actions">
+                        <div class="item-action">
+                            <a href="/auth"><i class="fa-solid fa-user"></i></a>
+                        </div>
+                        <div class="item-action">
+                            <a href="javascript:void(0)"><i class="fa-solid fa-right-to-bracket"></i></a>
+                        </div>
+                        <div class="item-action item-action-notify">
+                            <a href="javascript:void(0)"><i class="fa-solid fa-bell"></i></a>
+                            <div class="count-notify"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 area-actions">
-                <a href="/auth"><i class="fa-solid fa-user"></i></a>
-                <a href=""><i class="fa-solid fa-right-to-bracket"></i></a>
+            <div class="list-notify">
+                <ul>
+                    <li *ngFor="let item of data_notify" class="li-item-noti">
+                        <div class="item-content-noti title-noti">{{item.title}}</div>
+                        <div class="item-content-noti body-noti">{{item.body}}</div>
+                        <div class="item-content-noti time-noti">{{item.time}}</div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
     <div class="col md-12 menu">
         <ul>
-            <li *ngFor="let item of data_menu"><a href="{{item.path}}">{{item.displayName}}</a></li>
+            <li *ngFor="let item of data_menu" (click)="redirectMenu(item.path)"><a
+                    href="javascript:void(0)">{{item.displayName}}</a>
+            </li>
         </ul>
     </div>
 </div>

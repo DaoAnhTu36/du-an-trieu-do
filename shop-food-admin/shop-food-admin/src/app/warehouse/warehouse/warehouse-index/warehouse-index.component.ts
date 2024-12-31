@@ -40,7 +40,11 @@ export class WarehouseIndexComponent {
     this.router.navigate(["/warehouse/update/", id]);
   }
 
+  detailWarehouse(id: string | undefined) {
+    this.router.navigate(["/warehouse/detail/", id]);
+  }
+
   deleteWarehouse(id: string | undefined) {
-    console.log(id);
+    this.router.navigate(["/warehouse/delete/", id]);
   }
 }

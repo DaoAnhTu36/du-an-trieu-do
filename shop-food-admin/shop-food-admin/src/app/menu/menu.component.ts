@@ -45,6 +45,28 @@ export class MenuComponent {
       displayName: 'warehouse',
     }
   ];
+  data_notify = [
+    {
+      title: 'Notification 1',
+      body: 'Content 1',
+      time: '1 hour ago'
+    },
+    {
+      title: 'Notification 2',
+      body: 'Content 2',
+      time: '2 hour ago'
+    },
+    {
+      title: 'Notification 3',
+      body: 'Content 3',
+      time: '3 hour ago'
+    },
+    {
+      title: 'Notification 4',
+      body: 'Content 4',
+      time: '4 hour ago'
+    }
+  ]
   customerName = 'DaoAnhTu'
   constructor(private route: Router,
     private _localStorage: LocalStorageServiceService,
@@ -61,14 +83,7 @@ export class MenuComponent {
       this.customerName = dataCustomer.name;
     }
   }
-  ngAfterContentInit(): void {
-  }
-  ngAfterContentChecked(): void {
-  }
-  ngAfterViewInit(): void {
-  }
-  ngAfterViewChecked(): void {
-  }
-  ngOnDestroy(): void {
+  redirectMenu(path: string) {
+    this.route.navigateByUrl(path);
   }
 }
