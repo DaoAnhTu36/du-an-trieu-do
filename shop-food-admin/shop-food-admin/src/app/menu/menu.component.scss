@@ -1,79 +1,52 @@
-.nav-bar {
-    max-width: 250px;
-    display: flex;
-    flex-direction: column;
+.menu-area {
+    .customer {
+        background-color: rgb(56, 56, 56);
 
-    .menu-bar {
-        ul {
-            list-style-type: none;
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-            padding: 0;
+        .row {
+            align-items: center;
 
-            li:hover {
-                background-color: rgb(44, 44, 44);
-            }
+            .account-avatar {
+                text-align: center;
 
-            li {
-                background-color: rgb(58, 58, 58);
-                padding: 10px;
-                border-radius: 2px;
-                transition: all 0.3s;
-                height: auto;
-
-                :hover {
-                    background-color: rgb(44, 44, 44);
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
                 }
             }
 
-            a {
-                text-decoration: none;
+            .account-name {
                 color: white;
-                text-transform: capitalize;
+            }
+
+            .area-actions {
+                display: flex;
+                flex-direction: row;
+
+                a {
+                    width: 100%;
+                    color: white;
+                }
             }
         }
     }
 
-    .profile-customer {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+    .menu {
 
-        div {
-            width: 100%;
-        }
+        background-color: rgb(44, 44, 44);
 
-        img {
-            width: 100%;
-        }
+        ul {
+            list-style-type: none;
 
-        p {
-            margin-left: 10px;
-            color: white;
-            width: 100%;
-            font-size: 14px;
-        }
+            li {
+                padding-top: 10px;
+                padding-bottom: 10px;
 
-        .authen {
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            a {
-                width: 100%;
-                text-decoration: none;
-                padding-left: 5px;
-                color: white;
-            }
-
-            a:first-child {
-                text-align: right;
-            }
-
-            a:last-child {
-                text-align: center;
+                a {
+                    text-decoration: none;
+                    text-transform: capitalize;
+                    color: white;
+                }
             }
         }
     }

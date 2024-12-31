@@ -1,8 +1,15 @@
-<div class="form login">
-    <h2>Login</h2>
-    <label for="email">Email: </label>
-    <input id="email" type="text" [formControl]="email">
-    <label for="password">Password: </label>
-    <input id="password" type="text" [formControl]="password">
-    <button type="button" (click)="signIn()">SignIn</button>
+<div class="form-signin">
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" name="email" [formControl]="email" id="email" aria-describedby="helpId"
+            placeholder="">
+        <small id="helpId" class="form-text text-muted">Email</small>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" name="password" [formControl]="password" id="password"
+            aria-describedby="helpId" placeholder="">
+        <small id="helpId" class="form-text text-muted">Password</small>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="signIn()">SignIn</button>
 </div>

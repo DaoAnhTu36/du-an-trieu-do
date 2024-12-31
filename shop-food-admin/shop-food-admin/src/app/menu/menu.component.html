@@ -1,22 +1,21 @@
-<div [ngClass]=" isShowMenu ? 'show-element' : 'hide-element' ">
-    <!-- <div [ngClass]="{ 'show-element': isShowMenu }"> -->
-    <div class="nav-bar">
-        <div class="profile-customer">
-            <div class="avatar">
+<div class="row menu-area" [ngClass]=" isShowMenu ? 'show-element' : 'hide-element' ">
+    <div class="col-md-12 customer">
+        <div class="row">
+            <div class="col-md-4 account-avatar">
                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
             </div>
-            <div class="customer-name">
-                <p>{{customerName}}</p>
+            <div class="col-md-4 account-name">
+                {{customerName}}
             </div>
-            <div class="authen">
+            <div class="col-md-4 area-actions">
                 <a href="/auth"><i class="fa-solid fa-user"></i></a>
                 <a href=""><i class="fa-solid fa-right-to-bracket"></i></a>
             </div>
         </div>
-        <div class="menu-bar">
-            <ul>
-                <li *ngFor="let item of data_menu"><a href="{{item.path}}">{{item.displayName}}</a></li>
-            </ul>
-        </div>
+    </div>
+    <div class="col md-12 menu">
+        <ul>
+            <li *ngFor="let item of data_menu"><a href="{{item.path}}">{{item.displayName}}</a></li>
+        </ul>
     </div>
 </div>
