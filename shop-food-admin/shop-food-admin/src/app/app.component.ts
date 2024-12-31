@@ -7,6 +7,8 @@ import { API_AUTH_URL, AuthService } from './services/auth-service.service';
 import { environment } from '../environments/environment';
 import { LoadingComponent } from "./commons/loading/loading.component";
 import { LoadingService } from './commons/loading/loading.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoadingInterceptor } from './commons/loading/loading.interceptor';
 
 @Component({
   selector: 'app-root',
@@ -25,13 +27,19 @@ import { LoadingService } from './commons/loading/loading.service';
     , { provide: API_AUTH_URL, useValue: environment.API_AUTH_URL }
     , { provide: API_WAREHOUSE_URL, useValue: environment.API_WAREHOUSE_URL }
     , LoadingService
+    ,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    }
   ]
 })
 export class AppComponent {
   loading$: any;
   constructor(private loadingService: LoadingService) {
 
+    this.loading$ = this.loadingService.loading$;
   }
-  this.loading$ = this.loadingService.loading$;
-title = 'shop-food-admin';
+  title = 'shop-food-admin';
 }

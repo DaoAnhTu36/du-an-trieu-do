@@ -1,4 +1,4 @@
-<div class="loading-area">
+<div class="loading-area" *ngIf="loadingService.loading$ | async">
     <div class="loading">
         <div class="loading-icon">
             <i class="fa fa-spinner fa-spin fa-4x"></i>

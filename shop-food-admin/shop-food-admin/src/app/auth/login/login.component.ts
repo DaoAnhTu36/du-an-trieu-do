@@ -5,6 +5,7 @@ import { CommonServiceService } from '../../services/common-service.service';
 import { Router } from '@angular/router';
 import { LocalStorageServiceService } from '../../services/local-storage-service.service';
 import { json } from 'stream/consumers';
+import { LoadingService } from '../../commons/loading/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -26,10 +27,12 @@ export class LoginComponent {
     private readonly _commonService: CommonServiceService,
     private readonly _router: Router,
     private readonly _localStorage: LocalStorageServiceService,
+    private readonly _loadingService: LoadingService,
   ) {
 
   }
   signIn() {
+    this._loadingService.show();
     let email = this.email.value ?? '';
     let password = this.password.value ?? '';
     const request: AdminSignInDTORequest = {
@@ -37,6 +40,7 @@ export class LoginComponent {
       password: password
     }
     this._authService.signIn(request).subscribe((response) => {
+      this._loadingService.hide();
       this._localStorage.saveData('CustomerInfor', JSON.stringify({
         accessToken: response.data?.accessToken,
         email: response.data?.email,
