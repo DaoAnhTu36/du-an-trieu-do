@@ -2,18 +2,37 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Warehouse Name</th>
                 <th>Warehouse Address</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let warehouse of listWarehouse?.listWarehouse">
+            <tr *ngFor="let warehouse of listWarehouse?.listWarehouse,  let i = index">
+                <td>{{ i+1 }}</td>
                 <td>{{ warehouse.name }}</td>
                 <td>{{ warehouse.address }}</td>
                 <td>
-                    <button class="btn btn-info" (click)="editWarehouse(warehouse.id)">Edit</button>
-                    <button class="btn btn-danger" (click)="deleteWarehouse(warehouse.id)">Delete</button>
+                    <div class="row group-button-action">
+                        <div class="col-md-4">
+                            <button class="btn" (click)="editWarehouse(warehouse.id)"><i
+                                    class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn" (click)="detailWarehouse(warehouse.id)"><i
+                                    class="fa-solid fa-circle-info"></i></button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn" (click)="deleteWarehouse(warehouse.id)"><i
+                                    class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <button class="btn" (click)="addWarehouse()"><i class="fa-solid fa-plus"></i></button>
                 </td>
             </tr>
         </tbody>

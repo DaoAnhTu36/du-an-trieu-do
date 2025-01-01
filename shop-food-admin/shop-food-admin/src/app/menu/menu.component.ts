@@ -3,6 +3,8 @@ import { Component, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonServiceService } from '../services/common-service.service';
 import { LocalStorageServiceService } from '../services/local-storage-service.service';
+import { NotificationModels, WarehouseService } from '../services/warehouse-service.service';
+import { PageingReq } from '../commons/const/ConstStatusCode';
 
 @Component({
   selector: 'app-menu',
@@ -45,31 +47,47 @@ export class MenuComponent {
       displayName: 'warehouse',
     }
   ];
-  customerName = 'DaoAnhTu'
+  data_notify: { title: string | undefined; body: string | undefined; time: Date }[] = [];
+  customerName = 'DaoAnhTu';
+  isShowNotificationArea = false;
   constructor(private route: Router,
     private _localStorage: LocalStorageServiceService,
+    private readonly _warehouseService: WarehouseService
   ) {
   }
-  ngOnChanges(changes: SimpleChanges): void {
-  }
+
   ngOnInit(): void {
+    this.getListNotification();
   }
+
   ngDoCheck(): void {
     this.isShowMenu = !this.route.url.includes(this.prefixAuth);
     if (this.isShowMenu) {
-      const data = this._localStorage.getData('CustomerInfor');
       const dataCustomer = JSON.parse(this._localStorage.getData('CustomerInfor') ?? '{}');
       this.customerName = dataCustomer.name;
     }
   }
-  ngAfterContentInit(): void {
+
+  redirectMenu(path: string) {
+    this.route.navigateByUrl(path);
   }
-  ngAfterContentChecked(): void {
+
+  toggleNotify() {
+    this.isShowNotificationArea = !this.isShowNotificationArea;
   }
-  ngAfterViewInit(): void {
-  }
-  ngAfterViewChecked(): void {
-  }
-  ngOnDestroy(): void {
+
+  getListNotification() {
+    this._warehouseService.notificationByUserId({
+      pageNumber: PageingReq.PAGE_NUMBER,
+      pageSize: PageingReq.PAGE_SIZE,
+    }).subscribe(res => {
+      this.data_notify = res.data?.list?.map(item => {
+        return {
+          title: item.title,
+          body: item.body,
+          time: item.createdDate
+        }
+      }) ?? [];
+    })
   }
 }

@@ -4,13 +4,15 @@ import { WarehouseCreateComponent } from './warehouse-create/warehouse-create.co
 import { WarehouseDeleteComponent } from './warehouse-delete/warehouse-delete.component';
 import { WarehouseIndexComponent } from './warehouse-index/warehouse-index.component';
 import { WarehouseUpdateComponent } from './warehouse-update/warehouse-update.component';
+import { WarehouseDetailComponent } from './warehouse-detail/warehouse-detail.component';
 
 const routes: Routes = [
   { path: '', component: WarehouseIndexComponent },
   { path: 'index', component: WarehouseIndexComponent },
   { path: 'create', component: WarehouseCreateComponent },
-  { path: 'update', component: WarehouseUpdateComponent },
-  { path: 'delete', component: WarehouseDeleteComponent },
+  { path: 'update/:id', component: WarehouseUpdateComponent },
+  { path: 'delete/:id', component: WarehouseDeleteComponent },
+  { path: 'detail/:id', component: WarehouseDetailComponent },
 ];
 
 @NgModule({
