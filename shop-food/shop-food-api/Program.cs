@@ -4,6 +4,7 @@ using Infrastructure.ApiCore.Middleware;
 using shop_food_api.DatabaseContext;
 using shop_food_api.Repositories;
 using shop_food_api.Services;
+using shop_food_api.SignalR;
 try
 {
     var allowCors = "_allowCors";
@@ -28,6 +29,7 @@ try
     builder.Services.AddScopedUnitOfWorkCore<EntityDBContext>(ServiceExtensions.OverWriteConnectString(configuration.GetSection("AppConfig")));
     builder.Services.Configure<AppConfig>(configuration.GetSection("AppConfig"));
     builder.Services.AddLog();
+    builder.Services.AddSignalR();
 
     var app = builder.Build();
 
@@ -40,8 +42,15 @@ try
     app.UseHttpsRedirection();
     app.UseAuthorization();
     app.MapControllers();
-    //app.Urls.Add("http://localhost:1112");
+    app.Urls.Add("http://localhost:1112");
     app.UseCors(allowCors);
+    app.UseDefaultFiles();
+
+
+    app.UseStaticFiles();
+
+    app.MapHub<HubCommon>("/realtime-api");
+
     //app.UseMiddleware<TokenDecodedMiddleware>();
     app.Run();
 }

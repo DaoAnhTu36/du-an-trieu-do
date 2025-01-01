@@ -9,6 +9,8 @@ import { LoadingComponent } from "./commons/loading/loading.component";
 import { LoadingService } from './commons/loading/loading.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './commons/loading/loading.interceptor';
+import { NotificationComponent } from './modules/cms/notification/notification.component';
+import { SignalRService } from './services/signal-r.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,7 @@ import { LoadingInterceptor } from './commons/loading/loading.interceptor';
     WarehouseModule,
     MenuComponent,
     LoadingComponent,
+    NotificationComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -27,6 +30,7 @@ import { LoadingInterceptor } from './commons/loading/loading.interceptor';
     , { provide: API_AUTH_URL, useValue: environment.API_AUTH_URL }
     , { provide: API_WAREHOUSE_URL, useValue: environment.API_WAREHOUSE_URL }
     , LoadingService
+    , SignalRService
     ,
     {
       provide: HTTP_INTERCEPTORS,

@@ -73,21 +73,24 @@ export class MenuComponent {
   }
 
   toggleNotify() {
-    this.isShowNotificationArea = !this.isShowNotificationArea;
+    if (!this.isShowNotificationArea) {
+      this._warehouseService.notificationByUserId({
+        pageNumber: PageingReq.PAGE_NUMBER,
+        pageSize: PageingReq.PAGE_SIZE,
+      }).subscribe(res => {
+        this.data_notify = res.data?.list?.map(item => {
+          return {
+            title: item.title,
+            body: item.body,
+            time: item.createdDate
+          }
+        }) ?? [];
+        this.isShowNotificationArea = !this.isShowNotificationArea;
+      })
+    } else {
+      this.isShowNotificationArea = !this.isShowNotificationArea;
+    }
   }
 
-  getListNotification() {
-    this._warehouseService.notificationByUserId({
-      pageNumber: PageingReq.PAGE_NUMBER,
-      pageSize: PageingReq.PAGE_SIZE,
-    }).subscribe(res => {
-      this.data_notify = res.data?.list?.map(item => {
-        return {
-          title: item.title,
-          body: item.body,
-          time: item.createdDate
-        }
-      }) ?? [];
-    })
-  }
+  getListNotification() { }
 }
