@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { PageingReq } from '../../../../../commons/const/ConstStatusCode';
 import { LoadingService } from '../../../../../commons/loading/loading.service';
 import { WarehouseListModelRes, WarehouseService } from '../../../../../services/warehouse-service.service';
+// import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-warehouse-index',
@@ -18,12 +20,14 @@ export class WarehouseIndexComponent {
   constructor(
     private readonly _warehouseService: WarehouseService,
     private readonly router: Router,
-    private readonly _loadingService: LoadingService
+    private readonly _loadingService: LoadingService,
+    // private readonly _toastService: ToastrService
   ) {
   }
 
   ngOnInit() {
     this.getListWarehouse();
+    // this._toastService.success('body', 'title');
   }
 
   getListWarehouse() {

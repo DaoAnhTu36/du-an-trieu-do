@@ -20,5 +20,10 @@ namespace Common.Utility
             var extension = Path.GetExtension(fileName);
             return createName + extension;
         }
+
+        public static string ConvertDatetimeToString(DateTime date)
+        {
+            return date.ToString("dd/MM/yyyy hh:mm:ss");
+        }
     }
 }

@@ -49,7 +49,9 @@ try
 
     app.UseStaticFiles();
 
-    app.MapHub<HubCommon>("/realtime-api");
+    app
+        .MapHub<NotificationHub>("/realtime-api")
+        .RequireCors(allowCors);
 
     //app.UseMiddleware<TokenDecodedMiddleware>();
     app.Run();

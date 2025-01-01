@@ -37,5 +37,26 @@ namespace shop_food_api.Controllers
             LoggerFunctionUtility.CommonLogEnd(this, retVal);
             return retVal;
         }
+
+        [HttpPost("create-notification")]
+        public async Task<ApiResponse<CreateNotificationModelRes>> CreateNotification([FromBody] CreateNotificationModelReq req)
+        {
+            LoggerFunctionUtility.CommonLogStart(this, req);
+            var retVal = new ApiResponse<CreateNotificationModelRes>();
+            if (!ModelState.IsValid)
+            {
+                retVal.IsNormal = false;
+                retVal.MetaData = new MetaData
+                {
+                    Message = "Model invalid",
+                    StatusCode = "400"
+                };
+                LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                return retVal;
+            }
+            retVal = await _service.CreateNotification(req);
+            LoggerFunctionUtility.CommonLogEnd(this, retVal);
+            return retVal;
+        }
     }
 }

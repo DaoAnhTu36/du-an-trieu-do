@@ -11,8 +11,20 @@ namespace shop_food_api.Models
     {
     }
 
-    public class GetNotificationByUserIdModelRes 
+    public class GetNotificationByUserIdModelRes
     {
         public IEnumerable<NotificationModels> List { get; set; }
+    }
+
+    public class CreateNotificationModelReq
+    {
+        public string? Title { get; set; }
+        public string? Body { get; set; }
+        public Guid? UserId { get; set; }
+        public bool? IsForAnyone { get; set; }
+    }
+
+    public class CreateNotificationModelRes
+    {
     }
 }

@@ -239,14 +239,10 @@ namespace Infrastructure.ApiCore
                     options.AddPolicy(name: myAllowSpecificOrigins,
                       policy =>
                       {
-                          policy
-                          .WithOrigins("http://192.168.131.182")
-                          .WithOrigins("http://192.168.131.182:80")
-                          .WithOrigins("http://localhost:80")
-                          .WithOrigins("http://localhost")
-                          .AllowAnyOrigin()
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+                          policy.WithOrigins("http://localhost:4200") // Replace with your Angular app's URL
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials(); // Allow cookies and credentials
                       });
                 });
         }

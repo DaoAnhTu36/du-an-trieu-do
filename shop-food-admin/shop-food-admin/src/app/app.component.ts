@@ -8,9 +8,10 @@ import { LoadingComponent } from "./commons/loading/loading.component";
 import { LoadingService } from './commons/loading/loading.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './commons/loading/loading.interceptor';
-import { NotificationComponent } from './modules/cms/notification/notification.component';
 import { SignalRService } from './services/signal-r.service';
 import { WarehouseModule } from './modules/cms/warehouse/warehouse.module';
+import { SharingService } from './services/sharing.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,6 @@ import { WarehouseModule } from './modules/cms/warehouse/warehouse.module';
     WarehouseModule,
     MenuComponent,
     LoadingComponent,
-    NotificationComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -41,9 +41,17 @@ import { WarehouseModule } from './modules/cms/warehouse/warehouse.module';
 })
 export class AppComponent {
   loading$: any;
-  constructor(private loadingService: LoadingService) {
+  constructor(private loadingService: LoadingService,
+    private readonly _signalRService: SignalRService,
+    private readonly _sharingService: SharingService,
+    private readonly _toastrService: ToastrService
+  ) {
 
     this.loading$ = this.loadingService.loading$;
+    this._sharingService.data$.subscribe(data => {
+      const dataJson = JSON.parse(data);
+      _toastrService.info(dataJson["Body"], dataJson["Title"]);
+    });
   }
   title = 'shop-food-admin';
 }

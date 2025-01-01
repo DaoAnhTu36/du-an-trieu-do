@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { environment } from '../../environments/environment.development';
+import { SharingService } from './sharing.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
-  hubConnection: signalR.HubConnection = new signalR.HubConnectionBuilder().withUrl('http://localhost:1112/realtime-api').build();
-  messages: { user: string; message: string }[] = [];
+  hubConnection: signalR.HubConnection = new signalR.HubConnectionBuilder().withUrl(`${environment.API_WAREHOUSE_URL}/realtime-api`).build();
+  messages: { message: string }[] = [];
 
-  constructor() {
+  constructor(private readonly _sharedService: SharingService) {
     this.startConnection();
     this.addReceiveMessageListener();
   }
 
   private startConnection(): void {
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl(`${environment.API_WAREHOUSE_URL}/realtime-api`)
+      .build();
     this.hubConnection
       .start()
       .then(() => console.log('SignalR Connected'))
@@ -21,14 +26,19 @@ export class SignalRService {
   }
 
   private addReceiveMessageListener(): void {
-    this.hubConnection.on('ReceiveMessage', (user: string, message: string) => {
-      this.messages.push({ user, message });
+    this.hubConnection.on('SendMessageFromServerToClient', (message: string) => {
+      if (this.messages.length > 2) {
+        this.messages = [];
+      }
+      this.messages.push({ message });
+      console.log('SignalR Received tutv19: ', JSON.stringify(this.messages));
+      this._sharedService.sendData(message);
     });
   }
 
-  public sendMessage(user: string, message: string): void {
+  public sendMessage(message: string): void {
     this.hubConnection
-      .invoke('SendMessage', user, message)
+      .invoke('SendMessageToClient', message)
       .catch((err) => console.error('SignalR Send Error: ', err));
   }
 }
