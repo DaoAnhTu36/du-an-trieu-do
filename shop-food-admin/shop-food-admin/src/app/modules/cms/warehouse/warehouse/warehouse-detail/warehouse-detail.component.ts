@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingService } from '../../../commons/loading/loading.service';
-import { WarehouseService } from '../../../services/warehouse-service.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { StatusCodeApiResponse } from '../../../commons/const/ConstStatusCode';
+import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
+import { LoadingService } from '../../../../../commons/loading/loading.service';
+import { WarehouseService } from '../../../../../services/warehouse-service.service';
 
 @Component({
   selector: 'app-warehouse-detail',

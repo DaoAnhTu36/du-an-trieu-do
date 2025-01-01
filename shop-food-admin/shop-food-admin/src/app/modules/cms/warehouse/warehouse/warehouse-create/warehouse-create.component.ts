@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { WarehouseService } from '../../../services/warehouse-service.service';
 import { Router } from '@angular/router';
-import { PageingReq } from '../../../commons/const/ConstStatusCode';
+import { WarehouseService } from '../../../../../services/warehouse-service.service';
 
 @Component({
   selector: 'app-warehouse-create',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { LoadingService } from '../../../commons/loading/loading.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { WarehouseService } from '../../../services/warehouse-service.service';
-import { StatusCodeApiResponse } from '../../../commons/const/ConstStatusCode';
+import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
+import { LoadingService } from '../../../../../commons/loading/loading.service';
+import { WarehouseService } from '../../../../../services/warehouse-service.service';
 
 @Component({
   selector: 'app-warehouse-delete',

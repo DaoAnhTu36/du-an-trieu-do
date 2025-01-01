@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { WarehouseListModelRes, WarehouseService } from '../../../services/warehouse-service.service';
 import { NgFor } from '@angular/common';
 import { Router } from '@angular/router';
-import { LoadingService } from '../../../commons/loading/loading.service';
-import { PageingReq } from '../../../commons/const/ConstStatusCode';
+import { PageingReq } from '../../../../../commons/const/ConstStatusCode';
+import { LoadingService } from '../../../../../commons/loading/loading.service';
+import { WarehouseListModelRes, WarehouseService } from '../../../../../services/warehouse-service.service';
 
 @Component({
   selector: 'app-warehouse-index',

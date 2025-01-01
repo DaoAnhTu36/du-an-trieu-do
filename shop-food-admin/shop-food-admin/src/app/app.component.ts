@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WarehouseModule } from './warehouse/warehouse.module';
 import { MenuComponent } from './menu/menu.component';
 import { API_WAREHOUSE_URL, WarehouseService } from './services/warehouse-service.service';
 import { API_AUTH_URL, AuthService } from './services/auth-service.service';
@@ -11,6 +10,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './commons/loading/loading.interceptor';
 import { NotificationComponent } from './modules/cms/notification/notification.component';
 import { SignalRService } from './services/signal-r.service';
+import { WarehouseModule } from './modules/cms/warehouse/warehouse.module';
 
 @Component({
   selector: 'app-root',
