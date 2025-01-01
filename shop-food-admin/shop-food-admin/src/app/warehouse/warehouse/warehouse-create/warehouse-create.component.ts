@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { WarehouseService } from '../../../services/warehouse-service.service';
 import { Router } from '@angular/router';
+import { PageingReq } from '../../../commons/const/ConstStatusCode';
 
 @Component({
   selector: 'app-warehouse-create',
@@ -23,7 +24,7 @@ export class WarehouseCreateComponent {
     this._warehouseService.createWarehouse({
       name: name,
       address: address
-    }).subscribe((response) => {
+    }).subscribe((res) => {
       this._router.navigate(['/warehouse/warehouse']);
     });
   }

@@ -10,3 +10,8 @@ export enum StatusCodeApiResponse {
     INTERNAL_SERVER_ERROR = "500",
     SERVICE_UNAVAILABLE = "503"
 }
+
+export enum PageingReq {
+    PAGE_NUMBER = 1,
+    PAGE_SIZE = 10
+}

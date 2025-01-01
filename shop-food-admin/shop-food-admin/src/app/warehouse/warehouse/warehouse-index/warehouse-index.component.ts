@@ -3,6 +3,7 @@ import { WarehouseListModelRes, WarehouseService } from '../../../services/wareh
 import { NgFor } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoadingService } from '../../../commons/loading/loading.service';
+import { PageingReq } from '../../../commons/const/ConstStatusCode';
 
 @Component({
   selector: 'app-warehouse-index',
@@ -22,10 +23,14 @@ export class WarehouseIndexComponent {
   }
 
   ngOnInit() {
+    this.getListWarehouse();
+  }
+
+  getListWarehouse() {
     this._loadingService.show();
     this._warehouseService.listWarehouse({
-      pageNumber: 1,
-      pageSize: 10,
+      pageNumber: PageingReq.PAGE_NUMBER,
+      pageSize: PageingReq.PAGE_SIZE,
     }).subscribe(res => {
       this.listWarehouse = res.data;
       this._loadingService.hide();

@@ -3,6 +3,8 @@ import { Component, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonServiceService } from '../services/common-service.service';
 import { LocalStorageServiceService } from '../services/local-storage-service.service';
+import { NotificationModels, WarehouseService } from '../services/warehouse-service.service';
+import { PageingReq } from '../commons/const/ConstStatusCode';
 
 @Component({
   selector: 'app-menu',
@@ -45,37 +47,19 @@ export class MenuComponent {
       displayName: 'warehouse',
     }
   ];
-  data_notify = [
-    {
-      title: 'Notification 1',
-      body: 'Content 1',
-      time: '1 hour ago'
-    },
-    {
-      title: 'Notification 2',
-      body: 'Content 2',
-      time: '2 hour ago'
-    },
-    {
-      title: 'Notification 3',
-      body: 'Content 3',
-      time: '3 hour ago'
-    },
-    {
-      title: 'Notification 4',
-      body: 'Content 4',
-      time: '4 hour ago'
-    }
-  ]
-  customerName = 'DaoAnhTu'
+  data_notify: { title: string | undefined; body: string | undefined; time: Date }[] = [];
+  customerName = 'DaoAnhTu';
+  isShowNotificationArea = false;
   constructor(private route: Router,
     private _localStorage: LocalStorageServiceService,
+    private readonly _warehouseService: WarehouseService
   ) {
   }
-  ngOnChanges(changes: SimpleChanges): void {
-  }
+
   ngOnInit(): void {
+    this.getListNotification();
   }
+
   ngDoCheck(): void {
     this.isShowMenu = !this.route.url.includes(this.prefixAuth);
     if (this.isShowMenu) {
@@ -83,7 +67,27 @@ export class MenuComponent {
       this.customerName = dataCustomer.name;
     }
   }
+
   redirectMenu(path: string) {
     this.route.navigateByUrl(path);
+  }
+
+  toggleNotify() {
+    this.isShowNotificationArea = !this.isShowNotificationArea;
+  }
+
+  getListNotification() {
+    this._warehouseService.notificationByUserId({
+      pageNumber: PageingReq.PAGE_NUMBER,
+      pageSize: PageingReq.PAGE_SIZE,
+    }).subscribe(res => {
+      this.data_notify = res.data?.list?.map(item => {
+        return {
+          title: item.title,
+          body: item.body,
+          time: item.createdDate
+        }
+      }) ?? [];
+    })
   }
 }

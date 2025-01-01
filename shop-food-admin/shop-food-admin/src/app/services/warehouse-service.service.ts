@@ -60,6 +60,11 @@ export interface IWarehouseService {
    * @param body (optional) 
    * @return OK
    */
+  notificationByUserId(body: GetNotificationByUserIdModelReq | undefined): Observable<GetNotificationByUserIdModelResApiResponse>;
+  /**
+   * @param body (optional) 
+   * @return OK
+   */
   createProduct(body: ProductWhCreateModelReq | undefined): Observable<ProductWhCreateModelResApiResponse>;
   /**
    * @param body (optional) 
@@ -624,6 +629,61 @@ export class WarehouseService implements IWarehouseService {
       }));
     }
     return _observableOf<InventoryWhListModelResApiResponse>(null as any);
+  }
+
+  /**
+   * @param body (optional) 
+   * @return OK
+   */
+  notificationByUserId(body: GetNotificationByUserIdModelReq | undefined): Observable<GetNotificationByUserIdModelResApiResponse> {
+    let url_ = this.baseUrl + "/api/notification/notification-by-user-id";
+    url_ = url_.replace(/[?&]$/, "");
+
+    const content_ = JSON.stringify(body);
+
+    let options_: any = {
+      body: content_,
+      observe: "response",
+      responseType: "blob",
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Accept": "text/plain"
+      })
+    };
+
+    return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
+      return this.processNotificationByUserId(response_);
+    })).pipe(_observableCatch((response_: any) => {
+      if (response_ instanceof HttpResponseBase) {
+        try {
+          return this.processNotificationByUserId(response_ as any);
+        } catch (e) {
+          return _observableThrow(e) as any as Observable<GetNotificationByUserIdModelResApiResponse>;
+        }
+      } else
+        return _observableThrow(response_) as any as Observable<GetNotificationByUserIdModelResApiResponse>;
+    }));
+  }
+
+  protected processNotificationByUserId(response: HttpResponseBase): Observable<GetNotificationByUserIdModelResApiResponse> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse ? response.body :
+        (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+        let result200: any = null;
+        result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as GetNotificationByUserIdModelResApiResponse;
+        return _observableOf(result200);
+      }));
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+        return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+      }));
+    }
+    return _observableOf<GetNotificationByUserIdModelResApiResponse>(null as any);
   }
 
   /**
@@ -1909,6 +1969,7 @@ export interface ApiListCategoryModelRes {
 export interface ApiListCategoryModelResIEnumerableApiResponse {
   data?: ApiListCategoryModelRes[] | undefined;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2102,12 +2163,29 @@ export enum GenericParameterAttributes {
   _28 = 28,
 }
 
+export interface GetNotificationByUserIdModelReq {
+  pageNumber?: number;
+  pageSize?: number;
+}
+
+export interface GetNotificationByUserIdModelRes {
+  list?: NotificationModels[] | undefined;
+}
+
+export interface GetNotificationByUserIdModelResApiResponse {
+  data?: GetNotificationByUserIdModelRes;
+  isNormal?: boolean;
+  isCallNoti?: boolean;
+  metaData?: MetaData;
+}
+
 export interface ICustomAttributeProvider {
 }
 
 export interface Int32ApiResponse {
   data?: number;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2123,6 +2201,7 @@ export interface InventoryWhCreateModelRes {
 export interface InventoryWhCreateModelResApiResponse {
   data?: InventoryWhCreateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2135,6 +2214,7 @@ export interface InventoryWhDeleteModelRes {
 export interface InventoryWhDeleteModelResApiResponse {
   data?: InventoryWhDeleteModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2147,6 +2227,7 @@ export interface InventoryWhListModelRes {
 export interface InventoryWhListModelResApiResponse {
   data?: InventoryWhListModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2159,6 +2240,7 @@ export interface InventoryWhUpdateModelRes {
 export interface InventoryWhUpdateModelResApiResponse {
   data?: InventoryWhUpdateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2175,6 +2257,7 @@ export interface ItemFileManagerResponseDTO {
 export interface ItemFileManagerResponseDTOIEnumerableApiResponse {
   data?: ItemFileManagerResponseDTO[] | undefined;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2344,6 +2427,17 @@ export interface ModuleHandle {
   readonly mdStreamVersion?: number;
 }
 
+export interface NotificationModels {
+  id?: string;
+  createdDate: Date;
+  updatedDate: Date;
+  createdBy: string;
+  updatedBy: string;
+  title?: string | undefined;
+  body?: string | undefined;
+  userId?: string;
+}
+
 export enum ParameterAttributes {
   _0 = 0,
   _1 = 1,
@@ -2387,6 +2481,7 @@ export interface ProductWhCreateModelRes {
 export interface ProductWhCreateModelResApiResponse {
   data?: ProductWhCreateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2400,6 +2495,7 @@ export interface ProductWhDeleteModelRes {
 export interface ProductWhDeleteModelResApiResponse {
   data?: ProductWhDeleteModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2415,6 +2511,7 @@ export interface ProductWhListModelRes {
 export interface ProductWhListModelResApiResponse {
   data?: ProductWhListModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2440,6 +2537,7 @@ export interface ProductWhUpdateModelRes {
 export interface ProductWhUpdateModelResApiResponse {
   data?: ProductWhUpdateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2523,6 +2621,7 @@ export interface SupplierWhCreateModelRes {
 export interface SupplierWhCreateModelResApiResponse {
   data?: SupplierWhCreateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2536,6 +2635,7 @@ export interface SupplierWhDeleteModelRes {
 export interface SupplierWhDeleteModelResApiResponse {
   data?: SupplierWhDeleteModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2551,6 +2651,7 @@ export interface SupplierWhListModelRes {
 export interface SupplierWhListModelResApiResponse {
   data?: SupplierWhListModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2569,6 +2670,7 @@ export interface SupplierWhUpdateModelRes {
 export interface SupplierWhUpdateModelResApiResponse {
   data?: SupplierWhUpdateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2581,6 +2683,7 @@ export interface TransactionWhCreateModelRes {
 export interface TransactionWhCreateModelResApiResponse {
   data?: TransactionWhCreateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2593,6 +2696,7 @@ export interface TransactionWhDeleteModelRes {
 export interface TransactionWhDeleteModelResApiResponse {
   data?: TransactionWhDeleteModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2605,6 +2709,7 @@ export interface TransactionWhListModelRes {
 export interface TransactionWhListModelResApiResponse {
   data?: TransactionWhListModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2617,6 +2722,7 @@ export interface TransactionWhUpdateModelRes {
 export interface TransactionWhUpdateModelResApiResponse {
   data?: TransactionWhUpdateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2820,6 +2926,7 @@ export interface UnitWhCreateModelRes {
 export interface UnitWhCreateModelResApiResponse {
   data?: UnitWhCreateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2833,6 +2940,7 @@ export interface UnitWhDeleteModelRes {
 export interface UnitWhDeleteModelResApiResponse {
   data?: UnitWhDeleteModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2848,6 +2956,7 @@ export interface UnitWhListModelRes {
 export interface UnitWhListModelResApiResponse {
   data?: UnitWhListModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2871,6 +2980,7 @@ export interface UnitWhUpdateModelRes {
 export interface UnitWhUpdateModelResApiResponse {
   data?: UnitWhUpdateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2881,6 +2991,7 @@ export interface UploadFileResponseDTO {
 export interface UploadFileResponseDTOApiResponse {
   data?: UploadFileResponseDTO;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2895,6 +3006,7 @@ export interface WarehouseCreateModelRes {
 export interface WarehouseCreateModelResApiResponse {
   data?: WarehouseCreateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2908,6 +3020,7 @@ export interface WarehouseDeleteModelRes {
 export interface WarehouseDeleteModelResApiResponse {
   data?: WarehouseDeleteModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2929,6 +3042,7 @@ export interface WarehouseListModelRes {
 export interface WarehouseListModelResApiResponse {
   data?: WarehouseListModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2944,6 +3058,7 @@ export interface WarehouseUpdateModelRes {
 export interface WarehouseUpdateModelResApiResponse {
   data?: WarehouseUpdateModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2960,6 +3075,7 @@ export interface WarehouseWhDetailByIdModelRes {
 export interface WarehouseWhDetailByIdModelResApiResponse {
   data?: WarehouseWhDetailByIdModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -2980,6 +3096,7 @@ export interface WarehouseWhDetailModelRes {
 export interface WarehouseWhDetailModelResApiResponse {
   data?: WarehouseWhDetailModelRes;
   isNormal?: boolean;
+  isCallNoti?: boolean;
   metaData?: MetaData;
 }
 
@@ -3025,7 +3142,6 @@ function blobToText(blob: any): Observable<string> {
       observer.next("");
       observer.complete();
     } else {
-
       let reader = new FileReader();
       reader.onload = event => {
         observer.next((event.target as any).result);

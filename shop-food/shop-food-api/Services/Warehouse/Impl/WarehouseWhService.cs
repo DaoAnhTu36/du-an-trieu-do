@@ -5,6 +5,7 @@ using Common.Utility;
 using Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using shop_food_api.DatabaseContext.Entities;
 using shop_food_api.DatabaseContext.Entities.Warehouse;
 using shop_food_api.Models.Warehouse;
 
@@ -35,7 +36,14 @@ namespace shop_food_api.Services.Warehouse.Impl
                     Address = req.Address,
                     Name = req.Name,
                 });
+                _context.Add(new NotificationEntity
+                {
+                    UserId = new Guid("9E10FBDD-B94B-4CC8-D936-08DD257296FF"),
+                    Title = "You had added a new warehouse yet",
+                    Body = "You had added a new warehouse into system yet. You and other person belong to this system are use this warehouse",
+                });
                 await _unitOfWork.SaveChangesAsync();
+                retVal.IsCallNoti = true;
             }
             catch (Exception ex)
             {
