@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.Model.Response;
+using Microsoft.AspNetCore.Mvc;
 using shop_food_authen.Contexts;
 using shop_food_authen.Services;
-using utility;
 
 namespace shop_food_authen.Controllers
 {
-    [Route("api/admin")]
+    [Route("auth/admin")]
     [ApiController]
     public class AdminController : ControllerBase
     {
@@ -26,6 +26,12 @@ namespace shop_food_authen.Controllers
         public async Task<ApiResponse<AdminSignInDTOResponse>> SingIn(AdminSignInDTORequest instance)
         {
             return await _service.SignInAdmin(instance);
+        }
+
+        [HttpPost("get-list-admin")]
+        public async Task<ApiResponse<List<AdminInforResponseDTO>>> GetListAdmin(AdminInforRequestDTO instance)
+        {
+            return await _service.GetListAdmin(instance);
         }
     }
 }

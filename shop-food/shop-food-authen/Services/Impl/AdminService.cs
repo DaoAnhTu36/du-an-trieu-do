@@ -1,7 +1,7 @@
-﻿using Infrastructure.ApiCore;
+﻿using Common.Model.Response;
+using Infrastructure.ApiCore;
 using Microsoft.EntityFrameworkCore;
 using shop_food_authen.Contexts;
-using utility;
 
 namespace shop_food_authen.Services.Impl
 {
@@ -14,14 +14,36 @@ namespace shop_food_authen.Services.Impl
             _dbContext = dbContext;
         }
 
+        public async Task<ApiResponse<List<AdminInforResponseDTO>>> GetListAdmin(AdminInforRequestDTO instance)
+        {
+            var retVal = new ApiResponse<List<AdminInforResponseDTO>>();
+            var skip = (instance.PageNumber - 1) * instance.PageSize;
+            var records = await _dbContext.AdminEntities.Select(x => new AdminInforResponseDTO
+            {
+                CreatedBy = x.CreatedBy,
+                CreatedDate = x.CreatedDate,
+                Email = x.Email,
+                Id = x.Id,
+                Name = x.Name,
+                UpdatedBy = x.UpdatedBy,
+                UpdatedDate = x.UpdatedDate,
+            }).OrderByDescending(x => x.UpdatedDate).ToListAsync();
+            records = records.Skip(skip).Take(instance.PageSize).ToList();
+            if (records != null && records.Count > 0)
+            {
+                retVal.Data = records;
+            }
+            else
+            {
+                retVal.Data = null;
+                retVal.MetaData.Message = "Table is empty";
+            }
+            return retVal;
+        }
+
         public async Task<ApiResponse<AdminSignInDTOResponse>> SignInAdmin(AdminSignInDTORequest instance)
         {
-            var reval = new ApiResponse<AdminSignInDTOResponse>
-            {
-                IsNormal = true,
-                MetaData = null,
-                Data = null
-            };
+            var reval = new ApiResponse<AdminSignInDTOResponse>();
             try
             {
                 var record = await _dbContext.AdminEntities.FirstOrDefaultAsync(x => x.Email == instance.Email);
@@ -31,6 +53,14 @@ namespace shop_food_authen.Services.Impl
                     {
                         Message = "NotFound",
                         StatusCode = "204"
+                    };
+                }
+                else if (!PasswordExtensions.VerifyPassword(instance.Password, record.PasswordHash, record.PasswordSalt))
+                {
+                    reval.MetaData = new MetaData
+                    {
+                        Message = "Account or password incorrect",
+                        StatusCode = "205"
                     };
                 }
                 else
@@ -60,11 +90,7 @@ namespace shop_food_authen.Services.Impl
 
         public async Task<ApiResponse> SignUpAdmin(AdminSignUpDTORequest instance)
         {
-            var reval = new ApiResponse
-            {
-                IsNormal = true,
-                MetaData = null
-            };
+            var reval = new ApiResponse();
             try
             {
                 if (instance == null)
@@ -91,13 +117,13 @@ namespace shop_food_authen.Services.Impl
 
                     return reval;
                 }
-                PasswordExtensions.CreatePassword(instance.Password ?? "default", out var passwordHash, out var passwordSalt);
+                var encodePassword = PasswordExtensions.HashPassword(instance.Password);
                 var entity = new AdminEntity
                 {
                     Name = instance.Name,
                     Email = instance.Email,
-                    PasswordHash = passwordHash.ToString(),
-                    PasswordSalt = passwordSalt.ToString(),
+                    PasswordHash = encodePassword.hashed,
+                    PasswordSalt = encodePassword.salt,
                 };
 
                 await _dbContext.AddAsync(entity);

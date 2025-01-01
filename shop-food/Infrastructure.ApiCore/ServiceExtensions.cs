@@ -1,12 +1,18 @@
 ﻿using System.Reflection;
 using System.Text.RegularExpressions;
 using Common.Model.Config;
+using Core.EF;
+using Core.EF.Impl;
 using Infrastructure.ApiCore.Middleware;
 using Infrastructure.ServiceHelper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -45,7 +51,8 @@ namespace Infrastructure.ApiCore
         {
             return services
                 .AddDbContext<TContext>(options => { options.UseSqlServer(connectionString); })
-                .AddScoped<DbContext, TContext>();
+                .AddScoped<DbContext, TContext>()
+                .AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public static IServiceCollection AddCustomLogger(
@@ -161,6 +168,87 @@ namespace Infrastructure.ApiCore
             //        options.EnableCaching = true;
             //        options.CacheDuration = TimeSpan.FromMinutes(10);
             //    });
+        }
+
+        public static string OverWriteConnectString(IOptions<AppConfig> options)
+        {
+            return string.Format("Server={0};Database={1};User Id={2};password={3};Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;", options.Value.ConnectionStringInfo?.IPAddress, options.Value.ConnectionStringInfo?.DBName, options.Value.ConnectionStringInfo?.UserId, options.Value.ConnectionStringInfo?.Password);
+        }
+
+        public static string OverWriteConnectString(IConfigurationSection section)
+        {
+            var dataConfig = section.GetSection("ConnectionStringInfo");
+            return string.Format("Server={0};Database={1};User Id={2};password={3};Trusted_Connection=False;MultipleActiveResultSets=true;TrustServerCertificate=True;", dataConfig["IPAddress"], dataConfig["DBName"], dataConfig["UserId"], dataConfig["Password"]);
+        }
+
+        public static IServiceCollection AddSwaggerGenCustom(this IServiceCollection services)
+        {
+            services.AddSwaggerGen((options) =>
+            {
+                options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme."
+                });
+                options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                {
+                    {
+                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                        {
+                            Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                            {
+                                Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;  // For development purposes, set it to false
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateLifetime = true,
+                    };
+                });
+            return services;
+        }
+
+        public static void AddLog(this IServiceCollection services)
+        {
+            Log.Logger = new LoggerConfiguration()
+                        .ReadFrom.Configuration(new ConfigurationBuilder()
+                            .AddJsonFile("logsettings.json")
+                            .Build())
+                        .CreateLogger();
+        }
+
+        public static IServiceCollection AddCors(this IServiceCollection services, string myAllowSpecificOrigins)
+        {
+            return services
+                .AddCors(options => {
+                    options.AddPolicy(name: myAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy
+                          .WithOrigins("http://192.168.131.182")
+                          .WithOrigins("http://192.168.131.182:80")
+                          .WithOrigins("http://localhost:80")
+                          .WithOrigins("http://localhost")
+                          .AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+                });
         }
     }
 

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IdentityModel.Tokens.Jwt;
+using Common.Logger;
+using Common.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -22,8 +19,15 @@ namespace Infrastructure.ApiCore.Middleware
 
         public async Task Invoke(HttpContext context)
         {
+            var messageError = string.Empty;
             try
             {
+                if (context.Request.Path.Value?.Contains("admin/sign-in") == true
+                    || context.Request.Path.Value?.Contains("admin/sign-up") == true)
+                {
+                    await _next(context);
+                    return;
+                }
                 var tokenString = context.Request.Headers["authorization"].ToString();
                 if (!string.IsNullOrEmpty(tokenString))
                 {
@@ -36,73 +40,31 @@ namespace Infrastructure.ApiCore.Middleware
                     var token = new JwtSecurityToken(jwtEncodedString);
                     if (token.Payload != null)
                     {
-                        if (token.Payload.TryGetValue("sub", out object sub) &&
-                            !string.IsNullOrEmpty(sub as string))
+                        if (token.ValidTo > DateTime.Now)
                         {
-                            context.Request.Headers.Add("sub", (string)sub);
-                            _logger.LogInformation($"TOKEN DECODED -> sub {(string)sub}");
+                            //AdminInfo.Id = token.Payload["sub"].ToString();
+                            //AdminInfo.Email = token.Payload["email"].ToString();
+                            //AdminInfo.Name = token.Payload["name"].ToString();
+                            await _next(context);
+                            return;
                         }
-
-                        if (token.Payload.TryGetValue("email", out object email) &&
-                            !string.IsNullOrEmpty(email as string))
-                        {
-                            context.Request.Headers.Add("email", (string)email);
-                            _logger.LogInformation($"TOKEN DECODED -> email {(string)email}");
-                        }
-
-                        if (token.Payload.TryGetValue("name", out object name) &&
-                            !string.IsNullOrEmpty(name as string))
-                        {
-                            context.Request.Headers.Add("name", (string)name);
-                            _logger.LogInformation(
-                                $"TOKEN DECODED -> name {(string)name}");
-                        }
-
-                        if (token.Payload.TryGetValue("exp", out object exp) &&
-                            !string.IsNullOrEmpty(exp as string))
-                        {
-                            context.Request.Headers.Add("exp", (string)exp);
-                            _logger.LogInformation(
-                                $"TOKEN DECODED -> exp {(string)exp}");
-                        }
-
-                        if (token.Payload.TryGetValue("iss", out object iss) &&
-                            !string.IsNullOrEmpty(iss as string))
-                        {
-                            context.Request.Headers.Add("iss", (string)iss);
-                            _logger.LogInformation(
-                                $"TOKEN DECODED -> iss {(string)iss}");
-                        }
-
-                        if (token.Payload.TryGetValue("aud", out object aud) &&
-                            !string.IsNullOrEmpty(aud as string))
-                        {
-                            context.Request.Headers.Add("aud", (string)aud);
-                            _logger.LogInformation(
-                                $"TOKEN DECODED -> aud {(string)aud}");
-                        }
-
-                        if (token.Payload.TryGetValue("jti", out object jti) &&
-                            !string.IsNullOrEmpty(jti as string))
-                        {
-                            context.Request.Headers.Add("jti", (string)jti);
-                            _logger.LogInformation(
-                                $"TOKEN DECODED -> jti {(string)jti}");
-                        }
-
-                        context.Response.StatusCode = StatusCodes.Status417ExpectationFailed;
-                        await context.Response.WriteAsync("Unauthorized");
+                    }
+                    else
+                    {
+                        messageError = "Token is invalid";
                     }
                 }
+                else
+                {
+                    messageError = "Token is empty";
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignored
+                messageError = ex.Message;
             }
-            finally
-            {
-                await _next(context);
-            }
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            await context.Response.WriteAsync(messageError);
         }
     }
 }

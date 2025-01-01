@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Woks\du-an-1\deployment\auth</_PublishTargetUrl>
+    <History>True|2024-12-31T10:59:17.8893871Z||;True|2024-12-31T17:56:47.3523962+07:00||;True|2024-12-31T02:22:39.3531453+07:00||;True|2024-12-31T02:21:25.9436489+07:00||;True|2024-12-27T23:17:49.4625211+07:00||;True|2024-12-27T23:12:09.0192259+07:00||;True|2024-12-27T23:09:38.9847714+07:00||;True|2024-12-27T18:37:11.1987665+07:00||;True|2024-12-27T18:36:38.4127351+07:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

@@ -1,7 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Azure.Core;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.ApiCore
@@ -10,14 +9,14 @@ namespace Infrastructure.ApiCore
     {
         private static readonly string Issuer = "DaoAnhTu@020996060404";
         private static readonly string Audience = "AdminWebsiteShopFood";
-        private static readonly string Expires = "0.5";
+        private static readonly string Expires = "30";
         private static readonly string SecretKey = "DaoAnhTu~!@#$%DaoAnhTu~!@#$%DaoAnhTu~!@#$%DaoAnhTu~!@#$%";
 
         public static string GenerateToken(string userId, string? userEmail, string? username, out DateTime datetimeExpired)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            datetimeExpired = DateTime.Now.AddMinutes(double.Parse(Expires));
+            datetimeExpired = DateTime.Now.AddDays(double.Parse(Expires));
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId),
@@ -62,7 +61,7 @@ namespace Infrastructure.ApiCore
             return null;
         }
 
-        public static bool ValidateToken(string token)
+        public static bool ValidateToken(string token, ref string messageError)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(SecretKey);
@@ -86,8 +85,9 @@ namespace Infrastructure.ApiCore
 
                 ClaimsPrincipal principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
             }
-            catch (SecurityTokenException ex)
+            catch (SecurityTokenException)
             {
+                messageError = "Token invalid";
                 return false;
             }
             return true;
