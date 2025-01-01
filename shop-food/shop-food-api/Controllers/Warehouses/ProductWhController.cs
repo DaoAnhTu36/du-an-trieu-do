@@ -6,7 +6,7 @@ using shop_food_api.Services.Warehouse;
 
 namespace shop_food_api.Controllers.Warehouses
 {
-    [Route("api/warehouse/product")]
+    [Route("api/wh/product")]
     public class ProductWhController : Controller
     {
         private readonly IProductWhService _service;
@@ -16,10 +16,10 @@ namespace shop_food_api.Controllers.Warehouses
             _service = service;
         }
 
-        [HttpPost("create")]
+        [HttpPost("create-product")]
         public async Task<ApiResponse<ProductWhCreateModelRes>> Create([FromBody] ProductWhCreateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<ProductWhCreateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -37,10 +37,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("update")]
+        [HttpPost("update-product")]
         public async Task<ApiResponse<ProductWhUpdateModelRes>> Update([FromBody] ProductWhUpdateModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<ProductWhUpdateModelRes>();
             if (!ModelState.IsValid)
             {
@@ -58,10 +58,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("delete")]
+        [HttpPost("delete-product")]
         public async Task<ApiResponse<ProductWhDeleteModelRes>> Delete([FromBody] ProductWhDeleteModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<ProductWhDeleteModelRes>();
             if (!ModelState.IsValid)
             {
@@ -79,11 +79,10 @@ namespace shop_food_api.Controllers.Warehouses
             return retVal;
         }
 
-        [HttpPost("list")]
+        [HttpPost("list-product")]
         public async Task<ApiResponse<ProductWhListModelRes>> List([FromBody] ProductWhListModelReq req)
         {
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-            LoggerFunctionUtility.CommonLogStart(this, stopwatch);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<ProductWhListModelRes>();
             if (!ModelState.IsValid)
             {

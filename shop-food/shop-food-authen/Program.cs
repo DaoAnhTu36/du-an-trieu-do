@@ -5,6 +5,7 @@ using shop_food_authen.Services;
 
 try
 {
+    var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
     var builder = WebApplication.CreateBuilder(args);
     var env = builder.Environment.EnvironmentName;
     IConfiguration configuration = new ConfigurationBuilder()
@@ -19,6 +20,7 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.AddDbContext<EntityDBContext>();
     builder.Services.AddInfrastructures();
+    builder.Services.AddCors(MyAllowSpecificOrigins);
     builder.Services.AddScopedServices(ServiceAssembly.Assembly);
     builder.Services.Configure<AppConfig>(configuration.GetSection("AppConfig"));
 
@@ -38,7 +40,8 @@ try
 
     //app.UseMiddleware<AuthenticationMiddleware>();
     //app.UseMiddleware<TokenDecodedMiddleware>();
-
+    //app.Urls.Add("http://localhost:1111");
+    app.UseCors(MyAllowSpecificOrigins);
     app.Run();
 }
 catch (Exception ex)

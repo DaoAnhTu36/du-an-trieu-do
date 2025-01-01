@@ -5,6 +5,7 @@ using Common.Utility;
 using Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using shop_food_api.DatabaseContext.Entities;
 using shop_food_api.DatabaseContext.Entities.Warehouse;
 using shop_food_api.Models.Warehouse;
 
@@ -35,7 +36,14 @@ namespace shop_food_api.Services.Warehouse.Impl
                     Address = req.Address,
                     Name = req.Name,
                 });
+                _context.Add(new NotificationEntity
+                {
+                    UserId = new Guid("9E10FBDD-B94B-4CC8-D936-08DD257296FF"),
+                    Title = "You had added a new warehouse yet",
+                    Body = "You had added a new warehouse into system yet. You and other person belong to this system are use this warehouse",
+                });
                 await _unitOfWork.SaveChangesAsync();
+                retVal.IsCallNoti = true;
             }
             catch (Exception ex)
             {
@@ -60,6 +68,86 @@ namespace shop_food_api.Services.Warehouse.Impl
                 var entity = new WarehouseWhEntity { Id = req.Id };
                 _context.Entry(entity).State = EntityState.Deleted;
                 await _unitOfWork.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                retVal.IsNormal = false;
+                retVal.MetaData = new MetaData
+                {
+                    Message = ex.Message,
+                    StatusCode = "500"
+                };
+            }
+            LoggerFunctionUtility.CommonLogEnd(this, retVal);
+            return retVal;
+        }
+
+        public async Task<ApiResponse<WarehouseWhDetailModelRes>> Detail(WarehouseWhDetailModelReq req)
+        {
+            LoggerFunctionUtility.CommonLogStart(this);
+            var retVal = new ApiResponse<WarehouseWhDetailModelRes>();
+
+            try
+            {
+                var query = await _context.Set<WarehouseWhEntity>().Where(x => x.Id == req.Id).Select(x => new WarehouseWhDetailModelRes
+                {
+                    Id = x.Id,
+                    Address = x.Address,
+                    Name = x.Name,
+                    CreatedBy = x.CreatedBy,
+                    CreatedDate = x.CreatedDate,
+                    UpdatedBy = x.UpdatedBy,
+                    UpdatedDate = x.UpdatedDate 
+                }).FirstOrDefaultAsync();
+                if (query == null)
+                {
+                    retVal.MetaData = new MetaData
+                    {
+                        Message = "NotFound",
+                        StatusCode = "400"
+                    };
+                    LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                    return retVal;
+                }
+                retVal.Data = query;
+            }
+            catch (Exception ex)
+            {
+                retVal.IsNormal = false;
+                retVal.MetaData = new MetaData
+                {
+                    Message = ex.Message,
+                    StatusCode = "500"
+                };
+            }
+            LoggerFunctionUtility.CommonLogEnd(this, retVal);
+            return retVal;
+        }
+
+        public async Task<ApiResponse<WarehouseWhDetailByIdModelRes>> DetailById(WarehouseWhDetailByIdModelReq req)
+        {
+            LoggerFunctionUtility.CommonLogStart(this);
+            var retVal = new ApiResponse<WarehouseWhDetailByIdModelRes>();
+
+            try
+            {
+                var query = await _context.Set<WarehouseWhEntity>().Where(x => x.Id == req.Id).Select(x => new WarehouseWhDetailByIdModelRes
+                {
+                    Id = x.Id,
+                    Address = x.Address,
+                    Name = x.Name,
+                }).FirstOrDefaultAsync();
+                if (query == null)
+                {
+                    retVal.MetaData = new MetaData
+                    {
+                        Message = "NotFound",
+                        StatusCode = "400"
+                    };
+                    LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                    return retVal;
+                }
+                retVal.Data = query;
             }
             catch (Exception ex)
             {

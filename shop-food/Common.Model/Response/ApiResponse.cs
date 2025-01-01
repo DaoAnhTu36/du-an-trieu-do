@@ -15,6 +15,7 @@
     {
         public T? Data { get; set; }
         public bool IsNormal { get; set; } = true;
+        public bool IsCallNoti { get; set; } = false;
 
         public MetaData MetaData { get; set; } = new MetaData
         {

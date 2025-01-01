@@ -90,7 +90,41 @@ namespace shop_food_api.Migrations
                     b.ToTable("FileManager", "SHOP");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.InventoryWarehouseEntity", b =>
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.NotificationEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notification", "MD");
+                });
+
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.InventoryWhEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,7 +164,7 @@ namespace shop_food_api.Migrations
                     b.ToTable("Inventory", "WH");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.ProductWarehouseEntity", b =>
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.ProductWhEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,7 +195,7 @@ namespace shop_food_api.Migrations
                     b.ToTable("Product", "WH");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.SupplierWarehouseEntity", b =>
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.SupplierWhEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,7 +226,7 @@ namespace shop_food_api.Migrations
                     b.ToTable("Supplier", "WH");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionWarehouseEntity", b =>
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionWhEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,7 +269,7 @@ namespace shop_food_api.Migrations
                     b.ToTable("Transaction", "WH");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.UnitWarehouseEntity", b =>
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.UnitWhEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -263,7 +297,7 @@ namespace shop_food_api.Migrations
                     b.ToTable("Unit", "WH");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.WarehouseWarehouseEntity", b =>
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.WarehouseWhEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

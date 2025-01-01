@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Common.User;
 
 namespace Common.Model.Entitties
 {
@@ -18,10 +19,10 @@ namespace Common.Model.Entitties
         public DateTime UpdatedDate { get; set; } = DateTime.Now;
 
         [Required]
-        public string CreatedBy { get; set; } = "admin";
+        public string CreatedBy { get; set; } = AdminInfo.Id ?? "admin";
 
         [Required]
-        public string UpdatedBy { get; set; } = "admin";
+        public string UpdatedBy { get; set; } = AdminInfo.Id ?? "admin";
     }
 
     public class BasePageEntity

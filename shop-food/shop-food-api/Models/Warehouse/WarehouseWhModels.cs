@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Common.Model.Entitties;
+using shop_food_api.DatabaseContext.Entities.Warehouse;
 
 namespace shop_food_api.Models.Warehouse
 {
@@ -55,5 +56,23 @@ namespace shop_food_api.Models.Warehouse
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public string? Address { get; set; }
+    }
+
+    public class WarehouseWhDetailModelRes : WarehouseWhEntity
+    {
+    }
+
+    public class WarehouseWhDetailModelReq
+    {
+        public Guid Id { get; set; }
+    }
+
+    public class WarehouseWhDetailByIdModelRes : WarehouseInfoModel
+    {
+    }
+
+    public class WarehouseWhDetailByIdModelReq
+    {
+        public Guid Id { get; set; }
     }
 }
