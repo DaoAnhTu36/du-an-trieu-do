@@ -30,6 +30,18 @@ namespace shop_food_api.Services.Warehouse.Impl
             var retVal = new ApiResponse<UnitWhCreateModelRes>();
             try
             {
+                var record = await _context.Set<UnitWhEntity>().FirstOrDefaultAsync(x => x.Name == req.Name);
+                if (record != null)
+                {
+                    retVal.IsNormal = true;
+                    retVal.MetaData = new MetaData
+                    {
+                        Message = "Record existed",
+                        StatusCode = "400"
+                    };
+                    LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                    return retVal;
+                }
                 var entity = new UnitWhEntity
                 {
                     Name = req.Name,

@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { WarehouseService } from '../../../../../services/warehouse-service.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
 
 @Component({
   selector: 'app-unit-create',
@@ -13,19 +14,23 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UnitCreateComponent {
 
-  name = new FormControl('Cái/Chiếc');
+  name = new FormControl('Cái');
   constructor(
     private readonly _warehouseService: WarehouseService,
     private readonly _router: Router,
     private readonly _toastService: ToastrService
   ) { }
-  onCreate() {
-    const name = this.name.value ?? '';
+  create() {
+    const nameValue = this.name.value ?? '';
     this._warehouseService.createUnit({
-      name: name,
+      name: nameValue,
     }).subscribe((res) => {
-      this._router.navigate(['/unit']);
-      this._toastService.success('Create successfully');
+      if (res.isNormal && res.metaData?.statusCode == StatusCodeApiResponse.SUCCESS) {
+        this._router.navigate(['/unit']);
+        this._toastService.success('Create successfully');
+      } else {
+        this._toastService.error(res.metaData?.message);
+      }
     });
   }
 }

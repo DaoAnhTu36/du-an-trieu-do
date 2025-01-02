@@ -19,10 +19,10 @@ export class WarehouseDeleteComponent {
     , private readonly _router: Router) { }
 
   ngOnInit() {
-    this.onUpdate();
+    this.delete();
   }
 
-  onUpdate() {
+  delete() {
     this._loadingService.show();
     const id = this._activatedRoute.snapshot.params['id'];
     this._warehouseService.deleteWarehouse({
