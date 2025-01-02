@@ -9,14 +9,15 @@ import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusC
   standalone: true,
   imports: [],
   templateUrl: './unit-delete.component.html',
-  styleUrl: './unit-delete.component.scss'
+  styleUrl: './unit-delete.component.scss',
 })
 export class UnitDeleteComponent {
-
-  constructor(private readonly _warehouseService: WarehouseService
-    , private readonly _activatedRoute: ActivatedRoute
-    , private readonly _loadingService: LoadingService
-    , private readonly _router: Router) { }
+  constructor(
+    private readonly _warehouseService: WarehouseService,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _loadingService: LoadingService,
+    private readonly _router: Router
+  ) {}
 
   ngOnInit() {
     this.delete();
@@ -25,13 +26,18 @@ export class UnitDeleteComponent {
   delete() {
     this._loadingService.show();
     const id = this._activatedRoute.snapshot.params['id'];
-    this._warehouseService.deleteUnit({
-      id: id,
-    }).subscribe(res => {
-      this._loadingService.hide();
-      if (res.isNormal && res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS) {
-        this._router.navigate(['/unit']);
-      }
-    })
+    this._warehouseService
+      .deleteUnit({
+        id: id,
+      })
+      .subscribe((res) => {
+        this._loadingService.hide();
+        if (
+          res.isNormal &&
+          res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
+        ) {
+          this._router.navigate(['/wh/unit']);
+        }
+      });
   }
 }

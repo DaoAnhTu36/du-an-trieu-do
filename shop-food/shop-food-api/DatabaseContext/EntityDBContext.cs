@@ -37,5 +37,6 @@ namespace shop_food_api.DatabaseContext
         #endregion warehouse area
 
         public DbSet<NotificationEntity> NotificationEntities { get; set; }
+        public DbSet<TransactionDetailWhEntity> TransactionDetailWhEntities { get; set; }
     }
 }

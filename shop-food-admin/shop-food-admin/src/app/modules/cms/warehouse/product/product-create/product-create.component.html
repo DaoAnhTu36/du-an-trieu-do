@@ -1,1 +1,21 @@
-<p>product-create works!</p>
+<div class="form-custom">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="name">Product name</label>
+                <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" placeholder=""
+                    [formControl]="name">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" name="description" id="description" aria-describedby="helpId" placeholder=""
+                    [formControl]="description">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button type="button" class="btn btn-primary" (click)="create()">Save</button>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,14 @@ namespace Common.Model.Entitties
 
         [Required]
         public string UpdatedBy { get; set; } = AdminInfo.Id ?? "admin";
+
+        /// <summary>
+        /// 0 actived
+        /// 1 deactived
+        /// 2 deleted
+        /// ...
+        /// </summary>
+        public int Status { get; set; }
     }
 
     public class BasePageEntity

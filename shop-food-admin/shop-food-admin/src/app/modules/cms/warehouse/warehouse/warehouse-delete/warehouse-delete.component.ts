@@ -9,14 +9,15 @@ import { WarehouseService } from '../../../../../services/warehouse-service.serv
   standalone: true,
   imports: [],
   templateUrl: './warehouse-delete.component.html',
-  styleUrl: './warehouse-delete.component.scss'
+  styleUrl: './warehouse-delete.component.scss',
 })
 export class WarehouseDeleteComponent {
-
-  constructor(private readonly _warehouseService: WarehouseService
-    , private readonly _activatedRoute: ActivatedRoute
-    , private readonly _loadingService: LoadingService
-    , private readonly _router: Router) { }
+  constructor(
+    private readonly _warehouseService: WarehouseService,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _loadingService: LoadingService,
+    private readonly _router: Router
+  ) {}
 
   ngOnInit() {
     this.delete();
@@ -25,13 +26,18 @@ export class WarehouseDeleteComponent {
   delete() {
     this._loadingService.show();
     const id = this._activatedRoute.snapshot.params['id'];
-    this._warehouseService.deleteWarehouse({
-      id: id,
-    }).subscribe(res => {
-      this._loadingService.hide();
-      if (res.isNormal && res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS) {
-        this._router.navigate(['/warehouse/warehouse']);
-      }
-    })
+    this._warehouseService
+      .deleteWarehouse({
+        id: id,
+      })
+      .subscribe((res) => {
+        this._loadingService.hide();
+        if (
+          res.isNormal &&
+          res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
+        ) {
+          this._router.navigate(['/wh/warehouse']);
+        }
+      });
   }
 }

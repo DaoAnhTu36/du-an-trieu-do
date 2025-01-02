@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using shop_food_api.DatabaseContext;
 
@@ -11,9 +12,11 @@ using shop_food_api.DatabaseContext;
 namespace shop_food_api.Migrations
 {
     [DbContext(typeof(EntityDBContext))]
-    partial class EntityDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250102095517_AddTblTransactionDetail")]
+    partial class AddTblTransactionDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,52 +139,6 @@ namespace shop_food_api.Migrations
                     b.ToTable("Notification", "MD");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.ProductEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("FileId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TransactionDetailWhEntityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TransactionDetailWhEntityId");
-
-                    b.ToTable("Product", "SHOP");
-                });
-
             modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.InventoryWhEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -247,9 +204,6 @@ namespace shop_food_api.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TransactionDetailsId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -258,8 +212,6 @@ namespace shop_food_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TransactionDetailsId");
 
                     b.ToTable("Product", "WH");
                 });
@@ -332,9 +284,6 @@ namespace shop_food_api.Migrations
                     b.Property<Guid>("TransactionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("TransactionsId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("UnitId")
                         .HasColumnType("uniqueidentifier");
 
@@ -346,8 +295,6 @@ namespace shop_food_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TransactionsId");
 
                     b.ToTable("TransactionDetail", "WH");
                 });
@@ -452,41 +399,6 @@ namespace shop_food_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Warehouse", "WH");
-                });
-
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.ProductEntity", b =>
-                {
-                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionDetailWhEntity", null)
-                        .WithMany("Products")
-                        .HasForeignKey("TransactionDetailWhEntityId");
-                });
-
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.ProductWhEntity", b =>
-                {
-                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionDetailWhEntity", "TransactionDetails")
-                        .WithMany()
-                        .HasForeignKey("TransactionDetailsId");
-
-                    b.Navigation("TransactionDetails");
-                });
-
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionDetailWhEntity", b =>
-                {
-                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionWhEntity", "Transactions")
-                        .WithMany("TransactionDetailWhEntities")
-                        .HasForeignKey("TransactionsId");
-
-                    b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionDetailWhEntity", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionWhEntity", b =>
-                {
-                    b.Navigation("TransactionDetailWhEntities");
                 });
 #pragma warning restore 612, 618
         }

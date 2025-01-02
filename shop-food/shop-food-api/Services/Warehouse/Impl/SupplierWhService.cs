@@ -67,7 +67,7 @@ namespace shop_food_api.Services.Warehouse.Impl
             var retVal = new ApiResponse<SupplierWhDeleteModelRes>();
             try
             {
-                var entity = new WarehouseWhEntity { Id = req.Id };
+                var entity = new SupplierWhEntity { Id = req.Id };
                 _context.Entry(entity).State = EntityState.Deleted;
                 await _unitOfWork.SaveChangesAsync();
             }

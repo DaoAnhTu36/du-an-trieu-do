@@ -11,18 +11,16 @@ import { ToastrService } from 'ngx-toastr';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './unit-update.component.html',
-  styleUrl: './unit-update.component.scss'
+  styleUrl: './unit-update.component.scss',
 })
 export class UnitUpdateComponent {
-
-  constructor(private readonly _warehouseService: WarehouseService
-    , private readonly _activatedRoute: ActivatedRoute
-    , private readonly _loadingService: LoadingService
-    , private readonly _router: Router
-    , private readonly _toastService: ToastrService
-  ) {
-
-  }
+  constructor(
+    private readonly _warehouseService: WarehouseService,
+    private readonly _activatedRoute: ActivatedRoute,
+    private readonly _loadingService: LoadingService,
+    private readonly _router: Router,
+    private readonly _toastService: ToastrService
+  ) {}
   name = new FormControl('');
 
   ngOnInit() {
@@ -32,31 +30,39 @@ export class UnitUpdateComponent {
   getDetailById() {
     this._loadingService.show();
     const id = this._activatedRoute.snapshot.params['id'];
-    this._warehouseService.getWarehouseById({ id: id }).subscribe(res => {
+    this._warehouseService.getWarehouseById({ id: id }).subscribe((res) => {
       this._loadingService.hide();
-      if (res.isNormal && res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS) {
-        this.name.setValue(res.data?.name ?? "");
+      if (
+        res.isNormal &&
+        res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
+      ) {
+        this.name.setValue(res.data?.name ?? '');
       } else {
         this._toastService.error('Get information failed');
       }
-    })
+    });
   }
 
   update() {
     this._loadingService.show();
     const name = this.name.value ?? '';
     const id = this._activatedRoute.snapshot.params['id'];
-    this._warehouseService.updateUnit({
-      id: id,
-      name: name,
-    }).subscribe(res => {
-      this._loadingService.hide();
-      if (res.isNormal && res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS) {
-        this._router.navigate(['/unit']);
-        this._toastService.success('Update successfully');
-      } else {
-        this._toastService.error('Update failed');
-      }
-    })
+    this._warehouseService
+      .updateUnit({
+        id: id,
+        name: name,
+      })
+      .subscribe((res) => {
+        this._loadingService.hide();
+        if (
+          res.isNormal &&
+          res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
+        ) {
+          this._router.navigate(['/unit']);
+          this._toastService.success('Update successfully');
+        } else {
+          this._toastService.error('Update failed');
+        }
+      });
   }
 }
