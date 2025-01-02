@@ -11,8 +11,8 @@ export class SignalRService {
   messages: { message: string }[] = [];
 
   constructor(private readonly _sharedService: SharingService) {
-    // this.startConnection();
-    // this.addReceiveMessageListener();
+    this.startConnection();
+    this.addReceiveMessageListener();
   }
 
   startConnection(): void {

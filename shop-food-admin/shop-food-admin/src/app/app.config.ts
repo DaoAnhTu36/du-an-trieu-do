@@ -19,8 +19,8 @@ export const appConfig: ApplicationConfig = {
     provideToastr(),
     provideAnimations(),
     importProvidersFrom(ToastrModule.forRoot({
-      timeOut: 3000,
-      progressBar: true,
+      timeOut: 1000,
+      // progressBar: true,
       closeButton: true,
     })),
     //#endregion Toastr

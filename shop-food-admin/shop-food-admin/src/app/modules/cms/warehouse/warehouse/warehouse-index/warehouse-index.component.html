@@ -16,15 +16,15 @@
                 <td>
                     <div class="row group-button-action">
                         <div class="col-md-4">
-                            <button class="btn" (click)="editWarehouse(warehouse.id)"><i
+                            <button class="btn" (click)="edit(warehouse.id)"><i
                                     class="fa-solid fa-pen-to-square"></i></button>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn" (click)="detailWarehouse(warehouse.id)"><i
+                            <button class="btn" (click)="detail(warehouse.id)"><i
                                     class="fa-solid fa-circle-info"></i></button>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn" (click)="deleteWarehouse(warehouse.id)"><i
+                            <button class="btn" (click)="delete(warehouse.id)"><i
                                     class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td colspan="4">
-                    <button class="btn" (click)="addWarehouse()"><i class="fa-solid fa-plus"></i></button>
+                    <button class="btn" (click)="add()"><i class="fa-solid fa-plus"></i></button>
                 </td>
             </tr>
         </tbody>

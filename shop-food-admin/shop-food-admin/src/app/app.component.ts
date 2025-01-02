@@ -30,7 +30,7 @@ import { ToastrService } from 'ngx-toastr';
     , { provide: API_AUTH_URL, useValue: environment.API_AUTH_URL }
     , { provide: API_WAREHOUSE_URL, useValue: environment.API_WAREHOUSE_URL }
     , LoadingService
-    , SignalRService
+    // , SignalRService
     , {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
@@ -41,17 +41,15 @@ import { ToastrService } from 'ngx-toastr';
 export class AppComponent {
   loading$: any;
   constructor(private loadingService: LoadingService,
-    private readonly _signalRService: SignalRService,
-    private readonly _sharingService: SharingService,
+    // private readonly _signalRService: SignalRService,
+    // private readonly _sharingService: SharingService,
     private readonly _toastrService: ToastrService
   ) {
-    this._signalRService.startConnection();
-    this._signalRService.addReceiveMessageListener();
     this.loading$ = this.loadingService.loading$;
-    this._sharingService.data$.subscribe(data => {
-      const dataJson = JSON.parse(data);
-      this._toastrService.info(dataJson["Body"], dataJson["Title"]);
-    });
+    // this._sharingService.data$.subscribe(data => {
+    //   const dataJson = JSON.parse(data);
+    //   this._toastrService.info(dataJson["Body"], dataJson["Title"]);
+    // });
   }
   title = 'shop-food-admin';
 }

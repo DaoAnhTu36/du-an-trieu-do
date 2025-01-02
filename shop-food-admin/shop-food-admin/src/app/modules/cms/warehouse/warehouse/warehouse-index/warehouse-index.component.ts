@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { PageingReq } from '../../../../../commons/const/ConstStatusCode';
 import { LoadingService } from '../../../../../commons/loading/loading.service';
 import { WarehouseListModelRes, WarehouseService } from '../../../../../services/warehouse-service.service';
-// import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,16 +21,15 @@ export class WarehouseIndexComponent {
     private readonly _warehouseService: WarehouseService,
     private readonly router: Router,
     private readonly _loadingService: LoadingService,
-    // private readonly _toastService: ToastrService
+    private readonly _toastService: ToastrService
   ) {
   }
 
   ngOnInit() {
-    this.getListWarehouse();
-    // this._toastService.success('body', 'title');
+    this.list();
   }
 
-  getListWarehouse() {
+  list() {
     this._loadingService.show();
     this._warehouseService.listWarehouse({
       pageNumber: PageingReq.PAGE_NUMBER,
@@ -38,22 +37,23 @@ export class WarehouseIndexComponent {
     }).subscribe(res => {
       this.listWarehouse = res.data;
       this._loadingService.hide();
+      this._toastService.success('Fetch data successfully');
     });
   }
 
-  addWarehouse() {
+  add() {
     this.router.navigate(["/warehouse/create"]);
   }
 
-  editWarehouse(id: string | undefined) {
+  edit(id: string | undefined) {
     this.router.navigate(["/warehouse/update/", id]);
   }
 
-  detailWarehouse(id: string | undefined) {
+  detail(id: string | undefined) {
     this.router.navigate(["/warehouse/detail/", id]);
   }
 
-  deleteWarehouse(id: string | undefined) {
+  delete(id: string | undefined) {
     this.router.navigate(["/warehouse/delete/", id]);
   }
 }
