@@ -4,13 +4,15 @@ import { InventoryIndexComponent } from './inventory-index/inventory-index.compo
 import { InventoryDeleteComponent } from './inventory-delete/inventory-delete.component';
 import { InventoryUpdateComponent } from './inventory-update/inventory-update.component';
 import { InventoryCreateComponent } from './inventory-create/inventory-create.component';
+import { InventoryDetailComponent } from './inventory-detail/inventory-detail.component';
 
 const routes: Routes = [
   { path: '', component: InventoryIndexComponent },
   { path: 'index', component: InventoryIndexComponent },
   { path: 'create', component: InventoryCreateComponent },
-  { path: 'update', component: InventoryUpdateComponent },
-  { path: 'delete', component: InventoryDeleteComponent },
+  { path: 'update/:id', component: InventoryUpdateComponent },
+  { path: 'delete/:id', component: InventoryDeleteComponent },
+  { path: 'detail/:id', component: InventoryDetailComponent },
 ];
 
 @NgModule({

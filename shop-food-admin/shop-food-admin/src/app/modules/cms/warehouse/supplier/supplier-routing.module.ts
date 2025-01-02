@@ -4,13 +4,15 @@ import { SupplierCreateComponent } from './supplier-create/supplier-create.compo
 import { SupplierDeleteComponent } from './supplier-delete/supplier-delete.component';
 import { SupplierIndexComponent } from './supplier-index/supplier-index.component';
 import { SupplierUpdateComponent } from './supplier-update/supplier-update.component';
+import { SupplierDetailComponent } from './supplier-detail/supplier-detail.component';
 
 const routes: Routes = [
   { path: '', component: SupplierIndexComponent },
   { path: 'index', component: SupplierIndexComponent },
   { path: 'create', component: SupplierCreateComponent },
-  { path: 'update', component: SupplierUpdateComponent },
-  { path: 'delete', component: SupplierDeleteComponent },
+  { path: 'update/:id', component: SupplierUpdateComponent },
+  { path: 'delete/:id', component: SupplierDeleteComponent },
+  { path: 'detail/:id', component: SupplierDetailComponent },
 ];
 
 @NgModule({

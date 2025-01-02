@@ -5,7 +5,8 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
-import { ToastrModule } from 'ngx-toastr';
+import { provideToastr, ToastrModule } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,10 +15,14 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideStore(),
+    //#region Toastr
+    provideToastr(),
+    provideAnimations(),
     importProvidersFrom(ToastrModule.forRoot({
       timeOut: 3000,
       progressBar: true,
       closeButton: true,
     })),
+    //#endregion Toastr
   ]
 };

@@ -14,3 +14,5 @@ shop-food/Common.Model/bin/
 *bin/
 *obj/
 shop-food/shop-food-api/logs/logfile20241231.json
+shop-food/shop-food-api/appsettings.Development.json
+shop-food/shop-food-api/appsettings.json

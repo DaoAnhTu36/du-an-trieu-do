@@ -11,11 +11,11 @@ export class SignalRService {
   messages: { message: string }[] = [];
 
   constructor(private readonly _sharedService: SharingService) {
-    this.startConnection();
-    this.addReceiveMessageListener();
+    // this.startConnection();
+    // this.addReceiveMessageListener();
   }
 
-  private startConnection(): void {
+  startConnection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(`${environment.API_WAREHOUSE_URL}/realtime-api`)
       .build();
@@ -25,7 +25,7 @@ export class SignalRService {
       .catch((err) => console.error('SignalR Connection Error: ', err));
   }
 
-  private addReceiveMessageListener(): void {
+  addReceiveMessageListener(): void {
     this.hubConnection.on('SendMessageFromServerToClient', (message: string) => {
       if (this.messages.length > 2) {
         this.messages = [];
@@ -36,7 +36,7 @@ export class SignalRService {
     });
   }
 
-  public sendMessage(message: string): void {
+  sendMessage(message: string): void {
     this.hubConnection
       .invoke('SendMessageToClient', message)
       .catch((err) => console.error('SignalR Send Error: ', err));

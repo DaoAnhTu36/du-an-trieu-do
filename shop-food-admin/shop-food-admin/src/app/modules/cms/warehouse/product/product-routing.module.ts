@@ -4,13 +4,15 @@ import { ProductCreateComponent } from './product-create/product-create.componen
 import { ProductDeleteComponent } from './product-delete/product-delete.component';
 import { ProductIndexComponent } from './product-index/product-index.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 const routes: Routes = [
   { path: '', component: ProductIndexComponent },
   { path: 'index', component: ProductIndexComponent },
   { path: 'create', component: ProductCreateComponent },
-  { path: 'update', component: ProductUpdateComponent },
-  { path: 'delete', component: ProductDeleteComponent },
+  { path: 'update/:id', component: ProductUpdateComponent },
+  { path: 'delete/:id', component: ProductDeleteComponent },
+  { path: 'detail/:id', component: ProductDetailComponent },
 ];
 
 @NgModule({

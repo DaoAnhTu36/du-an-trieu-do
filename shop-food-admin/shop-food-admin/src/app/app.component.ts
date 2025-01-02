@@ -31,8 +31,7 @@ import { ToastrService } from 'ngx-toastr';
     , { provide: API_WAREHOUSE_URL, useValue: environment.API_WAREHOUSE_URL }
     , LoadingService
     , SignalRService
-    ,
-    {
+    , {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
       multi: true
@@ -46,11 +45,12 @@ export class AppComponent {
     private readonly _sharingService: SharingService,
     private readonly _toastrService: ToastrService
   ) {
-
+    this._signalRService.startConnection();
+    this._signalRService.addReceiveMessageListener();
     this.loading$ = this.loadingService.loading$;
     this._sharingService.data$.subscribe(data => {
       const dataJson = JSON.parse(data);
-      _toastrService.info(dataJson["Body"], dataJson["Title"]);
+      this._toastrService.info(dataJson["Body"], dataJson["Title"]);
     });
   }
   title = 'shop-food-admin';
