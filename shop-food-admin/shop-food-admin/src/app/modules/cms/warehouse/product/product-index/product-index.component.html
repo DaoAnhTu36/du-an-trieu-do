@@ -3,14 +3,20 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>BarCode</th>
                 <th>Product name</th>
+                <th>Supplier name</th>
+                <th>Unit name</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of data,  let i = index">
                 <td>{{ i+1 }}</td>
+                <td>{{ item.barCode }}</td>
                 <td>{{ item.name }}</td>
+                <td>{{ item.supplierName }}</td>
+                <td>{{ item.unitName }}</td>
                 <td>
                     <div class="row group-button-action">
                         <div class="col-md-4">
@@ -28,7 +34,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="4">
+                <td colspan="6">
                     <button class="btn" (click)="add()"><i class="fa-solid fa-plus"></i></button>
                 </td>
             </tr>

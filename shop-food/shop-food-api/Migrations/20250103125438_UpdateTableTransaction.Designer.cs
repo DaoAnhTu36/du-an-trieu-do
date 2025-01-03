@@ -12,8 +12,8 @@ using shop_food_api.DatabaseContext;
 namespace shop_food_api.Migrations
 {
     [DbContext(typeof(EntityDBContext))]
-    [Migration("20250102100112_AddForeignKeyTable")]
-    partial class AddForeignKeyTable
+    [Migration("20250103125438_UpdateTableTransaction")]
+    partial class UpdateTableTransaction
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,52 +139,6 @@ namespace shop_food_api.Migrations
                     b.ToTable("Notification", "MD");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.ProductEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("FileId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TransactionDetailWhEntityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TransactionDetailWhEntityId");
-
-                    b.ToTable("Product", "SHOP");
-                });
-
             modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.InventoryWhEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -234,6 +188,9 @@ namespace shop_food_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("BarCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -250,7 +207,10 @@ namespace shop_food_api.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("TransactionDetailsId")
+                    b.Property<Guid>("SupplierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UpdatedBy")
@@ -262,7 +222,9 @@ namespace shop_food_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TransactionDetailsId");
+                    b.HasIndex("SupplierId");
+
+                    b.HasIndex("UnitId");
 
                     b.ToTable("Product", "WH");
                 });
@@ -320,10 +282,10 @@ namespace shop_food_api.Migrations
                     b.Property<DateTime?>("DateOfManufacture")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ProductId")
+                    b.Property<Guid?>("ProductsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
@@ -338,8 +300,8 @@ namespace shop_food_api.Migrations
                     b.Property<Guid?>("TransactionsId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("UnitId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UpdatedBy")
                         .IsRequired()
@@ -349,6 +311,8 @@ namespace shop_food_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductsId");
 
                     b.HasIndex("TransactionsId");
 
@@ -368,8 +332,20 @@ namespace shop_food_api.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("DateOfImport")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TransactionCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TransactionDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("TransactionType")
                         .HasColumnType("nvarchar(max)");
@@ -381,13 +357,12 @@ namespace shop_food_api.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("WarehouseIdFrom")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("WarehouseIdTo")
+                    b.Property<Guid?>("WarehouseWhEntityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("WarehouseWhEntityId");
 
                     b.ToTable("Transaction", "WH");
                 });
@@ -457,39 +432,70 @@ namespace shop_food_api.Migrations
                     b.ToTable("Warehouse", "WH");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.ProductEntity", b =>
-                {
-                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionDetailWhEntity", null)
-                        .WithMany("Products")
-                        .HasForeignKey("TransactionDetailWhEntityId");
-                });
-
             modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.ProductWhEntity", b =>
                 {
-                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionDetailWhEntity", "TransactionDetails")
-                        .WithMany()
-                        .HasForeignKey("TransactionDetailsId");
+                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.SupplierWhEntity", "Supplier")
+                        .WithMany("Products")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("TransactionDetails");
+                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.UnitWhEntity", "Unit")
+                        .WithMany("Products")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+
+                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionDetailWhEntity", b =>
                 {
+                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.ProductWhEntity", "Products")
+                        .WithMany("TransactionDetails")
+                        .HasForeignKey("ProductsId");
+
                     b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionWhEntity", "Transactions")
-                        .WithMany("TransactionDetailWhEntities")
+                        .WithMany("TransactionDetails")
                         .HasForeignKey("TransactionsId");
+
+                    b.Navigation("Products");
 
                     b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionDetailWhEntity", b =>
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionWhEntity", b =>
+                {
+                    b.HasOne("shop_food_api.DatabaseContext.Entities.Warehouse.WarehouseWhEntity", null)
+                        .WithMany("Transactions")
+                        .HasForeignKey("WarehouseWhEntityId");
+                });
+
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.ProductWhEntity", b =>
+                {
+                    b.Navigation("TransactionDetails");
+                });
+
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.SupplierWhEntity", b =>
                 {
                     b.Navigation("Products");
                 });
 
             modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.TransactionWhEntity", b =>
                 {
-                    b.Navigation("TransactionDetailWhEntities");
+                    b.Navigation("TransactionDetails");
+                });
+
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.UnitWhEntity", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("shop_food_api.DatabaseContext.Entities.Warehouse.WarehouseWhEntity", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

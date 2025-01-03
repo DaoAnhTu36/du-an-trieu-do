@@ -33,7 +33,7 @@ export class UnitCreateComponent {
           this._router.navigate(['/wh/unit']);
           this._toastService.success('Create successfully');
         } else {
-          this._toastService.error(res.metaData?.message);
+          this._toastService.error('Create failed');
         }
       });
   }

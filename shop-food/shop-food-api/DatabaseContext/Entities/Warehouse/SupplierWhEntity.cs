@@ -9,6 +9,5 @@ namespace shop_food_api.DatabaseContext.Entities.Warehouse
     {
         public string? Name { get; set; }
         public string? Address { get; set; }
-        public ICollection<TransactionDetailWhEntity>? TransactionDetails { get; set; }
     }
 }

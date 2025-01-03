@@ -4,6 +4,26 @@ namespace shop_food_api.Models.Warehouse
 
     public class TransactionWhCreateModelReq
     {
+        public string? TransactionCode { get; set; }
+
+        /// <summary>
+        /// 0 import
+        /// 1 export
+        /// </summary>
+        public string? TransactionType { get; set; }
+        public DateTime? TransactionDate { get; set; }
+        public decimal TotalPrice { get; set; }
+        public List<SubTransactionWhCreateModelReq>? Details { get; set; }
+    }
+
+    public class SubTransactionWhCreateModelReq
+    {
+        public Guid ProductId { get; set; }
+        public decimal UnitPrice { get; set; }
+        public int Quantity { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTime? DateOfManufacture { get; set; }
+        public DateTime? DateOfExpired { get; set; }
     }
 
     public class TransactionWhCreateModelRes
@@ -47,4 +67,17 @@ namespace shop_food_api.Models.Warehouse
     }
 
     #endregion model get list record
+
+    #region model get detail record
+
+    public class TransactionWhDetailModelRes
+    {
+    }
+
+    public class TransactionWhDetailModelReq
+    {
+        public Guid Id { get; set; }
+    }
+
+    #endregion model get detail record
 }

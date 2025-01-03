@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { WarehouseService } from '../../../../../services/warehouse-service.service';
 import { Router } from '@angular/router';
 import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-supplier-create',
@@ -18,7 +19,8 @@ export class SupplierCreateComponent {
   );
   constructor(
     private readonly _warehouseService: WarehouseService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _toastService: ToastrService
   ) {}
   onCreate() {
     const name = this.name.value ?? '';
@@ -34,6 +36,7 @@ export class SupplierCreateComponent {
           res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
         ) {
           this._router.navigate(['/wh/supplier']);
+          this._toastService.success('Create successfully');
         } else {
           console.log('res');
         }

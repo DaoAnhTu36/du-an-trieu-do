@@ -51,8 +51,8 @@ export class MenuComponent {
     },
   ];
   data_notify: {
-    title: string | undefined;
-    body: string | undefined;
+    title: string | null | undefined;
+    body: string | null | undefined;
     time: Date;
   }[] = [];
   customerName = 'DaoAnhTu';

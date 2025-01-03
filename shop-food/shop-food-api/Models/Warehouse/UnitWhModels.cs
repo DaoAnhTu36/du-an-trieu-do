@@ -57,6 +57,19 @@ namespace shop_food_api.Models.Warehouse
 
     #endregion model get list record
 
+    #region model detail api
+
+    public class UnitWhDetailModelReq
+    {
+        public Guid? Id { get; set; }
+    }
+
+    public class UnitWhDetailModelRes : UnitWhModel
+    {
+    }
+
+    #endregion model detail api
+
     public class UnitWhModel
     {
         public Guid Id { get; set; }

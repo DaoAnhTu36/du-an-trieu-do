@@ -12,5 +12,7 @@ namespace shop_food_api.Services.Warehouse
         Task<ApiResponse<SupplierWhDeleteModelRes>> Delete(SupplierWhDeleteModelReq req);
 
         Task<ApiResponse<SupplierWhListModelRes>> List(SupplierWhListModelReq req);
+
+        Task<ApiResponse<SupplierWhDetailModelRes>> Detail(SupplierWhDetailModelReq req);
     }
 }

@@ -1,6 +1,5 @@
 using Common.Logger;
 using Common.Model.Response;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using shop_food_api.Models.Warehouse;
 using shop_food_api.Services.Warehouse;

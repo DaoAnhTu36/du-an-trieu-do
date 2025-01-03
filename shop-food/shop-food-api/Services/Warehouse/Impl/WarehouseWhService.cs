@@ -5,7 +5,6 @@ using Common.Utility;
 using Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using shop_food_api.DatabaseContext.Entities;
 using shop_food_api.DatabaseContext.Entities.Warehouse;
 using shop_food_api.Models.Warehouse;
 
@@ -90,7 +89,7 @@ namespace shop_food_api.Services.Warehouse.Impl
                     CreatedBy = x.CreatedBy,
                     CreatedDate = x.CreatedDate,
                     UpdatedBy = x.UpdatedBy,
-                    UpdatedDate = x.UpdatedDate 
+                    UpdatedDate = x.UpdatedDate
                 }).FirstOrDefaultAsync();
                 if (query == null)
                 {

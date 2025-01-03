@@ -36,7 +36,7 @@ export class WarehouseCreateComponent {
           res.metaData?.statusCode == StatusCodeApiResponse.SUCCESS
         ) {
           this._router.navigate(['/wh/warehouse']);
-          this._toastService.error('Create successfully');
+          this._toastService.success('Create successfully');
         } else {
           this._toastService.error('Create failed');
         }

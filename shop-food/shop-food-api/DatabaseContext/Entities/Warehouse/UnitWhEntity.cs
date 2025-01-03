@@ -8,5 +8,6 @@ namespace shop_food_api.DatabaseContext.Entities.Warehouse
     public class UnitWhEntity : BaseEntity
     {
         public string? Name { get; set; }
+        public ICollection<ProductWhEntity>? Products { get; set; }
     }
 }

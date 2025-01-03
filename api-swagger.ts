@@ -60,6 +60,16 @@ export interface IWarehouseService {
      * @param body (optional) 
      * @return OK
      */
+    notificationByUserId(body: GetNotificationByUserIdModelReq | undefined): Observable<GetNotificationByUserIdModelResApiResponse>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    createNotification(body: CreateNotificationModelReq | undefined): Observable<CreateNotificationModelResApiResponse>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
     createProduct(body: ProductWhCreateModelReq | undefined): Observable<ProductWhCreateModelResApiResponse>;
     /**
      * @param body (optional) 
@@ -76,6 +86,11 @@ export interface IWarehouseService {
      * @return OK
      */
     listProduct(body: ProductWhListModelReq | undefined): Observable<ProductWhListModelResApiResponse>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    detailProduct(body: ProductWhDetailModelReq | undefined): Observable<ProductWhDetailModelResApiResponse>;
     /**
      * @return OK
      */
@@ -104,6 +119,11 @@ export interface IWarehouseService {
      * @param body (optional) 
      * @return OK
      */
+    detailSupplier(body: SupplierWhDetailModelReq | undefined): Observable<SupplierWhDetailModelResApiResponse>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
     createTransaction(body: TransactionWhCreateModelReq | undefined): Observable<TransactionWhCreateModelResApiResponse>;
     /**
      * @param body (optional) 
@@ -120,6 +140,11 @@ export interface IWarehouseService {
      * @return OK
      */
     listTransaction(body: TransactionWhListModelReq | undefined): Observable<TransactionWhListModelResApiResponse>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    detailTransaction(body: TransactionWhDetailModelReq | undefined): Observable<TransactionWhDetailModelResApiResponse>;
     /**
      * @param body (optional) 
      * @return OK
@@ -144,6 +169,11 @@ export interface IWarehouseService {
      * @param body (optional) 
      * @return OK
      */
+    detailUnit(body: UnitWhDetailModelReq | undefined): Observable<UnitWhDetailModelResApiResponse>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
     createWarehouse(body: WarehouseCreateModelReq | undefined): Observable<WarehouseCreateModelResApiResponse>;
     /**
      * @param body (optional) 
@@ -160,6 +190,16 @@ export interface IWarehouseService {
      * @return OK
      */
     listWarehouse(body: WarehouseListModelReq | undefined): Observable<WarehouseListModelResApiResponse>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    getWarehouseById(body: WarehouseWhDetailByIdModelReq | undefined): Observable<WarehouseWhDetailByIdModelResApiResponse>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    detailWarehouse(body: WarehouseWhDetailModelReq | undefined): Observable<WarehouseWhDetailModelResApiResponse>;
 }
 
 @Injectable()
@@ -620,6 +660,116 @@ export class WarehouseService implements IWarehouseService {
      * @param body (optional) 
      * @return OK
      */
+    notificationByUserId(body: GetNotificationByUserIdModelReq | undefined): Observable<GetNotificationByUserIdModelResApiResponse> {
+        let url_ = this.baseUrl + "/api/notification/notification-by-user-id";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processNotificationByUserId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processNotificationByUserId(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetNotificationByUserIdModelResApiResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetNotificationByUserIdModelResApiResponse>;
+        }));
+    }
+
+    protected processNotificationByUserId(response: HttpResponseBase): Observable<GetNotificationByUserIdModelResApiResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as GetNotificationByUserIdModelResApiResponse;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetNotificationByUserIdModelResApiResponse>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    createNotification(body: CreateNotificationModelReq | undefined): Observable<CreateNotificationModelResApiResponse> {
+        let url_ = this.baseUrl + "/api/notification/create-notification";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateNotification(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateNotification(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CreateNotificationModelResApiResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CreateNotificationModelResApiResponse>;
+        }));
+    }
+
+    protected processCreateNotification(response: HttpResponseBase): Observable<CreateNotificationModelResApiResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as CreateNotificationModelResApiResponse;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CreateNotificationModelResApiResponse>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
     createProduct(body: ProductWhCreateModelReq | undefined): Observable<ProductWhCreateModelResApiResponse> {
         let url_ = this.baseUrl + "/api/wh/product/create-product";
         url_ = url_.replace(/[?&]$/, "");
@@ -834,6 +984,61 @@ export class WarehouseService implements IWarehouseService {
             }));
         }
         return _observableOf<ProductWhListModelResApiResponse>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    detailProduct(body: ProductWhDetailModelReq | undefined): Observable<ProductWhDetailModelResApiResponse> {
+        let url_ = this.baseUrl + "/api/wh/product/detail-product";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDetailProduct(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDetailProduct(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ProductWhDetailModelResApiResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ProductWhDetailModelResApiResponse>;
+        }));
+    }
+
+    protected processDetailProduct(response: HttpResponseBase): Observable<ProductWhDetailModelResApiResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProductWhDetailModelResApiResponse;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProductWhDetailModelResApiResponse>(null as any);
     }
 
     /**
@@ -1110,6 +1315,61 @@ export class WarehouseService implements IWarehouseService {
      * @param body (optional) 
      * @return OK
      */
+    detailSupplier(body: SupplierWhDetailModelReq | undefined): Observable<SupplierWhDetailModelResApiResponse> {
+        let url_ = this.baseUrl + "/api/wh/supplier/detail-supplier";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDetailSupplier(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDetailSupplier(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SupplierWhDetailModelResApiResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SupplierWhDetailModelResApiResponse>;
+        }));
+    }
+
+    protected processDetailSupplier(response: HttpResponseBase): Observable<SupplierWhDetailModelResApiResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as SupplierWhDetailModelResApiResponse;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SupplierWhDetailModelResApiResponse>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
     createTransaction(body: TransactionWhCreateModelReq | undefined): Observable<TransactionWhCreateModelResApiResponse> {
         let url_ = this.baseUrl + "/api/wh/transaction/create-transaction";
         url_ = url_.replace(/[?&]$/, "");
@@ -1324,6 +1584,61 @@ export class WarehouseService implements IWarehouseService {
             }));
         }
         return _observableOf<TransactionWhListModelResApiResponse>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    detailTransaction(body: TransactionWhDetailModelReq | undefined): Observable<TransactionWhDetailModelResApiResponse> {
+        let url_ = this.baseUrl + "/api/wh/transaction/detail-transaction";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDetailTransaction(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDetailTransaction(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TransactionWhDetailModelResApiResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TransactionWhDetailModelResApiResponse>;
+        }));
+    }
+
+    protected processDetailTransaction(response: HttpResponseBase): Observable<TransactionWhDetailModelResApiResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as TransactionWhDetailModelResApiResponse;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<TransactionWhDetailModelResApiResponse>(null as any);
     }
 
     /**
@@ -1550,6 +1865,61 @@ export class WarehouseService implements IWarehouseService {
      * @param body (optional) 
      * @return OK
      */
+    detailUnit(body: UnitWhDetailModelReq | undefined): Observable<UnitWhDetailModelResApiResponse> {
+        let url_ = this.baseUrl + "/api/wh/unit/detail-unit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDetailUnit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDetailUnit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<UnitWhDetailModelResApiResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<UnitWhDetailModelResApiResponse>;
+        }));
+    }
+
+    protected processDetailUnit(response: HttpResponseBase): Observable<UnitWhDetailModelResApiResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as UnitWhDetailModelResApiResponse;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UnitWhDetailModelResApiResponse>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
     createWarehouse(body: WarehouseCreateModelReq | undefined): Observable<WarehouseCreateModelResApiResponse> {
         let url_ = this.baseUrl + "/api/wh/warehouse/create-warehouse";
         url_ = url_.replace(/[?&]$/, "");
@@ -1765,6 +2135,116 @@ export class WarehouseService implements IWarehouseService {
         }
         return _observableOf<WarehouseListModelResApiResponse>(null as any);
     }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    getWarehouseById(body: WarehouseWhDetailByIdModelReq | undefined): Observable<WarehouseWhDetailByIdModelResApiResponse> {
+        let url_ = this.baseUrl + "/api/wh/warehouse/get-warehouse-by-id";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetWarehouseById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetWarehouseById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<WarehouseWhDetailByIdModelResApiResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<WarehouseWhDetailByIdModelResApiResponse>;
+        }));
+    }
+
+    protected processGetWarehouseById(response: HttpResponseBase): Observable<WarehouseWhDetailByIdModelResApiResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as WarehouseWhDetailByIdModelResApiResponse;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<WarehouseWhDetailByIdModelResApiResponse>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    detailWarehouse(body: WarehouseWhDetailModelReq | undefined): Observable<WarehouseWhDetailModelResApiResponse> {
+        let url_ = this.baseUrl + "/api/wh/warehouse/detail-warehouse";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDetailWarehouse(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDetailWarehouse(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<WarehouseWhDetailModelResApiResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<WarehouseWhDetailModelResApiResponse>;
+        }));
+    }
+
+    protected processDetailWarehouse(response: HttpResponseBase): Observable<WarehouseWhDetailModelResApiResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as WarehouseWhDetailModelResApiResponse;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<WarehouseWhDetailModelResApiResponse>(null as any);
+    }
 }
 
 export interface ApiCreateCategoryModelReq {
@@ -1859,6 +2339,22 @@ export interface ConstructorInfo {
     readonly isSecuritySafeCritical?: boolean;
     readonly isSecurityTransparent?: boolean;
     memberType?: MemberTypes;
+}
+
+export interface CreateNotificationModelReq {
+    title?: string | undefined;
+    body?: string | undefined;
+    userId?: string | undefined;
+    isForAnyone?: boolean | undefined;
+}
+
+export interface CreateNotificationModelRes {
+}
+
+export interface CreateNotificationModelResApiResponse {
+    data?: CreateNotificationModelRes;
+    isNormal?: boolean;
+    metaData?: MetaData;
 }
 
 export interface CustomAttributeData {
@@ -1980,6 +2476,21 @@ export enum GenericParameterAttributes {
     _8 = 8,
     _16 = 16,
     _28 = 28,
+}
+
+export interface GetNotificationByUserIdModelReq {
+    pageNumber?: number;
+    pageSize?: number;
+}
+
+export interface GetNotificationByUserIdModelRes {
+    list?: NotificationModels[] | undefined;
+}
+
+export interface GetNotificationByUserIdModelResApiResponse {
+    data?: GetNotificationByUserIdModelRes;
+    isNormal?: boolean;
+    metaData?: MetaData;
 }
 
 export interface ICustomAttributeProvider {
@@ -2224,6 +2735,19 @@ export interface ModuleHandle {
     readonly mdStreamVersion?: number;
 }
 
+export interface NotificationModels {
+    id?: string;
+    createdDate: Date;
+    updatedDate: Date;
+    createdBy: string;
+    updatedBy: string;
+    status?: number;
+    title?: string | undefined;
+    body?: string | undefined;
+    userId?: string | undefined;
+    isForAnyone?: boolean | undefined;
+}
+
 export enum ParameterAttributes {
     _0 = 0,
     _1 = 1,
@@ -2257,8 +2781,11 @@ export interface ParameterInfo {
 }
 
 export interface ProductWhCreateModelReq {
+    barCode?: string | undefined;
     name?: string | undefined;
     description?: string | undefined;
+    supplierId?: string;
+    unitId?: string;
 }
 
 export interface ProductWhCreateModelRes {
@@ -2281,6 +2808,48 @@ export interface ProductWhDeleteModelResApiResponse {
     data?: ProductWhDeleteModelRes;
     isNormal?: boolean;
     metaData?: MetaData;
+}
+
+export interface ProductWhDetailModelReq {
+    id?: string;
+}
+
+export interface ProductWhDetailModelRes {
+    id?: string;
+    name?: string | undefined;
+    description?: string | undefined;
+    createdDate?: Date;
+    updatedDate?: Date;
+    createdBy?: string | undefined;
+    updatedBy?: string | undefined;
+    supplierId?: string;
+    supplierName?: string | undefined;
+    unitId?: string;
+    unitName?: string | undefined;
+    barCode?: string | undefined;
+}
+
+export interface ProductWhDetailModelResApiResponse {
+    data?: ProductWhDetailModelRes;
+    isNormal?: boolean;
+    metaData?: MetaData;
+}
+
+export interface ProductWhEntity {
+    id?: string;
+    createdDate: Date;
+    updatedDate: Date;
+    createdBy: string;
+    updatedBy: string;
+    status?: number;
+    barCode?: string | undefined;
+    name?: string | undefined;
+    description?: string | undefined;
+    supplierId?: string;
+    unitId?: string;
+    supplier?: SupplierWhEntity;
+    unit?: UnitWhEntity;
+    transactionDetails?: TransactionDetailWhEntity[] | undefined;
 }
 
 export interface ProductWhListModelReq {
@@ -2306,12 +2875,19 @@ export interface ProductWhModel {
     updatedDate?: Date;
     createdBy?: string | undefined;
     updatedBy?: string | undefined;
+    supplierId?: string;
+    supplierName?: string | undefined;
+    unitId?: string;
+    unitName?: string | undefined;
+    barCode?: string | undefined;
 }
 
 export interface ProductWhUpdateModelReq {
     id?: string;
     name?: string | undefined;
     description?: string | undefined;
+    supplierId?: string;
+    unitId?: string;
 }
 
 export interface ProductWhUpdateModelRes {
@@ -2375,6 +2951,14 @@ export interface StructLayoutAttribute {
     value?: LayoutKind;
 }
 
+export interface SubTransactionWhCreateModelReq {
+    productId?: string;
+    unitPrice?: number;
+    quantity?: number;
+    dateOfManufacture?: Date | undefined;
+    dateOfExpired?: Date | undefined;
+}
+
 export interface SupplierModel {
     id?: string;
     createdDate?: Date | undefined;
@@ -2419,6 +3003,38 @@ export interface SupplierWhDeleteModelResApiResponse {
     metaData?: MetaData;
 }
 
+export interface SupplierWhDetailModelReq {
+    id?: string;
+}
+
+export interface SupplierWhDetailModelRes {
+    id?: string;
+    createdDate?: Date | undefined;
+    updatedDate?: Date | undefined;
+    createdBy?: string | undefined;
+    updatedBy?: string | undefined;
+    name?: string | undefined;
+    address?: string | undefined;
+}
+
+export interface SupplierWhDetailModelResApiResponse {
+    data?: SupplierWhDetailModelRes;
+    isNormal?: boolean;
+    metaData?: MetaData;
+}
+
+export interface SupplierWhEntity {
+    id?: string;
+    createdDate: Date;
+    updatedDate: Date;
+    createdBy: string;
+    updatedBy: string;
+    status?: number;
+    name?: string | undefined;
+    address?: string | undefined;
+    products?: ProductWhEntity[] | undefined;
+}
+
 export interface SupplierWhListModelReq {
     pageNumber?: number;
     pageSize?: number;
@@ -2452,7 +3068,28 @@ export interface SupplierWhUpdateModelResApiResponse {
     metaData?: MetaData;
 }
 
+export interface TransactionDetailWhEntity {
+    id?: string;
+    createdDate: Date;
+    updatedDate: Date;
+    createdBy: string;
+    updatedBy: string;
+    status?: number;
+    transactionId?: string;
+    productId?: string;
+    unitPrice?: number;
+    quantity?: number;
+    dateOfManufacture?: Date | undefined;
+    dateOfExpired?: Date | undefined;
+    transactions?: TransactionWhEntity;
+    products?: ProductWhEntity;
+}
+
 export interface TransactionWhCreateModelReq {
+    transactionCode?: string | undefined;
+    transactionType?: string | undefined;
+    dateOfImport?: Date | undefined;
+    details?: SubTransactionWhCreateModelReq[] | undefined;
 }
 
 export interface TransactionWhCreateModelRes {
@@ -2474,6 +3111,34 @@ export interface TransactionWhDeleteModelResApiResponse {
     data?: TransactionWhDeleteModelRes;
     isNormal?: boolean;
     metaData?: MetaData;
+}
+
+export interface TransactionWhDetailModelReq {
+    id?: string;
+}
+
+export interface TransactionWhDetailModelRes {
+}
+
+export interface TransactionWhDetailModelResApiResponse {
+    data?: TransactionWhDetailModelRes;
+    isNormal?: boolean;
+    metaData?: MetaData;
+}
+
+export interface TransactionWhEntity {
+    id?: string;
+    createdDate: Date;
+    updatedDate: Date;
+    createdBy: string;
+    updatedBy: string;
+    status?: number;
+    transactionCode?: string | undefined;
+    transactionType?: string | undefined;
+    transactionDate?: Date | undefined;
+    totalAmount?: number;
+    dateOfImport?: Date | undefined;
+    transactionDetails?: TransactionDetailWhEntity[] | undefined;
 }
 
 export interface TransactionWhListModelReq {
@@ -2716,6 +3381,36 @@ export interface UnitWhDeleteModelResApiResponse {
     metaData?: MetaData;
 }
 
+export interface UnitWhDetailModelReq {
+    id?: string | undefined;
+}
+
+export interface UnitWhDetailModelRes {
+    id?: string;
+    name?: string | undefined;
+    createdDate?: Date;
+    updatedDate?: Date;
+    createdBy?: string | undefined;
+    updatedBy?: string | undefined;
+}
+
+export interface UnitWhDetailModelResApiResponse {
+    data?: UnitWhDetailModelRes;
+    isNormal?: boolean;
+    metaData?: MetaData;
+}
+
+export interface UnitWhEntity {
+    id?: string;
+    createdDate: Date;
+    updatedDate: Date;
+    createdBy: string;
+    updatedBy: string;
+    status?: number;
+    name?: string | undefined;
+    products?: ProductWhEntity[] | undefined;
+}
+
 export interface UnitWhListModelReq {
     pageNumber?: number;
     pageSize?: number;
@@ -2823,6 +3518,44 @@ export interface WarehouseUpdateModelRes {
 
 export interface WarehouseUpdateModelResApiResponse {
     data?: WarehouseUpdateModelRes;
+    isNormal?: boolean;
+    metaData?: MetaData;
+}
+
+export interface WarehouseWhDetailByIdModelReq {
+    id?: string;
+}
+
+export interface WarehouseWhDetailByIdModelRes {
+    id?: string;
+    name?: string | undefined;
+    address?: string | undefined;
+}
+
+export interface WarehouseWhDetailByIdModelResApiResponse {
+    data?: WarehouseWhDetailByIdModelRes;
+    isNormal?: boolean;
+    metaData?: MetaData;
+}
+
+export interface WarehouseWhDetailModelReq {
+    id?: string;
+}
+
+export interface WarehouseWhDetailModelRes {
+    id?: string;
+    createdDate: Date;
+    updatedDate: Date;
+    createdBy: string;
+    updatedBy: string;
+    status?: number;
+    name?: string | undefined;
+    address?: string | undefined;
+    transactions?: TransactionWhEntity[] | undefined;
+}
+
+export interface WarehouseWhDetailModelResApiResponse {
+    data?: WarehouseWhDetailModelRes;
     isNormal?: boolean;
     metaData?: MetaData;
 }

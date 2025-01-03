@@ -1,1 +1,41 @@
-<p>transaction-index works!</p>
+<div class="content-right">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td>
+          <div class="row group-button-action">
+            <div class="col-md-4">
+              <button class="btn" (click)="edit('1')">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+            </div>
+            <div class="col-md-4">
+              <button class="btn" (click)="detail('1')">
+                <i class="fa-solid fa-circle-info"></i>
+              </button>
+            </div>
+            <div class="col-md-4">
+              <button class="btn" (click)="delete('1')">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <button class="btn" (click)="add()">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

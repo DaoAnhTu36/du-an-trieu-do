@@ -1,7 +1,6 @@
 using Common.Logger;
 using Common.Model.Config;
 using Common.Model.Response;
-using Common.Utility;
 using Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;

@@ -85,6 +85,47 @@ namespace shop_food_api.Services.Warehouse.Impl
             return retVal;
         }
 
+        public async Task<ApiResponse<UnitWhDetailModelRes>> Detail(UnitWhDetailModelReq req)
+        {
+            LoggerFunctionUtility.CommonLogStart(this);
+            var retVal = new ApiResponse<UnitWhDetailModelRes>();
+
+            try
+            {
+                var query = await _context.Set<UnitWhEntity>().Where(x => x.Id == req.Id).Select(x => new UnitWhDetailModelRes
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CreatedBy = x.CreatedBy,
+                    CreatedDate = x.CreatedDate,
+                    UpdatedBy = x.UpdatedBy,
+                    UpdatedDate = x.UpdatedDate,
+                }).FirstOrDefaultAsync();
+                if (query == null)
+                {
+                    retVal.MetaData = new MetaData
+                    {
+                        Message = "NotFound",
+                        StatusCode = "400"
+                    };
+                    LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                    return retVal;
+                }
+                retVal.Data = query;
+            }
+            catch (Exception ex)
+            {
+                retVal.IsNormal = false;
+                retVal.MetaData = new MetaData
+                {
+                    Message = ex.Message,
+                    StatusCode = "500"
+                };
+            }
+            LoggerFunctionUtility.CommonLogEnd(this, retVal);
+            return retVal;
+        }
+
         public async Task<ApiResponse<UnitWhListModelRes>> List(UnitWhListModelReq req)
         {
             LoggerFunctionUtility.CommonLogStart(this);

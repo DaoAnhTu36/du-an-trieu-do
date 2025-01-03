@@ -77,4 +77,17 @@ namespace shop_food_api.Models.Warehouse
     }
 
     #endregion model get list record
+
+    #region model get detail record
+
+    public class SupplierWhDetailModelReq
+    {
+        public Guid Id { get; set; }
+    }
+
+    public class SupplierWhDetailModelRes : SupplierModel
+    {
+    }
+
+    #endregion model get detail record
 }
