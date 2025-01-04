@@ -15,8 +15,8 @@
         <td>{{i+1}}</td>
         <td>{{item.transactionCode}}</td>
         <td>{{item.transactionType}}</td>
-        <td>{{item.transactionDate}}</td>
-        <td>{{item.totalPrice}}</td>
+        <td>{{item.transactionDate | customDate}}</td>
+        <td>{{item.totalPrice | customCurrencyPipe}}</td>
         <td>
           <div class="row group-button-action">
             <div class="col-md-4">
@@ -25,12 +25,12 @@
               </button>
             </div>
             <div class="col-md-4">
-              <button class="btn" (click)="detail('1')">
+              <button class="btn" (click)="detail(item.id)">
                 <i class="fa-solid fa-circle-info"></i>
               </button>
             </div>
             <div class="col-md-4">
-              <button class="btn" (click)="delete('1')">
+              <button class="btn" (click)="delete(item.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>

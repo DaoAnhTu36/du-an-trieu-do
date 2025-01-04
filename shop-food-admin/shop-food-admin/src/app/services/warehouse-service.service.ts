@@ -4529,6 +4529,22 @@ export interface SupplierWhUpdateModelResApiResponse {
   metaData?: MetaData;
 }
 
+export interface TransactionDetailModels {
+  productBarCode?: string | null;
+  productName?: string | null;
+  supplierName?: string | null;
+  unitName?: string | null;
+  unitPrice?: number;
+  totalPrice?: number;
+  quantity?: number;
+  dateOfManufacture?: Date | null;
+  dateOfExpired?: Date | null;
+  createdDate?: Date;
+  updatedDate?: Date;
+  createdBy?: string | null;
+  updatedBy?: string | null;
+}
+
 export interface TransactionWhCreateModelReq {
   transactionCode?: string | null;
   transactionType?: string | null;
@@ -4559,7 +4575,17 @@ export interface TransactionWhDetailModelReq {
   id?: string;
 }
 
-export interface TransactionWhDetailModelRes {}
+export interface TransactionWhDetailModelRes {
+  transactionCode?: string | null;
+  transactionType?: string | null;
+  transactionDate?: Date | null;
+  totalPrice?: number;
+  createdDate?: Date;
+  updatedDate?: Date;
+  createdBy?: string | null;
+  updatedBy?: string | null;
+  details?: TransactionDetailModels[] | null;
+}
 
 export interface TransactionWhDetailModelResApiResponse {
   data?: TransactionWhDetailModelRes;

@@ -22,6 +22,10 @@ export class CommonServiceService {
     this._global_customer_infor = customerInfor;
   }
 
+  formatNumber(value: any): string {
+    return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
+
   // formatCurrency(value: number): string {
   //   return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   // }

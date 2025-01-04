@@ -12,11 +12,13 @@ import {
 } from '../../../../../commons/const/ConstStatusCode';
 import { NgForOf } from '@angular/common';
 import { CommonServiceService } from '../../../../../services/common-service.service';
+import { CustomCurrencyPipe } from '../../../../../commons/pipes/custom-currency.pipe';
+import { CustomDatePipe } from '../../../../../commons/pipes/custom-date.pipe';
 
 @Component({
   selector: 'app-transaction-index',
   standalone: true,
-  imports: [NgForOf],
+  imports: [NgForOf, CustomCurrencyPipe, CustomDatePipe],
   templateUrl: './transaction-index.component.html',
   styleUrl: './transaction-index.component.scss',
 })
@@ -52,11 +54,9 @@ export class TransactionIndexComponent {
               return {
                 id: rs.id,
                 transactionCode: rs.transactionCode,
-                transactionDate: new Date(
-                  rs.transactionDate ?? ''
-                ).toLocaleDateString('vi-VN'),
+                transactionDate: rs.transactionDate,
                 transactionType: rs.transactionType === '0' ? 'Nhập' : 'Xuất',
-                totalPrice: this._commonService.formatCurrency(rs.totalPrice),
+                totalPrice: rs.totalPrice,
               };
             }) ?? [];
         } else {

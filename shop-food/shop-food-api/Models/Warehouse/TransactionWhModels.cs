@@ -78,6 +78,15 @@ namespace shop_food_api.Models.Warehouse
 
     public class TransactionWhDetailModelRes
     {
+        public string? TransactionCode { get; set; }
+        public string? TransactionType { get; set; }
+        public DateTime? TransactionDate { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public string UpdatedBy { get; set; }
+        public List<TransactionDetailModels>? Details { get; set; }
     }
 
     public class TransactionWhDetailModelReq

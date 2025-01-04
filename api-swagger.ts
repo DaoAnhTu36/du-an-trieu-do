@@ -2249,8 +2249,8 @@ export class WarehouseService implements IWarehouseService {
 
 export interface ApiCreateCategoryModelReq {
     name: string;
-    parentId?: string | undefined;
-    fileId?: string | undefined;
+    parentId?: string | null;
+    fileId?: string | null;
 }
 
 export interface ApiListCategoryModelReq {
@@ -2260,14 +2260,14 @@ export interface ApiListCategoryModelReq {
 
 export interface ApiListCategoryModelRes {
     id?: string;
-    name?: string | undefined;
-    parentId?: string | undefined;
-    filePath?: string | undefined;
-    fileName?: string | undefined;
+    name?: string | null;
+    parentId?: string | null;
+    filePath?: string | null;
+    fileName?: string | null;
 }
 
 export interface ApiListCategoryModelResIEnumerableApiResponse {
-    data?: ApiListCategoryModelRes[] | undefined;
+    data?: ApiListCategoryModelRes[] | null;
     isNormal?: boolean;
     metaData?: MetaData;
 }
@@ -2278,21 +2278,21 @@ export interface ApiResponse {
 }
 
 export interface Assembly {
-    readonly definedTypes?: TypeInfo[] | undefined;
-    readonly exportedTypes?: Type[] | undefined;
-    readonly codeBase?: string | undefined;
+    readonly definedTypes?: TypeInfo[] | null;
+    readonly exportedTypes?: Type[] | null;
+    readonly codeBase?: string | null;
     entryPoint?: MethodInfo;
-    readonly fullName?: string | undefined;
-    readonly imageRuntimeVersion?: string | undefined;
+    readonly fullName?: string | null;
+    readonly imageRuntimeVersion?: string | null;
     readonly isDynamic?: boolean;
-    readonly location?: string | undefined;
+    readonly location?: string | null;
     readonly reflectionOnly?: boolean;
     readonly isCollectible?: boolean;
     readonly isFullyTrusted?: boolean;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
-    readonly escapedCodeBase?: string | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
+    readonly escapedCodeBase?: string | null;
     manifestModule?: Module;
-    readonly modules?: Module[] | undefined;
+    readonly modules?: Module[] | null;
     readonly globalAssemblyCache?: boolean;
     readonly hostContext?: number;
     securityRuleSet?: SecurityRuleSet;
@@ -2307,11 +2307,11 @@ export enum CallingConventions {
 }
 
 export interface ConstructorInfo {
-    readonly name?: string | undefined;
+    readonly name?: string | null;
     declaringType?: Type;
     reflectedType?: Type;
     module?: Module;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
     attributes?: MethodAttributes;
@@ -2342,10 +2342,10 @@ export interface ConstructorInfo {
 }
 
 export interface CreateNotificationModelReq {
-    title?: string | undefined;
-    body?: string | undefined;
-    userId?: string | undefined;
-    isForAnyone?: boolean | undefined;
+    title?: string | null;
+    body?: string | null;
+    userId?: string | null;
+    isForAnyone?: boolean | null;
 }
 
 export interface CreateNotificationModelRes {
@@ -2360,20 +2360,20 @@ export interface CreateNotificationModelResApiResponse {
 export interface CustomAttributeData {
     attributeType?: Type;
     constructor?: ConstructorInfo;
-    readonly constructorArguments?: CustomAttributeTypedArgument[] | undefined;
-    readonly namedArguments?: CustomAttributeNamedArgument[] | undefined;
+    readonly constructorArguments?: CustomAttributeTypedArgument[] | null;
+    readonly namedArguments?: CustomAttributeNamedArgument[] | null;
 }
 
 export interface CustomAttributeNamedArgument {
     memberInfo?: MemberInfo;
     typedValue?: CustomAttributeTypedArgument;
-    readonly memberName?: string | undefined;
+    readonly memberName?: string | null;
     readonly isField?: boolean;
 }
 
 export interface CustomAttributeTypedArgument {
     argumentType?: Type;
-    value?: any | undefined;
+    value?: any | null;
 }
 
 export enum EventAttributes {
@@ -2383,11 +2383,11 @@ export enum EventAttributes {
 }
 
 export interface EventInfo {
-    readonly name?: string | undefined;
+    readonly name?: string | null;
     declaringType?: Type;
     reflectedType?: Type;
     module?: Module;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
     memberType?: MemberTypes;
@@ -2402,13 +2402,13 @@ export interface EventInfo {
 
 export interface Exception {
     targetSite?: MethodBase;
-    readonly message?: string | undefined;
-    readonly data?: { [key: string]: any; } | undefined;
+    readonly message?: string | null;
+    readonly data?: { [key: string]: any; } | null;
     innerException?: Exception;
-    helpLink?: string | undefined;
-    source?: string | undefined;
+    helpLink?: string | null;
+    source?: string | null;
     hResult?: number;
-    readonly stackTrace?: string | undefined;
+    readonly stackTrace?: string | null;
 }
 
 export enum FieldAttributes {
@@ -2434,11 +2434,11 @@ export enum FieldAttributes {
 }
 
 export interface FieldInfo {
-    readonly name?: string | undefined;
+    readonly name?: string | null;
     declaringType?: Type;
     reflectedType?: Type;
     module?: Module;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
     memberType?: MemberTypes;
@@ -2463,8 +2463,8 @@ export interface FieldInfo {
 }
 
 export interface FileUploadDTO {
-    fileId?: string | undefined;
-    fileName?: string | undefined;
+    fileId?: string | null;
+    fileName?: string | null;
 }
 
 export enum GenericParameterAttributes {
@@ -2484,7 +2484,7 @@ export interface GetNotificationByUserIdModelReq {
 }
 
 export interface GetNotificationByUserIdModelRes {
-    list?: NotificationModels[] | undefined;
+    list?: NotificationModels[] | null;
 }
 
 export interface GetNotificationByUserIdModelResApiResponse {
@@ -2559,12 +2559,12 @@ export interface ItemFileManagerRequestDTO {
 }
 
 export interface ItemFileManagerResponseDTO {
-    fileName?: string | undefined;
-    filePath?: string | undefined;
+    fileName?: string | null;
+    filePath?: string | null;
 }
 
 export interface ItemFileManagerResponseDTOIEnumerableApiResponse {
-    data?: ItemFileManagerResponseDTO[] | undefined;
+    data?: ItemFileManagerResponseDTO[] | null;
     isNormal?: boolean;
     metaData?: MetaData;
 }
@@ -2577,11 +2577,11 @@ export enum LayoutKind {
 
 export interface MemberInfo {
     memberType?: MemberTypes;
-    readonly name?: string | undefined;
+    readonly name?: string | null;
     declaringType?: Type;
     reflectedType?: Type;
     module?: Module;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
 }
@@ -2599,8 +2599,8 @@ export enum MemberTypes {
 }
 
 export interface MetaData {
-    statusCode?: string | undefined;
-    message?: string | undefined;
+    statusCode?: string | null;
+    message?: string | null;
     exceptionExtra?: Exception;
 }
 
@@ -2631,11 +2631,11 @@ export enum MethodAttributes {
 
 export interface MethodBase {
     memberType?: MemberTypes;
-    readonly name?: string | undefined;
+    readonly name?: string | null;
     declaringType?: Type;
     reflectedType?: Type;
     module?: Module;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
     attributes?: MethodAttributes;
@@ -2682,11 +2682,11 @@ export enum MethodImplAttributes {
 }
 
 export interface MethodInfo {
-    readonly name?: string | undefined;
+    readonly name?: string | null;
     declaringType?: Type;
     reflectedType?: Type;
     module?: Module;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
     attributes?: MethodAttributes;
@@ -2721,13 +2721,13 @@ export interface MethodInfo {
 
 export interface Module {
     assembly?: Assembly;
-    readonly fullyQualifiedName?: string | undefined;
-    readonly name?: string | undefined;
+    readonly fullyQualifiedName?: string | null;
+    readonly name?: string | null;
     readonly mdStreamVersion?: number;
     readonly moduleVersionId?: string;
-    readonly scopeName?: string | undefined;
+    readonly scopeName?: string | null;
     moduleHandle?: ModuleHandle;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly metadataToken?: number;
 }
 
@@ -2742,10 +2742,10 @@ export interface NotificationModels {
     createdBy: string;
     updatedBy: string;
     status?: number;
-    title?: string | undefined;
-    body?: string | undefined;
-    userId?: string | undefined;
-    isForAnyone?: boolean | undefined;
+    title?: string | null;
+    body?: string | null;
+    userId?: string | null;
+    isForAnyone?: boolean | null;
 }
 
 export enum ParameterAttributes {
@@ -2765,7 +2765,7 @@ export enum ParameterAttributes {
 export interface ParameterInfo {
     attributes?: ParameterAttributes;
     member?: MemberInfo;
-    readonly name?: string | undefined;
+    readonly name?: string | null;
     parameterType?: Type;
     readonly position?: number;
     readonly isIn?: boolean;
@@ -2773,17 +2773,17 @@ export interface ParameterInfo {
     readonly isOptional?: boolean;
     readonly isOut?: boolean;
     readonly isRetval?: boolean;
-    readonly defaultValue?: any | undefined;
-    readonly rawDefaultValue?: any | undefined;
+    readonly defaultValue?: any | null;
+    readonly rawDefaultValue?: any | null;
     readonly hasDefaultValue?: boolean;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly metadataToken?: number;
 }
 
 export interface ProductWhCreateModelReq {
-    barCode?: string | undefined;
-    name?: string | undefined;
-    description?: string | undefined;
+    barCode?: string | null;
+    name?: string | null;
+    description?: string | null;
     supplierId?: string;
     unitId?: string;
 }
@@ -2812,21 +2812,22 @@ export interface ProductWhDeleteModelResApiResponse {
 
 export interface ProductWhDetailModelReq {
     id?: string;
+    barCode?: string | null;
 }
 
 export interface ProductWhDetailModelRes {
     id?: string;
-    name?: string | undefined;
-    description?: string | undefined;
+    name?: string | null;
+    description?: string | null;
     createdDate?: Date;
     updatedDate?: Date;
-    createdBy?: string | undefined;
-    updatedBy?: string | undefined;
+    createdBy?: string | null;
+    updatedBy?: string | null;
     supplierId?: string;
-    supplierName?: string | undefined;
+    supplierName?: string | null;
     unitId?: string;
-    unitName?: string | undefined;
-    barCode?: string | undefined;
+    unitName?: string | null;
+    barCode?: string | null;
 }
 
 export interface ProductWhDetailModelResApiResponse {
@@ -2835,30 +2836,13 @@ export interface ProductWhDetailModelResApiResponse {
     metaData?: MetaData;
 }
 
-export interface ProductWhEntity {
-    id?: string;
-    createdDate: Date;
-    updatedDate: Date;
-    createdBy: string;
-    updatedBy: string;
-    status?: number;
-    barCode?: string | undefined;
-    name?: string | undefined;
-    description?: string | undefined;
-    supplierId?: string;
-    unitId?: string;
-    supplier?: SupplierWhEntity;
-    unit?: UnitWhEntity;
-    transactionDetails?: TransactionDetailWhEntity[] | undefined;
-}
-
 export interface ProductWhListModelReq {
     pageNumber?: number;
     pageSize?: number;
 }
 
 export interface ProductWhListModelRes {
-    list?: ProductWhModel[] | undefined;
+    list?: ProductWhModel[] | null;
 }
 
 export interface ProductWhListModelResApiResponse {
@@ -2869,23 +2853,23 @@ export interface ProductWhListModelResApiResponse {
 
 export interface ProductWhModel {
     id?: string;
-    name?: string | undefined;
-    description?: string | undefined;
+    name?: string | null;
+    description?: string | null;
     createdDate?: Date;
     updatedDate?: Date;
-    createdBy?: string | undefined;
-    updatedBy?: string | undefined;
+    createdBy?: string | null;
+    updatedBy?: string | null;
     supplierId?: string;
-    supplierName?: string | undefined;
+    supplierName?: string | null;
     unitId?: string;
-    unitName?: string | undefined;
-    barCode?: string | undefined;
+    unitName?: string | null;
+    barCode?: string | null;
 }
 
 export interface ProductWhUpdateModelReq {
     id?: string;
-    name?: string | undefined;
-    description?: string | undefined;
+    name?: string | null;
+    description?: string | null;
     supplierId?: string;
     unitId?: string;
 }
@@ -2911,11 +2895,11 @@ export enum PropertyAttributes {
 }
 
 export interface PropertyInfo {
-    readonly name?: string | undefined;
+    readonly name?: string | null;
     declaringType?: Type;
     reflectedType?: Type;
     module?: Module;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
     memberType?: MemberTypes;
@@ -2947,41 +2931,43 @@ export enum SecurityRuleSet {
 }
 
 export interface StructLayoutAttribute {
-    readonly typeId?: any | undefined;
+    readonly typeId?: any | null;
     value?: LayoutKind;
 }
 
 export interface SubTransactionWhCreateModelReq {
     productId?: string;
+    supplierId?: string;
     unitPrice?: number;
     quantity?: number;
-    dateOfManufacture?: Date | undefined;
-    dateOfExpired?: Date | undefined;
+    totalPrice?: number;
+    dateOfManufacture?: Date | null;
+    dateOfExpired?: Date | null;
 }
 
 export interface SupplierModel {
     id?: string;
-    createdDate?: Date | undefined;
-    updatedDate?: Date | undefined;
-    createdBy?: string | undefined;
-    updatedBy?: string | undefined;
-    name?: string | undefined;
-    address?: string | undefined;
+    createdDate?: Date | null;
+    updatedDate?: Date | null;
+    createdBy?: string | null;
+    updatedBy?: string | null;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface SupplierWhCreateModelReq {
-    name?: string | undefined;
-    address?: string | undefined;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface SupplierWhCreateModelRes {
     id?: string;
-    createdDate?: Date | undefined;
-    updatedDate?: Date | undefined;
-    createdBy?: string | undefined;
-    updatedBy?: string | undefined;
-    name?: string | undefined;
-    address?: string | undefined;
+    createdDate?: Date | null;
+    updatedDate?: Date | null;
+    createdBy?: string | null;
+    updatedBy?: string | null;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface SupplierWhCreateModelResApiResponse {
@@ -3009,12 +2995,12 @@ export interface SupplierWhDetailModelReq {
 
 export interface SupplierWhDetailModelRes {
     id?: string;
-    createdDate?: Date | undefined;
-    updatedDate?: Date | undefined;
-    createdBy?: string | undefined;
-    updatedBy?: string | undefined;
-    name?: string | undefined;
-    address?: string | undefined;
+    createdDate?: Date | null;
+    updatedDate?: Date | null;
+    createdBy?: string | null;
+    updatedBy?: string | null;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface SupplierWhDetailModelResApiResponse {
@@ -3023,25 +3009,13 @@ export interface SupplierWhDetailModelResApiResponse {
     metaData?: MetaData;
 }
 
-export interface SupplierWhEntity {
-    id?: string;
-    createdDate: Date;
-    updatedDate: Date;
-    createdBy: string;
-    updatedBy: string;
-    status?: number;
-    name?: string | undefined;
-    address?: string | undefined;
-    products?: ProductWhEntity[] | undefined;
-}
-
 export interface SupplierWhListModelReq {
     pageNumber?: number;
     pageSize?: number;
 }
 
 export interface SupplierWhListModelRes {
-    list?: SupplierModel[] | undefined;
+    list?: SupplierModel[] | null;
 }
 
 export interface SupplierWhListModelResApiResponse {
@@ -3052,14 +3026,14 @@ export interface SupplierWhListModelResApiResponse {
 
 export interface SupplierWhUpdateModelReq {
     id?: string;
-    name?: string | undefined;
-    address?: string | undefined;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface SupplierWhUpdateModelRes {
     id?: string;
-    name?: string | undefined;
-    address?: string | undefined;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface SupplierWhUpdateModelResApiResponse {
@@ -3068,28 +3042,28 @@ export interface SupplierWhUpdateModelResApiResponse {
     metaData?: MetaData;
 }
 
-export interface TransactionDetailWhEntity {
-    id?: string;
-    createdDate: Date;
-    updatedDate: Date;
-    createdBy: string;
-    updatedBy: string;
-    status?: number;
-    transactionId?: string;
-    productId?: string;
+export interface TransactionDetailModels {
+    productBarCode?: string | null;
+    productName?: string | null;
+    supplierName?: string | null;
+    unitName?: string | null;
     unitPrice?: number;
+    totalPrice?: number;
     quantity?: number;
-    dateOfManufacture?: Date | undefined;
-    dateOfExpired?: Date | undefined;
-    transactions?: TransactionWhEntity;
-    products?: ProductWhEntity;
+    dateOfManufacture?: Date | null;
+    dateOfExpired?: Date | null;
+    createdDate?: Date;
+    updatedDate?: Date;
+    createdBy?: string | null;
+    updatedBy?: string | null;
 }
 
 export interface TransactionWhCreateModelReq {
-    transactionCode?: string | undefined;
-    transactionType?: string | undefined;
-    dateOfImport?: Date | undefined;
-    details?: SubTransactionWhCreateModelReq[] | undefined;
+    transactionCode?: string | null;
+    transactionType?: string | null;
+    transactionDate?: Date | null;
+    totalPrice?: number;
+    details?: SubTransactionWhCreateModelReq[] | null;
 }
 
 export interface TransactionWhCreateModelRes {
@@ -3118,6 +3092,15 @@ export interface TransactionWhDetailModelReq {
 }
 
 export interface TransactionWhDetailModelRes {
+    transactionCode?: string | null;
+    transactionType?: string | null;
+    transactionDate?: Date | null;
+    totalPrice?: number;
+    createdDate?: Date;
+    updatedDate?: Date;
+    createdBy?: string | null;
+    updatedBy?: string | null;
+    details?: TransactionDetailModels[] | null;
 }
 
 export interface TransactionWhDetailModelResApiResponse {
@@ -3126,31 +3109,32 @@ export interface TransactionWhDetailModelResApiResponse {
     metaData?: MetaData;
 }
 
-export interface TransactionWhEntity {
-    id?: string;
-    createdDate: Date;
-    updatedDate: Date;
-    createdBy: string;
-    updatedBy: string;
-    status?: number;
-    transactionCode?: string | undefined;
-    transactionType?: string | undefined;
-    transactionDate?: Date | undefined;
-    totalAmount?: number;
-    dateOfImport?: Date | undefined;
-    transactionDetails?: TransactionDetailWhEntity[] | undefined;
-}
-
 export interface TransactionWhListModelReq {
+    pageNumber?: number;
+    pageSize?: number;
 }
 
 export interface TransactionWhListModelRes {
+    list?: TransactionWhModel[] | null;
 }
 
 export interface TransactionWhListModelResApiResponse {
     data?: TransactionWhListModelRes;
     isNormal?: boolean;
     metaData?: MetaData;
+}
+
+export interface TransactionWhModel {
+    id?: string;
+    createdDate?: Date;
+    updatedDate?: Date;
+    createdBy?: string | null;
+    updatedBy?: string | null;
+    status?: number;
+    transactionCode?: string | null;
+    transactionType?: string | null;
+    transactionDate?: Date | null;
+    totalPrice?: number;
 }
 
 export interface TransactionWhUpdateModelReq {
@@ -3166,15 +3150,15 @@ export interface TransactionWhUpdateModelResApiResponse {
 }
 
 export interface Type {
-    readonly name?: string | undefined;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly name?: string | null;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
     readonly isInterface?: boolean;
     memberType?: MemberTypes;
-    readonly namespace?: string | undefined;
-    readonly assemblyQualifiedName?: string | undefined;
-    readonly fullName?: string | undefined;
+    readonly namespace?: string | null;
+    readonly assemblyQualifiedName?: string | null;
+    readonly fullName?: string | null;
     assembly?: Assembly;
     module?: Module;
     readonly isNested?: boolean;
@@ -3198,7 +3182,7 @@ export interface Type {
     readonly isFunctionPointer?: boolean;
     readonly isUnmanagedFunctionPointer?: boolean;
     readonly hasElementType?: boolean;
-    readonly genericTypeArguments?: Type[] | undefined;
+    readonly genericTypeArguments?: Type[] | null;
     readonly genericParameterPosition?: number;
     genericParameterAttributes?: GenericParameterAttributes;
     attributes?: TypeAttributes;
@@ -3271,15 +3255,15 @@ export enum TypeAttributes {
 }
 
 export interface TypeInfo {
-    readonly name?: string | undefined;
-    readonly customAttributes?: CustomAttributeData[] | undefined;
+    readonly name?: string | null;
+    readonly customAttributes?: CustomAttributeData[] | null;
     readonly isCollectible?: boolean;
     readonly metadataToken?: number;
     readonly isInterface?: boolean;
     memberType?: MemberTypes;
-    readonly namespace?: string | undefined;
-    readonly assemblyQualifiedName?: string | undefined;
-    readonly fullName?: string | undefined;
+    readonly namespace?: string | null;
+    readonly assemblyQualifiedName?: string | null;
+    readonly fullName?: string | null;
     assembly?: Assembly;
     module?: Module;
     readonly isNested?: boolean;
@@ -3303,7 +3287,7 @@ export interface TypeInfo {
     readonly isFunctionPointer?: boolean;
     readonly isUnmanagedFunctionPointer?: boolean;
     readonly hasElementType?: boolean;
-    readonly genericTypeArguments?: Type[] | undefined;
+    readonly genericTypeArguments?: Type[] | null;
     readonly genericParameterPosition?: number;
     genericParameterAttributes?: GenericParameterAttributes;
     attributes?: TypeAttributes;
@@ -3344,19 +3328,19 @@ export interface TypeInfo {
     readonly isSerializable?: boolean;
     readonly containsGenericParameters?: boolean;
     readonly isVisible?: boolean;
-    readonly genericTypeParameters?: Type[] | undefined;
-    readonly declaredConstructors?: ConstructorInfo[] | undefined;
-    readonly declaredEvents?: EventInfo[] | undefined;
-    readonly declaredFields?: FieldInfo[] | undefined;
-    readonly declaredMembers?: MemberInfo[] | undefined;
-    readonly declaredMethods?: MethodInfo[] | undefined;
-    readonly declaredNestedTypes?: TypeInfo[] | undefined;
-    readonly declaredProperties?: PropertyInfo[] | undefined;
-    readonly implementedInterfaces?: Type[] | undefined;
+    readonly genericTypeParameters?: Type[] | null;
+    readonly declaredConstructors?: ConstructorInfo[] | null;
+    readonly declaredEvents?: EventInfo[] | null;
+    readonly declaredFields?: FieldInfo[] | null;
+    readonly declaredMembers?: MemberInfo[] | null;
+    readonly declaredMethods?: MethodInfo[] | null;
+    readonly declaredNestedTypes?: TypeInfo[] | null;
+    readonly declaredProperties?: PropertyInfo[] | null;
+    readonly implementedInterfaces?: Type[] | null;
 }
 
 export interface UnitWhCreateModelReq {
-    name?: string | undefined;
+    name?: string | null;
 }
 
 export interface UnitWhCreateModelRes {
@@ -3382,16 +3366,16 @@ export interface UnitWhDeleteModelResApiResponse {
 }
 
 export interface UnitWhDetailModelReq {
-    id?: string | undefined;
+    id?: string | null;
 }
 
 export interface UnitWhDetailModelRes {
     id?: string;
-    name?: string | undefined;
+    name?: string | null;
     createdDate?: Date;
     updatedDate?: Date;
-    createdBy?: string | undefined;
-    updatedBy?: string | undefined;
+    createdBy?: string | null;
+    updatedBy?: string | null;
 }
 
 export interface UnitWhDetailModelResApiResponse {
@@ -3400,24 +3384,13 @@ export interface UnitWhDetailModelResApiResponse {
     metaData?: MetaData;
 }
 
-export interface UnitWhEntity {
-    id?: string;
-    createdDate: Date;
-    updatedDate: Date;
-    createdBy: string;
-    updatedBy: string;
-    status?: number;
-    name?: string | undefined;
-    products?: ProductWhEntity[] | undefined;
-}
-
 export interface UnitWhListModelReq {
     pageNumber?: number;
     pageSize?: number;
 }
 
 export interface UnitWhListModelRes {
-    list?: UnitWhModel[] | undefined;
+    list?: UnitWhModel[] | null;
 }
 
 export interface UnitWhListModelResApiResponse {
@@ -3428,16 +3401,16 @@ export interface UnitWhListModelResApiResponse {
 
 export interface UnitWhModel {
     id?: string;
-    name?: string | undefined;
+    name?: string | null;
     createdDate?: Date;
     updatedDate?: Date;
-    createdBy?: string | undefined;
-    updatedBy?: string | undefined;
+    createdBy?: string | null;
+    updatedBy?: string | null;
 }
 
 export interface UnitWhUpdateModelReq {
     id?: string;
-    name?: string | undefined;
+    name?: string | null;
 }
 
 export interface UnitWhUpdateModelRes {
@@ -3450,7 +3423,7 @@ export interface UnitWhUpdateModelResApiResponse {
 }
 
 export interface UploadFileResponseDTO {
-    fileIds?: FileUploadDTO[] | undefined;
+    fileIds?: FileUploadDTO[] | null;
 }
 
 export interface UploadFileResponseDTOApiResponse {
@@ -3488,8 +3461,8 @@ export interface WarehouseDeleteModelResApiResponse {
 
 export interface WarehouseInfoModel {
     id?: string;
-    name?: string | undefined;
-    address?: string | undefined;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface WarehouseListModelReq {
@@ -3498,7 +3471,7 @@ export interface WarehouseListModelReq {
 }
 
 export interface WarehouseListModelRes {
-    listWarehouse?: WarehouseInfoModel[] | undefined;
+    listWarehouse?: WarehouseInfoModel[] | null;
 }
 
 export interface WarehouseListModelResApiResponse {
@@ -3509,8 +3482,8 @@ export interface WarehouseListModelResApiResponse {
 
 export interface WarehouseUpdateModelReq {
     id?: string;
-    name?: string | undefined;
-    address?: string | undefined;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface WarehouseUpdateModelRes {
@@ -3528,8 +3501,8 @@ export interface WarehouseWhDetailByIdModelReq {
 
 export interface WarehouseWhDetailByIdModelRes {
     id?: string;
-    name?: string | undefined;
-    address?: string | undefined;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface WarehouseWhDetailByIdModelResApiResponse {
@@ -3549,9 +3522,8 @@ export interface WarehouseWhDetailModelRes {
     createdBy: string;
     updatedBy: string;
     status?: number;
-    name?: string | undefined;
-    address?: string | undefined;
-    transactions?: TransactionWhEntity[] | undefined;
+    name?: string | null;
+    address?: string | null;
 }
 
 export interface WarehouseWhDetailModelResApiResponse {
