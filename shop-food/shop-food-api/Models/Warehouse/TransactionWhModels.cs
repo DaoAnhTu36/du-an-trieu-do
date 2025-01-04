@@ -1,3 +1,7 @@
+using System.ComponentModel.DataAnnotations;
+using Common.Model.Entitties;
+using Common.User;
+
 namespace shop_food_api.Models.Warehouse
 {
     #region model create new record
@@ -19,6 +23,7 @@ namespace shop_food_api.Models.Warehouse
     public class SubTransactionWhCreateModelReq
     {
         public Guid ProductId { get; set; }
+        public Guid SupplierId { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
@@ -60,9 +65,10 @@ namespace shop_food_api.Models.Warehouse
 
     public class TransactionWhListModelRes
     {
+        public IEnumerable<TransactionWhModel>? List { get; set; }
     }
 
-    public class TransactionWhListModelReq
+    public class TransactionWhListModelReq : BasePageEntity
     {
     }
 
@@ -80,4 +86,18 @@ namespace shop_food_api.Models.Warehouse
     }
 
     #endregion model get detail record
+
+    public class TransactionWhModel
+    {
+        public Guid Id { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime UpdatedDate { get; set; } = DateTime.Now;
+        public string CreatedBy { get; set; } = AdminInfo.Id ?? "admin";
+        public string UpdatedBy { get; set; } = AdminInfo.Id ?? "admin";
+        public int Status { get; set; }
+        public string? TransactionCode { get; set; }
+        public string? TransactionType { get; set; }
+        public DateTime? TransactionDate { get; set; }
+        public decimal TotalPrice { get; set; }
+    }
 }

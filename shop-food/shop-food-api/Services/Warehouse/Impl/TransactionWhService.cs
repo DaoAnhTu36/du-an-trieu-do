@@ -1,6 +1,7 @@
 using Common.Logger;
 using Common.Model.Config;
 using Common.Model.Response;
+using Common.Utility;
 using Core.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -54,6 +55,7 @@ namespace shop_food_api.Services.Warehouse.Impl
                             Quantity = transaction.Quantity,
                             TransactionId = transId,
                             TotalPrice = transaction.TotalPrice,
+                            SupplierId = transaction.SupplierId,
                         });
                     }
                 }
@@ -131,10 +133,40 @@ namespace shop_food_api.Services.Warehouse.Impl
 
         public async Task<ApiResponse<TransactionWhListModelRes>> List(TransactionWhListModelReq req)
         {
-            LoggerFunctionUtility.CommonLogStart(this);
+            LoggerFunctionUtility.CommonLogStart(this, req);
             var retVal = new ApiResponse<TransactionWhListModelRes>();
             try
             {
+                var query = _context.Set<TransactionWhEntity>().Select(x => new TransactionWhModel
+                {
+                    TotalPrice = x.TotalPrice,
+                    CreatedBy = x.CreatedBy,
+                    CreatedDate = x.CreatedDate,
+                    Id = x.Id,
+                    Status = x.Status,
+                    TransactionCode = x.TransactionCode,
+                    TransactionDate = x.TransactionDate,
+                    TransactionType = x.TransactionType,
+                    UpdatedBy = x.UpdatedBy,
+                    UpdatedDate = x.UpdatedDate,
+                });
+                retVal = new ApiResponse<TransactionWhListModelRes>
+                {
+                    Data = new TransactionWhListModelRes
+                    {
+                        List = UtilityDatabase.PaginationExtension(_options, query, req.PageNumber, req.PageSize)
+                    }
+                };
+                if (query == null)
+                {
+                    retVal.MetaData = new MetaData
+                    {
+                        Message = "NotFound",
+                        StatusCode = "400"
+                    };
+                    LoggerFunctionUtility.CommonLogEnd(this, retVal);
+                    return retVal;
+                }
             }
             catch (Exception ex)
             {

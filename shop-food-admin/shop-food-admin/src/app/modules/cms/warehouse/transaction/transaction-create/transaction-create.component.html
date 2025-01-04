@@ -1,5 +1,5 @@
 <div class="title-page">
-    <h2 class="title">Tạo phiếu nhập kho</h2>
+    <h2 class="title">Tạo phiếu nhập/xuất kho</h2>
 </div>
 <div class="form-custom">
     <section class="transaction">
@@ -24,20 +24,20 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="transaction-date">Ngày nhập</label>
-                            <input type="date" id="transaction-date" class="form-control"
-                                [formControl]="transactionDate" />
+                            <label for="transaction-code">Loại phiếu</label>
+                            <select class="form-control" [formControl]="transactionType">
+                                <option value="">Chọn</option>
+                                <option *ngFor="let item of listTransactionType" [value]="item.id">
+                                    {{ item.name }}
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="transaction-supplier">Nhà cung cấp</label>
-                            <select id="transaction-supplier" class="form-control" [formControl]="supplierId">
-                                <option value="">Chọn nhà cung cấp</option>
-                                <option *ngFor="let item of supplierList.list" [value]="item.id">
-                                    {{ item.name }}
-                                </option>
-                            </select>
+                            <label for="transaction-date">Ngày nhập</label>
+                            <input type="date" id="transaction-date" class="form-control"
+                                [formControl]="transactionDate" />
                         </div>
                     </div>
                 </div>
@@ -69,18 +69,28 @@
                                             <input type="text" class="form-control" name="{{onRewrite(i,'barCode')}}"
                                                 id="{{onRewrite(i,'barCode',true)}}"
                                                 (keydown.enter)="onSearchProduct(i)" formControlName="barCode"
-                                                placeholder="BarCode" />
+                                                placeholder="Mã barcode" />
                                         </td>
                                         <td>
                                             <input type="text" class="form-control"
                                                 name="{{onRewrite(i,'productName')}}"
                                                 id="{{onRewrite(i,'productName',true)}}" formControlName="productName"
-                                                placeholder="Product name" readonly />
+                                                placeholder="Tên sản phẩm" readonly />
+                                        </td>
+                                        <td>
+                                            <select name="{{onRewrite(i,'supplierId')}}"
+                                                id="{{onRewrite(i,'supplierId',true)}}" class="form-control"
+                                                formControlName="supplierId">
+                                                <option value="">Nhà cung cấp</option>
+                                                <option *ngFor="let item of supplierList.list" [value]="item.id">
+                                                    {{ item.name }}
+                                                </option>
+                                            </select>
                                         </td>
                                         <td>
                                             <select class="form-control" name="{{onRewrite(i,'unitId')}}"
                                                 id="{{onRewrite(i,'unitId',true)}}" formControlName="unitId">
-                                                <option value="">--Unit--</option>
+                                                <option value="">ĐVT</option>
                                                 <option *ngFor="let item of listUnit" [value]="item.id">
                                                     {{ item.name }}
                                                 </option>
@@ -89,18 +99,18 @@
                                         <td>
                                             <input type="text" class="form-control" name="{{onRewrite(i,'quantity')}}"
                                                 id="{{onRewrite(i,'quantity',true)}}" formControlName="quantity"
-                                                placeholder="Quantity" (keyup)="onCalTotalAmount(i)" />
+                                                placeholder="Số lượng" (keyup)="onCalTotalAmount(i)" />
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" name="{{onRewrite(i,'unitPrice')}}"
                                                 id="{{onRewrite(i,'unitPrice',true)}}" formControlName="unitPrice"
-                                                placeholder="Unit price" (keyup)="onCalTotalAmount(i)" />
+                                                placeholder="Đơn giá" (keyup)="onCalTotalAmount(i)" />
                                         </td>
                                         <td>
                                             <input type="text" class="form-control"
                                                 name="{{onRewrite(i,'totalAmount')}}"
                                                 id="{{onRewrite(i,'totalAmount',true)}}" formControlName="totalAmount"
-                                                placeholder="Total amount" readonly />
+                                                placeholder="Thành tiền" readonly />
                                         </td>
                                         <td>
                                             <i class="fa fa-trash" (click)="removeItem(i)" aria-hidden="true"></i>
@@ -116,7 +126,7 @@
 
         <div class="transaction-detail-footer">
             <div class="form-group">
-                <label for="">Total price</label>
+                <label for="">Tổng số tiền giao dịch</label>
                 <input type="text" class="form-control" [formControl]="totalPriceDetail" readonly>
             </div>
         </div>

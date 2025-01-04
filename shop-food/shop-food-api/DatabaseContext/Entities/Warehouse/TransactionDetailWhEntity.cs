@@ -9,6 +9,7 @@ namespace shop_food_api.DatabaseContext.Entities.Warehouse
     {
         public Guid TransactionId { get; set; }
         public Guid ProductId { get; set; }
+        public Guid SupplierId { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public int Quantity { get; set; }

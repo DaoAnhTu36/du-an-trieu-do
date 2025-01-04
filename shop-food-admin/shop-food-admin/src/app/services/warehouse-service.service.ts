@@ -4325,23 +4325,6 @@ export interface ProductWhDetailModelResApiResponse {
   metaData?: MetaData;
 }
 
-export interface ProductWhEntity {
-  id?: string;
-  createdDate: Date;
-  updatedDate: Date;
-  createdBy: string;
-  updatedBy: string;
-  status?: number;
-  barCode?: string | null;
-  name?: string | null;
-  description?: string | null;
-  supplierId?: string;
-  unitId?: string;
-  supplier?: SupplierWhEntity;
-  unit?: UnitWhEntity;
-  transactionDetails?: TransactionDetailWhEntity[] | null;
-}
-
 export interface ProductWhListModelReq {
   pageNumber?: number;
   pageSize?: number;
@@ -4442,6 +4425,7 @@ export interface StructLayoutAttribute {
 
 export interface SubTransactionWhCreateModelReq {
   productId?: string;
+  supplierId?: string;
   unitPrice?: number;
   quantity?: number;
   totalPrice?: number;
@@ -4512,18 +4496,6 @@ export interface SupplierWhDetailModelResApiResponse {
   metaData?: MetaData;
 }
 
-export interface SupplierWhEntity {
-  id?: string;
-  createdDate: Date;
-  updatedDate: Date;
-  createdBy: string;
-  updatedBy: string;
-  status?: number;
-  name?: string | null;
-  address?: string | null;
-  products?: ProductWhEntity[] | null;
-}
-
 export interface SupplierWhListModelReq {
   pageNumber?: number;
   pageSize?: number;
@@ -4555,24 +4527,6 @@ export interface SupplierWhUpdateModelResApiResponse {
   data?: SupplierWhUpdateModelRes;
   isNormal?: boolean;
   metaData?: MetaData;
-}
-
-export interface TransactionDetailWhEntity {
-  id?: string;
-  createdDate: Date;
-  updatedDate: Date;
-  createdBy: string;
-  updatedBy: string;
-  status?: number;
-  transactionId?: string;
-  productId?: string;
-  unitPrice?: number;
-  totalPrice?: number;
-  quantity?: number;
-  dateOfManufacture?: Date | null;
-  dateOfExpired?: Date | null;
-  transactions?: TransactionWhEntity;
-  products?: ProductWhEntity;
 }
 
 export interface TransactionWhCreateModelReq {
@@ -4613,28 +4567,32 @@ export interface TransactionWhDetailModelResApiResponse {
   metaData?: MetaData;
 }
 
-export interface TransactionWhEntity {
-  id?: string;
-  createdDate: Date;
-  updatedDate: Date;
-  createdBy: string;
-  updatedBy: string;
-  status?: number;
-  transactionCode?: string | null;
-  transactionType?: string | null;
-  transactionDate?: Date | null;
-  totalPrice?: number;
-  transactionDetails?: TransactionDetailWhEntity[] | null;
+export interface TransactionWhListModelReq {
+  pageNumber?: number;
+  pageSize?: number;
 }
 
-export interface TransactionWhListModelReq {}
-
-export interface TransactionWhListModelRes {}
+export interface TransactionWhListModelRes {
+  list?: TransactionWhModel[] | null;
+}
 
 export interface TransactionWhListModelResApiResponse {
   data?: TransactionWhListModelRes;
   isNormal?: boolean;
   metaData?: MetaData;
+}
+
+export interface TransactionWhModel {
+  id?: string;
+  createdDate?: Date;
+  updatedDate?: Date;
+  createdBy?: string | null;
+  updatedBy?: string | null;
+  status?: number;
+  transactionCode?: string | null;
+  transactionType?: string | null;
+  transactionDate?: Date | null;
+  totalPrice?: number;
 }
 
 export interface TransactionWhUpdateModelReq {}
@@ -4880,17 +4838,6 @@ export interface UnitWhDetailModelResApiResponse {
   metaData?: MetaData;
 }
 
-export interface UnitWhEntity {
-  id?: string;
-  createdDate: Date;
-  updatedDate: Date;
-  createdBy: string;
-  updatedBy: string;
-  status?: number;
-  name?: string | null;
-  products?: ProductWhEntity[] | null;
-}
-
 export interface UnitWhListModelReq {
   pageNumber?: number;
   pageSize?: number;
@@ -5027,7 +4974,6 @@ export interface WarehouseWhDetailModelRes {
   status?: number;
   name?: string | null;
   address?: string | null;
-  transactions?: TransactionWhEntity[] | null;
 }
 
 export interface WarehouseWhDetailModelResApiResponse {

@@ -40,6 +40,11 @@ export class TransactionCreateComponent {
   listTransDetail: any[] = [];
   listUnit: UnitWhModel[] = [];
   totalPriceDetail = new FormControl('');
+  transactionType = new FormControl('');
+  listTransactionType = [
+    { id: '0', name: 'Nhập' },
+    { id: '1', name: 'Xuất' },
+  ];
 
   constructor(
     private readonly _warehouseService: WarehouseService,
@@ -83,6 +88,7 @@ export class TransactionCreateComponent {
       barCode: [''],
       productName: [''],
       unitId: [''],
+      supplierId: [''],
       quantity: [''],
       unitPrice: [''],
       totalAmount: [''],
@@ -137,6 +143,7 @@ export class TransactionCreateComponent {
             barCode: res.data?.barCode,
             productName: res.data?.name,
             unitId: res.data?.unitId,
+            supplierId: res.data?.supplierId,
             quantity: 1,
             unitPrice: this._commonService.formatCurrency(0),
             totalAmount: this._commonService.formatCurrency(1 * 0),
@@ -163,11 +170,13 @@ export class TransactionCreateComponent {
     let productId = this.myForm.value['items'][i]['productId'];
     let productName = '';
     let unitId = '';
+    let supplierId = '';
     let index = this.listTransDetail.findIndex((x) => x.barCode == barCode);
     if (index >= 0) {
       barCode = this.listTransDetail[i]['barCode'];
       productName = this.listTransDetail[i]['productName'];
       unitId = this.listTransDetail[i]['unitId'];
+      supplierId = this.listTransDetail[i]['supplierId'];
       productId = this.listTransDetail[i]['productId'];
       this.listTransDetail.splice(i, 1);
     }
@@ -176,6 +185,7 @@ export class TransactionCreateComponent {
       barCode: barCode,
       productName: productName,
       unitId: unitId,
+      supplierId: supplierId,
       quantity: quantity,
       unitPrice: this._commonService.formatCurrency(unitPrice),
       totalAmount: this._commonService.formatCurrency(totalAmount),
@@ -209,12 +219,13 @@ export class TransactionCreateComponent {
         productId: element.productId,
         dateOfExpired: null,
         dateOfManufacture: null,
+        supplierId: element.supplierId,
       });
     });
     let request: TransactionWhCreateModelReq = {
       transactionDate: new Date(this.transactionDate.value ?? '') ?? null,
       transactionCode: this.transactionCode.value ?? null,
-      transactionType: '0',
+      transactionType: this.transactionType.value,
       totalPrice: this._commonService.revertFormatCurrency(
         this.totalPriceDetail.value
       ),
