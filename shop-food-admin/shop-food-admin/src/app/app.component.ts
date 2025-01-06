@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
 import {
   API_WAREHOUSE_URL,
@@ -42,7 +42,8 @@ export class AppComponent {
     private loadingService: LoadingService,
     // private readonly _signalRService: SignalRService,
     // private readonly _sharingService: SharingService,
-    private readonly _toastrService: ToastrService
+    private readonly _toastrService: ToastrService,
+    private readonly _router: ActivatedRoute
   ) {
     this.loading$ = this.loadingService.loading$;
     // this._sharingService.data$.subscribe(data => {
@@ -51,4 +52,13 @@ export class AppComponent {
     // });
   }
   title = 'shop-food-admin';
+
+  onNextPage() {
+    console.log('next page');
+  }
+
+  onPreviousPage() {
+    console.log('previous page');
+    window.history.back();
+  }
 }
