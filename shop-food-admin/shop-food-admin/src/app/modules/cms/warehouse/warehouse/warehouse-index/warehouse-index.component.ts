@@ -43,18 +43,18 @@ export class WarehouseIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/warehouse/create']);
+    this.router.navigate(['/wh/system/warehouse/create']);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/warehouse/update/', id]);
+    this.router.navigate(['/wh/system/warehouse/update/', id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/warehouse/detail/', id]);
+    this.router.navigate(['/wh/system/warehouse/detail/', id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/warehouse/delete/', id]);
+    this.router.navigate(['/wh/system/warehouse/delete/', id]);
   }
 }

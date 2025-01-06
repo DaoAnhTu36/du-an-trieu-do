@@ -43,18 +43,18 @@ export class ProductIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/product/create']);
+    this.router.navigate(['/wh/system/product/create']);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/product/update/', id]);
+    this.router.navigate(['/wh/system/product/update/', id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/product/detail/', id]);
+    this.router.navigate(['/wh/system/product/detail/', id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/product/delete/', id]);
+    this.router.navigate(['/wh/system/product/delete/', id]);
   }
 }

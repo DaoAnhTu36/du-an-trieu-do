@@ -58,7 +58,7 @@ export class UnitUpdateComponent {
           res.isNormal &&
           res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
         ) {
-          this._router.navigate(['/unit']);
+          this._router.navigate(['wh/system/unit']);
           this._toastService.success('Update successfully');
         } else {
           this._toastService.error('Update failed');

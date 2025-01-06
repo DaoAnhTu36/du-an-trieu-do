@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -27,7 +27,7 @@ import { CommonServiceService } from '../../../../../services/common-service.ser
 @Component({
   selector: 'app-transaction-create',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule],
+  imports: [NgFor, ReactiveFormsModule, NgIf],
   templateUrl: './transaction-create.component.html',
   styleUrl: './transaction-create.component.scss',
 })
@@ -107,7 +107,7 @@ export class TransactionCreateComponent {
   }
 
   onCancel() {
-    this._router.navigate(['/wh/transaction']);
+    this._router.navigate(['/wh/transaction/transaction']);
   }
 
   getListUnit() {
@@ -238,7 +238,7 @@ export class TransactionCreateComponent {
         res.metaData?.statusCode == StatusCodeApiResponse.SUCCESS
       ) {
         this._toastService.success('Tạo phiếu nhập thành công');
-        this._router.navigate(['/wh/transaction']);
+        this._router.navigate(['/wh/transaction/transaction']);
       } else {
         this._toastService.error('Tạo phiếu nhập thất bại');
       }

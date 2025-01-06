@@ -31,3 +31,15 @@ input[readonly] {
 .mr-10 {
   margin-right: 10px;
 }
+
+.active {
+  background-color: rgb(82, 82, 82);
+  color: rgb(255, 255, 255) !important;
+}
+.show-element {
+  display: block !important;
+}
+
+.hide-element {
+  display: none !important;
+}

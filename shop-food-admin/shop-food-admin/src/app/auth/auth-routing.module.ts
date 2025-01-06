@@ -6,30 +6,30 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: LoginComponent
-  },
+  // {
+  //   path: '',
+  //   component: LoginComponent
+  // },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'logout',
-    component: LogoutComponent
+    component: LogoutComponent,
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: 'profile',
-    component: ProfileComponent
-  }
+    component: ProfileComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {}

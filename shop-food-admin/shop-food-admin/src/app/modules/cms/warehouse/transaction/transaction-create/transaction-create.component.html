@@ -121,7 +121,7 @@
             </div>
         </form>
 
-        <div class="transaction-detail-footer">
+        <div class="transaction-detail-footer" *ngIf="items.controls.length>0">
             <div class="form-group">
                 <label for="">Tổng số tiền giao dịch</label>
                 <input type="text" class="form-control" [formControl]="totalPriceDetail" readonly>

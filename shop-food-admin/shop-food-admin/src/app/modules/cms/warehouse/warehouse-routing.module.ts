@@ -14,19 +14,16 @@ const routes: Routes = [
       import('../dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
   {
-    path: 'wh/inventory',
+    path: 'wh/transaction/inventory',
     loadChildren: () =>
       import('./inventory/inventory.module').then((m) => m.InventoryModule),
   },
   {
-    path: 'wh/product',
+    path: 'wh/transaction/transaction',
     loadChildren: () =>
-      import('./product/product.module').then((m) => m.ProductModule),
-  },
-  {
-    path: 'wh/supplier',
-    loadChildren: () =>
-      import('./supplier/supplier.module').then((m) => m.SupplierModule),
+      import('./transaction/transaction.module').then(
+        (m) => m.TransactionModule
+      ),
   },
   {
     path: 'wh/transaction',
@@ -36,11 +33,21 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'wh/unit',
+    path: 'wh/system/product',
+    loadChildren: () =>
+      import('./product/product.module').then((m) => m.ProductModule),
+  },
+  {
+    path: 'wh/system/supplier',
+    loadChildren: () =>
+      import('./supplier/supplier.module').then((m) => m.SupplierModule),
+  },
+  {
+    path: 'wh/system/unit',
     loadChildren: () => import('./unit/unit.module').then((m) => m.UnitModule),
   },
   {
-    path: 'wh/warehouse',
+    path: 'wh/system/warehouse',
     loadChildren: () =>
       import('./warehouse/warehouse.module').then((m) => m.WarehouseModule),
   },

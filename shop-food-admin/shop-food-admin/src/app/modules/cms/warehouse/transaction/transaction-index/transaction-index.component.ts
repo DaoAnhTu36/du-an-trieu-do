@@ -66,18 +66,18 @@ export class TransactionIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/transaction/create']);
+    this.router.navigate(['/wh/transaction/transaction/create']);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/transaction/update/', id]);
+    this.router.navigate(['/wh/transaction/transaction/update/', id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/transaction/detail/', id]);
+    this.router.navigate(['/wh/transaction/transaction/detail/', id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/transaction/delete/', id]);
+    this.router.navigate(['/wh/transaction/transaction/delete/', id]);
   }
 }

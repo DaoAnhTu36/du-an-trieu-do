@@ -43,18 +43,18 @@ export class UnitIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/unit/create']);
+    this.router.navigate(['/wh/system/unit/create']);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/unit/update/', id]);
+    this.router.navigate(['/wh/system/unit/update/', id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/unit/detail/', id]);
+    this.router.navigate(['/wh/system/unit/detail/', id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/unit/delete/', id]);
+    this.router.navigate(['/wh/system/unit/delete/', id]);
   }
 }
