@@ -4596,6 +4596,7 @@ export interface TransactionWhDetailModelResApiResponse {
 export interface TransactionWhListModelReq {
   pageNumber?: number;
   pageSize?: number;
+  transactionType?: string | null;
 }
 
 export interface TransactionWhListModelRes {

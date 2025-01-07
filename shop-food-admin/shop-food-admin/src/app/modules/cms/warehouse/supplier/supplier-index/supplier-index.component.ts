@@ -43,18 +43,18 @@ export class SupplierIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/supplier/create']);
+    this.router.navigate(['/wh/system/supplier/create']);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/supplier/update/', id]);
+    this.router.navigate(['/wh/system/supplier/update/', id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/supplier/detail/', id]);
+    this.router.navigate(['/wh/system/supplier/detail/', id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/supplier/delete/', id]);
+    this.router.navigate(['/wh/system/supplier/delete/', id]);
   }
 }

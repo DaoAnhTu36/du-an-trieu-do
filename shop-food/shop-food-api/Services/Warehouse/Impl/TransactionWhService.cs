@@ -39,7 +39,7 @@ namespace shop_food_api.Services.Warehouse.Impl
                     TransactionDate = req.TransactionDate,
                     TotalPrice = req.TotalPrice,
                     TransactionCode = req.TransactionCode,
-                    
+
                 });
 
                 if (req.Details != null)
@@ -104,77 +104,77 @@ namespace shop_food_api.Services.Warehouse.Impl
             try
             {
                 var record = await (from trans in _context.Set<TransactionWhEntity>()
-                              where trans.Id == req.Id
-                              join transDetail in _context.Set<TransactionDetailWhEntity>() on trans.Id equals transDetail.TransactionId
-                              join prod in _context.Set<ProductWhEntity>() on transDetail.ProductId equals prod.Id
-                              join supplier in _context.Set<SupplierWhEntity>() on transDetail.SupplierId equals supplier.Id
-                              join unit in _context.Set<UnitWhEntity>() on prod.UnitId equals unit.Id
-                              select new
-                              {
-                                  TransId = trans.Id,
-                                  TransactionDate = trans.TransactionDate,
-                                  TransactionType = trans.TransactionType,
-                                  TransactionCode = trans.TransactionCode,
-                                  TotalPriceTrans = trans.TotalPrice,
-                                  CreatedByTrans = trans.CreatedBy,
-                                  CreatedDateTrans = trans.CreatedDate,
-                                  UpdatedByTrans = trans.UpdatedBy,
-                                  UpdatedDateTrans = trans.UpdatedDate,
-                                  ProductName = prod.Name,
-                                  ProductBarCode = prod.BarCode,
-                                  SupplierName = supplier.Name,
-                                  UnitPrice = transDetail.UnitPrice,
-                                  TotalPriceTransDetail = transDetail.TotalPrice,
-                                  Quantity = transDetail.Quantity,
-                                  DateOfManufacture = transDetail.DateOfManufacture,
-                                  DateOfExpired = transDetail.DateOfExpired,
-                                  CreatedByTransDetail = transDetail.CreatedBy,
-                                  CreatedDateTransDetail = transDetail.CreatedDate,
-                                  UpdatedByTransDetail = transDetail.UpdatedBy,
-                                  UpdatedDateTransDetail = transDetail.UpdatedDate,
-                                  UnitName = unit.Name,
-                              }
+                                    where trans.Id == req.Id
+                                    join transDetail in _context.Set<TransactionDetailWhEntity>() on trans.Id equals transDetail.TransactionId
+                                    join prod in _context.Set<ProductWhEntity>() on transDetail.ProductId equals prod.Id
+                                    join supplier in _context.Set<SupplierWhEntity>() on transDetail.SupplierId equals supplier.Id
+                                    join unit in _context.Set<UnitWhEntity>() on prod.UnitId equals unit.Id
+                                    select new
+                                    {
+                                        TransId = trans.Id,
+                                        TransactionDate = trans.TransactionDate,
+                                        TransactionType = trans.TransactionType,
+                                        TransactionCode = trans.TransactionCode,
+                                        TotalPriceTrans = trans.TotalPrice,
+                                        CreatedByTrans = trans.CreatedBy,
+                                        CreatedDateTrans = trans.CreatedDate,
+                                        UpdatedByTrans = trans.UpdatedBy,
+                                        UpdatedDateTrans = trans.UpdatedDate,
+                                        ProductName = prod.Name,
+                                        ProductBarCode = prod.BarCode,
+                                        SupplierName = supplier.Name,
+                                        UnitPrice = transDetail.UnitPrice,
+                                        TotalPriceTransDetail = transDetail.TotalPrice,
+                                        Quantity = transDetail.Quantity,
+                                        DateOfManufacture = transDetail.DateOfManufacture,
+                                        DateOfExpired = transDetail.DateOfExpired,
+                                        CreatedByTransDetail = transDetail.CreatedBy,
+                                        CreatedDateTransDetail = transDetail.CreatedDate,
+                                        UpdatedByTransDetail = transDetail.UpdatedBy,
+                                        UpdatedDateTransDetail = transDetail.UpdatedDate,
+                                        UnitName = unit.Name,
+                                    }
                              into tableNew
-                              group tableNew by new
-                              {
-                                  tableNew.TransId,
-                                  tableNew.TransactionDate,
-                                  tableNew.TransactionType,
-                                  tableNew.TransactionCode,
-                                  tableNew.TotalPriceTrans,
-                                  tableNew.CreatedByTrans,
-                                  tableNew.CreatedDateTrans,
-                                  tableNew.UpdatedByTrans,
-                                  tableNew.UpdatedDateTrans,
-                              }
+                                    group tableNew by new
+                                    {
+                                        tableNew.TransId,
+                                        tableNew.TransactionDate,
+                                        tableNew.TransactionType,
+                                        tableNew.TransactionCode,
+                                        tableNew.TotalPriceTrans,
+                                        tableNew.CreatedByTrans,
+                                        tableNew.CreatedDateTrans,
+                                        tableNew.UpdatedByTrans,
+                                        tableNew.UpdatedDateTrans,
+                                    }
                              into tableNewGroup
-                              select new TransactionWhDetailModelRes
-                              {
-                                  TotalPrice = tableNewGroup.Key.TotalPriceTrans,
-                                  TransactionCode = tableNewGroup.Key.TransactionCode,
-                                  TransactionDate = tableNewGroup.Key.TransactionDate,
-                                  TransactionType = tableNewGroup.Key.TransactionType,
-                                  CreatedBy = tableNewGroup.Key.CreatedByTrans,
-                                  CreatedDate = tableNewGroup.Key.CreatedDateTrans,
-                                  UpdatedBy = tableNewGroup.Key.UpdatedByTrans,
-                                  UpdatedDate = tableNewGroup.Key.UpdatedDateTrans,
-                                  Details = tableNewGroup.Select(x => new TransactionDetailModels
-                                  {
-                                      DateOfExpired = x.DateOfExpired,
-                                      DateOfManufacture = x.DateOfManufacture,
-                                      ProductName = x.ProductName,
-                                      Quantity = x.Quantity,
-                                      SupplierName = x.SupplierName,
-                                      UnitPrice = x.UnitPrice,
-                                      TotalPrice = x.TotalPriceTransDetail,
-                                      UpdatedDate = x.UpdatedDateTransDetail,
-                                      UpdatedBy = x.UpdatedByTransDetail,
-                                      CreatedDate = x.CreatedDateTransDetail,
-                                      CreatedBy = x.CreatedByTransDetail,
-                                      ProductBarCode = x.ProductBarCode,
-                                      UnitName = x.UnitName,
-                                  }).ToList()
-                              }).FirstOrDefaultAsync();
+                                    select new TransactionWhDetailModelRes
+                                    {
+                                        TotalPrice = tableNewGroup.Key.TotalPriceTrans,
+                                        TransactionCode = tableNewGroup.Key.TransactionCode,
+                                        TransactionDate = tableNewGroup.Key.TransactionDate,
+                                        TransactionType = tableNewGroup.Key.TransactionType,
+                                        CreatedBy = tableNewGroup.Key.CreatedByTrans,
+                                        CreatedDate = tableNewGroup.Key.CreatedDateTrans,
+                                        UpdatedBy = tableNewGroup.Key.UpdatedByTrans,
+                                        UpdatedDate = tableNewGroup.Key.UpdatedDateTrans,
+                                        Details = tableNewGroup.Select(x => new TransactionDetailModels
+                                        {
+                                            DateOfExpired = x.DateOfExpired,
+                                            DateOfManufacture = x.DateOfManufacture,
+                                            ProductName = x.ProductName,
+                                            Quantity = x.Quantity,
+                                            SupplierName = x.SupplierName,
+                                            UnitPrice = x.UnitPrice,
+                                            TotalPrice = x.TotalPriceTransDetail,
+                                            UpdatedDate = x.UpdatedDateTransDetail,
+                                            UpdatedBy = x.UpdatedByTransDetail,
+                                            CreatedDate = x.CreatedDateTransDetail,
+                                            CreatedBy = x.CreatedByTransDetail,
+                                            ProductBarCode = x.ProductBarCode,
+                                            UnitName = x.UnitName,
+                                        }).ToList()
+                                    }).FirstOrDefaultAsync();
                 retVal.Data = record;
             }
             catch (Exception ex)
@@ -196,7 +196,7 @@ namespace shop_food_api.Services.Warehouse.Impl
             var retVal = new ApiResponse<TransactionWhListModelRes>();
             try
             {
-                var query = _context.Set<TransactionWhEntity>().Select(x => new TransactionWhModel
+                var query = _context.Set<TransactionWhEntity>().Where(x => !string.IsNullOrEmpty(req.TransactionType) ? x.TransactionType == req.TransactionType : true).Select(x => new TransactionWhModel
                 {
                     TotalPrice = x.TotalPrice,
                     CreatedBy = x.CreatedBy,

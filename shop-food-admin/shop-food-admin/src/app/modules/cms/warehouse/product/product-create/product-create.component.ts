@@ -12,6 +12,7 @@ import {
 } from '../../../../../services/warehouse-service.service';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-product-create',
@@ -77,8 +78,9 @@ export class ProductCreateComponent {
     const supplierIdValue = this.supplierId.value ?? '';
     const unitIdValue = this.unitId.value ?? '';
     const barCodeValue = this.barCode.value ?? '';
-    if (!nameValue || !descriptionValue || !supplierIdValue || !unitIdValue) {
-      this._toastService.error('Please fill all fields');
+    if (!nameValue || !supplierIdValue || !unitIdValue) {
+      this._toastService.error('Thông tin không được bỏ trống');
+      return;
     }
     var obj = {
       name: nameValue,
@@ -92,10 +94,9 @@ export class ProductCreateComponent {
         res.isNormal &&
         res.metaData?.statusCode == StatusCodeApiResponse.SUCCESS
       ) {
-        this._router.navigate(['/wh/product']);
-        this._toastService.success('Create successfully');
+        this._router.navigate([UrlConstEnum.PRODUCT_INDEX]);
       } else {
-        this._toastService.error('Create failed');
+        this._toastService.error('Lưu thất bại');
       }
     });
   }

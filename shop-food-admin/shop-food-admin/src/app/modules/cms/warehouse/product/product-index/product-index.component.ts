@@ -8,6 +8,7 @@ import {
 } from '../../../../../services/warehouse-service.service';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-product-index',
@@ -43,18 +44,18 @@ export class ProductIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/system/product/create']);
+    this.router.navigate([UrlConstEnum.PRODUCT_CREATE]);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/system/product/update/', id]);
+    this.router.navigate([UrlConstEnum.PRODUCT_UPDATE, id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/system/product/detail/', id]);
+    this.router.navigate([UrlConstEnum.PRODUCT_DETAIL, id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/system/product/delete/', id]);
+    this.router.navigate([UrlConstEnum.PRODUCT_DELETE, id]);
   }
 }

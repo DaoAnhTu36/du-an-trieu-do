@@ -14,6 +14,7 @@ import { NgForOf } from '@angular/common';
 import { CommonServiceService } from '../../../../../services/common-service.service';
 import { CustomCurrencyPipe } from '../../../../../commons/pipes/custom-currency.pipe';
 import { CustomDatePipe } from '../../../../../commons/pipes/custom-date.pipe';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-transaction-index',
@@ -66,18 +67,18 @@ export class TransactionIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/transaction/transaction/create']);
+    this.router.navigate([UrlConstEnum.TRANSACTION_CREATE]);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/transaction/transaction/update/', id]);
+    this.router.navigate([UrlConstEnum.TRANSACTION_UPDATE, id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/transaction/transaction/detail/', id]);
+    this.router.navigate([UrlConstEnum.TRANSACTION_DETAIL, id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/transaction/transaction/delete/', id]);
+    this.router.navigate([UrlConstEnum.TRANSACTION_DELETE, id]);
   }
 }

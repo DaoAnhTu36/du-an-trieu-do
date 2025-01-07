@@ -4,6 +4,7 @@ import { WarehouseService } from '../../../../../services/warehouse-service.serv
 import { Router } from '@angular/router';
 import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
 import { ToastrService } from 'ngx-toastr';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-supplier-create',
@@ -35,10 +36,9 @@ export class SupplierCreateComponent {
           res.isNormal &&
           res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
         ) {
-          this._router.navigate(['/wh/supplier']);
-          this._toastService.success('Create successfully');
+          this._router.navigate([UrlConstEnum.SUPPLIER_INDEX]);
         } else {
-          console.log('res');
+          this._toastService.error('Lưu thất bại');
         }
       });
   }

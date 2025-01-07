@@ -72,6 +72,7 @@
           <ul class="sub-menu" *ngIf="item.list_child.length > 0">
             <li *ngFor="let subItem of item.list_child">
               <a
+                [ngClass]="is_active ? 'active' : 'inactive'"
                 href="javascript:void(0)"
                 (click)="
                   redirectMenu(

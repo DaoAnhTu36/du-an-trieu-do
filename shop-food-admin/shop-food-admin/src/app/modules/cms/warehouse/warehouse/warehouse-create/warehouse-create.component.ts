@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { WarehouseService } from '../../../../../services/warehouse-service.service';
 import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
 import { ToastrService } from 'ngx-toastr';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-warehouse-create',
@@ -35,10 +36,9 @@ export class WarehouseCreateComponent {
           res.isNormal &&
           res.metaData?.statusCode == StatusCodeApiResponse.SUCCESS
         ) {
-          this._router.navigate(['/wh/warehouse']);
-          this._toastService.success('Create successfully');
+          this._router.navigate([UrlConstEnum.WAREHOUSE_INDEX]);
         } else {
-          this._toastService.error('Create failed');
+          this._toastService.error('Lưu thất bại');
         }
       });
   }

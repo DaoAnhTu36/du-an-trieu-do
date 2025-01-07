@@ -23,6 +23,7 @@ import {
   StatusCodeApiResponse,
 } from '../../../../../commons/const/ConstStatusCode';
 import { CommonServiceService } from '../../../../../services/common-service.service';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-transaction-create',
@@ -107,7 +108,7 @@ export class TransactionCreateComponent {
   }
 
   onCancel() {
-    this._router.navigate(['/wh/transaction/transaction']);
+    this._router.navigate([UrlConstEnum.TRANSACTION_INDEX]);
   }
 
   getListUnit() {
@@ -237,10 +238,9 @@ export class TransactionCreateComponent {
         res.isNormal &&
         res.metaData?.statusCode == StatusCodeApiResponse.SUCCESS
       ) {
-        this._toastService.success('Tạo phiếu nhập thành công');
-        this._router.navigate(['/wh/transaction/transaction']);
+        this._router.navigate([UrlConstEnum.TRANSACTION_INDEX]);
       } else {
-        this._toastService.error('Tạo phiếu nhập thất bại');
+        this._toastService.error('Lưu thất bại');
       }
     });
   }

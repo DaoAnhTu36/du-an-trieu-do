@@ -8,6 +8,7 @@ import {
   WarehouseService,
 } from '../../../../../services/warehouse-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-warehouse-index',
@@ -43,18 +44,18 @@ export class WarehouseIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/system/warehouse/create']);
+    this.router.navigate([UrlConstEnum.WAREHOUSE_CREATE]);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/system/warehouse/update/', id]);
+    this.router.navigate([UrlConstEnum.WAREHOUSE_UPDATE, id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/system/warehouse/detail/', id]);
+    this.router.navigate([UrlConstEnum.WAREHOUSE_DETAIL, id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/system/warehouse/delete/', id]);
+    this.router.navigate([UrlConstEnum.WAREHOUSE_DELETE, id]);
   }
 }

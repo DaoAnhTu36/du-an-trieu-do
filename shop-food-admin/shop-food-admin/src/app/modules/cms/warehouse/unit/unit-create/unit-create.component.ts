@@ -4,6 +4,7 @@ import { WarehouseService } from '../../../../../services/warehouse-service.serv
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-unit-create',
@@ -13,7 +14,7 @@ import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusC
   styleUrl: './unit-create.component.scss',
 })
 export class UnitCreateComponent {
-  name = new FormControl('Cái');
+  name = new FormControl('');
   constructor(
     private readonly _warehouseService: WarehouseService,
     private readonly _router: Router,
@@ -30,10 +31,9 @@ export class UnitCreateComponent {
           res.isNormal &&
           res.metaData?.statusCode == StatusCodeApiResponse.SUCCESS
         ) {
-          this._router.navigate(['/wh/unit']);
-          this._toastService.success('Create successfully');
+          this._router.navigate([UrlConstEnum.UNIT_INDEX]);
         } else {
-          this._toastService.error('Create failed');
+          this._toastService.error('Lưu thất bại');
         }
       });
   }

@@ -9,6 +9,11 @@ namespace shop_food_api.DatabaseContext.Entities.Warehouse
     public class TransactionWhEntity : BaseEntity
     {
         public string? TransactionCode { get; set; }
+
+        /// <summary>
+        /// 0 - import
+        /// 1 - export
+        /// </summary>
         public string? TransactionType { get; set; }
         public DateTime? TransactionDate { get; set; }
         public decimal TotalPrice { get; set; }

@@ -18,6 +18,7 @@ import * as jquery from 'jquery';
   styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
+  is_active = false;
   isShowMenu = false;
   prefix = 'wh';
   prefixAuth = 'auth';
@@ -123,6 +124,7 @@ export class MenuComponent {
   ) {}
 
   ngOnInit(): void {
+    console.log('tutv', window.location.href);
     this.getListNotification();
     this.data_menu_group = this.getPaths(this.data_menu);
   }

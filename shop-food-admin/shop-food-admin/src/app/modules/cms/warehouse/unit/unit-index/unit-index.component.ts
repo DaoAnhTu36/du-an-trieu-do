@@ -8,6 +8,7 @@ import {
 } from '../../../../../services/warehouse-service.service';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-unit-index',
@@ -43,18 +44,18 @@ export class UnitIndexComponent {
   }
 
   add() {
-    this.router.navigate(['/wh/system/unit/create']);
+    this.router.navigate([UrlConstEnum.UNIT_CREATE]);
   }
 
   edit(id: string | undefined) {
-    this.router.navigate(['/wh/system/unit/update/', id]);
+    this.router.navigate([UrlConstEnum.UNIT_UPDATE, id]);
   }
 
   detail(id: string | undefined) {
-    this.router.navigate(['/wh/system/unit/detail/', id]);
+    this.router.navigate([UrlConstEnum.UNIT_DETAIL, id]);
   }
 
   delete(id: string | undefined) {
-    this.router.navigate(['/wh/system/unit/delete/', id]);
+    this.router.navigate([UrlConstEnum.UNIT_DELETE, id]);
   }
 }

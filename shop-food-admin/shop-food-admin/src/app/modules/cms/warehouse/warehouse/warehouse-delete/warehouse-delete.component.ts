@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
 import { LoadingService } from '../../../../../commons/loading/loading.service';
 import { WarehouseService } from '../../../../../services/warehouse-service.service';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-warehouse-delete',
@@ -36,7 +37,7 @@ export class WarehouseDeleteComponent {
           res.isNormal &&
           res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
         ) {
-          this._router.navigate(['/wh/warehouse']);
+          this._router.navigate([UrlConstEnum.WAREHOUSE_INDEX]);
         }
       });
   }

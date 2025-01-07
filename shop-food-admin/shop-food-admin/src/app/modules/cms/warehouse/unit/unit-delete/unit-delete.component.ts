@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingService } from '../../../../../commons/loading/loading.service';
 import { WarehouseService } from '../../../../../services/warehouse-service.service';
 import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-unit-delete',
@@ -36,7 +37,7 @@ export class UnitDeleteComponent {
           res.isNormal &&
           res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
         ) {
-          this._router.navigate(['/wh/unit']);
+          this._router.navigate([UrlConstEnum.UNIT_INDEX]);
         }
       });
   }

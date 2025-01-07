@@ -4,6 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { WarehouseService } from '../../../../../services/warehouse-service.service';
 import { LoadingService } from '../../../../../commons/loading/loading.service';
 import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusCode';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-warehouse-update',
@@ -53,7 +54,7 @@ export class WarehouseUpdateComponent {
           res.isNormal &&
           res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
         ) {
-          this._router.navigate(['wh/system/warehouse']);
+          this._router.navigate([UrlConstEnum.WAREHOUSE_INDEX]);
         }
       });
   }

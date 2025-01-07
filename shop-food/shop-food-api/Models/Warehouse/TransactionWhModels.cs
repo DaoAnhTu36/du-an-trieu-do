@@ -70,6 +70,11 @@ namespace shop_food_api.Models.Warehouse
 
     public class TransactionWhListModelReq : BasePageEntity
     {
+        /// <summary>
+        /// 0 - import
+        /// 1 - export
+        /// </summary>
+        public string? TransactionType { get; set; }
     }
 
     #endregion model get list record

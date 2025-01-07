@@ -4,6 +4,7 @@ import { StatusCodeApiResponse } from '../../../../../commons/const/ConstStatusC
 import { LoadingService } from '../../../../../commons/loading/loading.service';
 import { WarehouseService } from '../../../../../services/warehouse-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { UrlConstEnum } from '../../../../../menu/config-url';
 
 @Component({
   selector: 'app-supplier-delete',
@@ -38,9 +39,8 @@ export class SupplierDeleteComponent {
           res.isNormal &&
           res.metaData?.statusCode === StatusCodeApiResponse.SUCCESS
         ) {
-          this._router.navigate(['/wh/supplier']);
+          this._router.navigate([UrlConstEnum.SUPPLIER_INDEX]);
         } else {
-          this._toastService.error('Delete supplier failed');
         }
       });
   }
