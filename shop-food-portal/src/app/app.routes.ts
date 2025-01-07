@@ -1,22 +1,9 @@
 import { Routes } from '@angular/router';
+import { VendingMachineComponent } from './modules/vending-machine/vending-machine.component';
 
 export const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./modules/cms/warehouse/warehouse.module').then(
-        (m) => m.WarehouseModule
-      ),
-  },
-  {
-    path: 'wh',
-    loadChildren: () =>
-      import('./modules/cms/warehouse/warehouse.module').then(
-        (m) => m.WarehouseModule
-      ),
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    component: VendingMachineComponent,
   },
 ];

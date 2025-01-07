@@ -51,7 +51,7 @@ export class AppComponent {
     //   this._toastrService.info(dataJson["Body"], dataJson["Title"]);
     // });
   }
-  title = 'shop-food-admin';
+  title = '';
 
   onNextPage() {
     console.log('next page');
